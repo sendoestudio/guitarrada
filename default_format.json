@@ -1,0 +1,23 @@
+{
+    "chart": [
+        {
+            "time": 1,
+            "buttons": [
+                {
+                    "button_index": 0
+                }
+            ]
+        },
+        {
+            "time": 3,
+            "buttons": [
+                {
+                    "button_index": 0
+                },
+                {
+                    "button_index": 2
+                }
+            ]
+        }
+    ]
+}

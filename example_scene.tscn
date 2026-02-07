@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://353rpu1a8m70"]
+
+[ext_resource type="Script" uid="uid://b1d3mdkde8e8o" path="res://scripts/track.gd" id="1_08apm"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oxda6"]
+height = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08apm"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_08apm"]
+top_radius = 0.25
+bottom_radius = 0.4
+height = 0.25
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Track" type="Node3D" parent="."]
+script = ExtResource("1_08apm")
+main_color = Color(1, 0, 0, 1)
+turn_off_smoother = 0.1
+
+[node name="CenterMeshInstance" type="MeshInstance3D" parent="Track"]
+mesh = SubResource("CylinderMesh_oxda6")
+surface_material_override/0 = SubResource("StandardMaterial3D_08apm")
+
+[node name="MomentsParent" type="Node3D" parent="Track"]
+
+[node name="Node3D" type="Node3D" parent="Track/MomentsParent"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Track/MomentsParent/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("CylinderMesh_08apm")
+skeleton = NodePath("../../..")
