@@ -14,6 +14,10 @@ config/name="Guitarrada"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Manager="*res://scripts/manager.gd"
+
 [input]
 
 button_0={

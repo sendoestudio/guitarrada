@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk7bssujfd3c0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_08apm"]
+top_radius = 0.25
+bottom_radius = 0.4
+height = 0.25
+
+[node name="Node3D2" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("CylinderMesh_08apm")
+skeleton = NodePath("../..")
