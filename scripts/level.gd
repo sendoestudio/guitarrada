@@ -10,14 +10,20 @@ extends Node3D
 @export var visibility_time_before_hit : float = 4
 @export var visibility_time_after_hit : float = 1
 
-@export var before_error_margin : float = 0.05
-@export var after_error_margin : float = 0.05
-@export var min_points : int = 1
-@export var max_points : int = 10
-@export var continuous_point_per_second : int = 5
-@export var pointing_curve : Curve
+const before_error_margin : float = 0.05
+const after_error_margin : float = 0.05
+const min_points : int = 1
+const max_points : int = 10
+const continuous_point_per_second : int = 5
 
-@export var multiplier_rules : Array[Vector2i]
+#multiplier, amount of consecutive hits
+var multiplier_rules : Dictionary[int, int] = {
+	2 : 4,
+	3 : 8,
+	4 : 12
+}
+
+@export var audio_player : AudioStreamPlayer
 
 var cumulative_points : float
 
@@ -31,7 +37,8 @@ var current_multiplier
 var current_map
 
 var local_index_to_track_index : Dictionary[int, int]
-
+#var file_index_to_track_index : Dictionary[int, int]
+var local_index_to_file_index : Dictionary[int, int]
 #track index, time pointer
 var track_indexes : Dictionary[int, int]
 
@@ -39,12 +46,14 @@ var track_upcoming_times : Dictionary[int, int]
 #track index, time left to hold
 var track_hold_timers : Dictionary[int, float]
 
+var has_audio_started : bool
+
 func _ready() -> void:
 	
 	if default_map != null:
 		current_map = default_map.data
 	
-	
+	#verify tracks to see if indexes are valid
 	for i in tracks.size():
 		var track : Node3D = tracks[i]
 		if track == null:
@@ -52,12 +61,30 @@ func _ready() -> void:
 		
 		track.set_track_props(tracks_velocity, visibility_time_before_hit, visibility_time_after_hit)
 		var current_track_index : int = track.track_index
+		var file_index : int = 0
 		for track_info in current_map.chart:
 			if track_info.track_index == current_track_index:
+				if local_index_to_track_index.has(current_track_index):
+					print("alert: more than one track with the same index, please check it out")
+					break
+				
+				#file_index_to_track_index.set(file_index, current_track_index)
 				track.set_track_notes(track_info.times)
 				track_indexes.set(current_track_index, 0)
 				local_index_to_track_index.set(i, current_track_index)
+				local_index_to_file_index.set(i, file_index)
 				break
+			file_index += 1
+	
+	if local_index_to_track_index.size() != tracks.size():
+		print("alert: the amount of tracks loaded diverge from the amount of existing tracks, please verify")
+	
+	if "audio" in current_map:
+		var audio_file = load(current_map.audio)
+		if audio_player != null && audio_player.stream != null:
+			audio_player.stream = audio_file
+	
+	has_audio_started = false
 	
 	current_score = 0
 	current_combo = 0
@@ -66,21 +93,29 @@ func _ready() -> void:
 	
 	current_time = -countdown_timer
 	Manager.is_playing = true
+	
+	multiplier_rules.sort()
+	for mult in multiplier_rules:
+		print("m: " + str(mult) + " > " + str(multiplier_rules[mult]))
 			
 func _process(delta: float) -> void:
 	current_time += delta
 	Manager.current_time = current_time
 	
-	for i in current_map.chart.size():
-		verify_track(i, delta)
+	if current_time >= 0 && !has_audio_started:
+		has_audio_started = true
+		if audio_player != null:
+			audio_player.play(current_time)
+	
+	for i in local_index_to_track_index:
+		verify_track(local_index_to_file_index[i], local_index_to_track_index[i], delta)
 
-func verify_track(index, time_delta):
+func verify_track(index, track_index, time_delta):
 	
 	
 	if current_map.chart.size() <= index || current_map.chart[index] == null:
 		return
 	
-	var track_index = int(current_map.chart[index].track_index)
 	var button_name = "button_" + str(int(track_index))
 	
 	if track_hold_timers.has(track_index) && track_hold_timers.get(track_index) > 0:

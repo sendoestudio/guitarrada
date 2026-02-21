@@ -2,6 +2,7 @@
 	"bpm" : 120,
 	"start_offset" : 0,
 	"length" : 10,
+	"audio" : "res://_testing/2025012701 synapsis.wav",
 	"chart" : [
 		{
 			"track_index" : 0,
