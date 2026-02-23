@@ -1,35 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://353rpu1a8m70"]
 
 [ext_resource type="Script" uid="uid://df7ggqqjob28b" path="res://scripts/level.gd" id="1_5xswu"]
-[ext_resource type="JSON" path="res://default_format.json" id="2_vqley"]
 [ext_resource type="PackedScene" uid="uid://cxio0bbr3prnf" path="res://defaults/track.tscn" id="3_5xswu"]
 [ext_resource type="Script" uid="uid://bk8r8mshvyrve" path="res://scripts/ui_score_testing.gd" id="4_vqley"]
+[ext_resource type="Script" uid="uid://btgj1r6ly5g2j" path="res://scripts/player.gd" id="5_71y1r"]
 
-[node name="Level" type="Node3D" node_paths=PackedStringArray("tracks", "audio_player")]
+[node name="Level" type="Node3D" node_paths=PackedStringArray("audio_player")]
 script = ExtResource("1_5xswu")
-tracks = [NodePath("Track"), NodePath("Track2"), NodePath("Track3"), NodePath("Track4")]
-default_map = ExtResource("2_vqley")
 tracks_velocity = 6.0
 visibility_time_before_hit = 3.0
 audio_player = NodePath("AudioStreamPlayer")
-
-[node name="Track" parent="." instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0, 0)
-
-[node name="Track2" parent="." instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
-track_index = 1
-main_color = Color(0, 1, 0, 1)
-
-[node name="Track3" parent="." instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
-track_index = 2
-main_color = Color(1, 0, 1, 1)
-
-[node name="Track4" parent="." instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.225, 0, 0)
-track_index = 3
-main_color = Color(0.13333334, 1, 1, 1)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3834367, 6.529675)
@@ -42,7 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TempScoreLabel" type="Label" parent="Control" node_paths=PackedStringArray("level")]
+[node name="TempScoreLabel" type="Label" parent="Control" node_paths=PackedStringArray("player")]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -50,6 +30,78 @@ text = "Current Score: 0123456789
 Multiplier: 0123
 Combo: 0123"
 script = ExtResource("4_vqley")
-level = NodePath("../..")
+player = NodePath("../../Player1Scoring")
+
+[node name="TempScoreLabel2" type="Label" parent="Control" node_paths=PackedStringArray("player")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -207.0
+offset_bottom = 75.0
+grow_horizontal = 0
+text = "Current Score: 0123456789
+Multiplier: 0123
+Combo: 0123"
+script = ExtResource("4_vqley")
+player = NodePath("../../Player2Scoring")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Player1Scoring" type="Node" parent="." node_paths=PackedStringArray("level_manager", "tracks")]
+script = ExtResource("5_71y1r")
+level_manager = NodePath("..")
+player_index = 0
+tracks = [NodePath("../Player1Tracks/Track"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3"), NodePath("../Player1Tracks/Track4")]
+tracks_velocity = 6.0
+visibility_time_before_hit = 3.0
+
+[node name="Player1Tracks" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8482625, 0, 0)
+
+[node name="Track" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0, 0)
+
+[node name="Track2" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
+track_index = 1
+main_color = Color(0, 1, 0, 1)
+
+[node name="Track3" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+track_index = 2
+main_color = Color(1, 0, 1, 1)
+
+[node name="Track4" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.225, 0, 0)
+track_index = 3
+main_color = Color(0.13333334, 1, 1, 1)
+
+[node name="Player2Scoring" type="Node" parent="." node_paths=PackedStringArray("level_manager", "tracks")]
+script = ExtResource("5_71y1r")
+level_manager = NodePath("..")
+player_index = 1
+tracks = [NodePath("../Player2Tracks/Track"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3"), NodePath("../Player2Tracks/Track4")]
+tracks_velocity = 6.0
+visibility_time_before_hit = 3.0
+
+[node name="Player2Tracks" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0733736, 0, 0)
+
+[node name="Track" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0, 0)
+
+[node name="Track2" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
+track_index = 1
+main_color = Color(0, 1, 0, 1)
+
+[node name="Track3" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+track_index = 2
+main_color = Color(1, 0, 1, 1)
+
+[node name="Track4" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.225, 0, 0)
+track_index = 3
+main_color = Color(0.13333334, 1, 1, 1)

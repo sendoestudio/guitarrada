@@ -1,4 +1,5 @@
 extends Node
+class_name Track
 
 const default_note_path : String = "res://defaults/example_note.tscn"
 
@@ -15,15 +16,18 @@ var track_velocity : Vector3
 
 var turn_off_timer : float
 
-@onready var inner_display : MeshInstance3D = $CenterMeshInstance
+@export var inner_display : MeshInstance3D #= $CenterMeshInstance
 
 var current_material : StandardMaterial3D
 
-@onready var notes_parent : Node3D = $MomentsParent
+@export var notes_parent : Node3D #= $MomentsParent
 
 var track_times
 var visible_area_node_index : int = -1
 var invisible_area_node_index : int = -1
+
+var player_index
+var action_button_name
 
 func _ready() -> void:
 	var material : StandardMaterial3D = StandardMaterial3D.new()
@@ -55,12 +59,12 @@ func _process(delta: float) -> void:
 				if invisible_area_node_index >= track_times.size():
 					invisible_area_node_index = -1
 	
-	var action_code = "button_" + str(track_index)
+	#var action_code = "p"+str(player_index)+"_button_" + str(track_index)
 	var is_on 
 	if highlight_while_pressing:
-		is_on = Input.is_action_pressed(action_code)
+		is_on = Input.is_action_pressed(action_button_name)
 	else:
-		is_on = Input.is_action_just_pressed(action_code)
+		is_on = Input.is_action_just_pressed(action_button_name)
 	
 	
 	if is_on:
@@ -101,5 +105,6 @@ func set_track_notes(times) -> void:
 		invisible_area_node_index = visible_area_node_index
 		#when implemented, add method to add continuous commands
 	
-	
-	
+func set_player_index(index) -> void:
+	player_index = index
+	action_button_name = "p"+str(player_index)+"_button_" + str(track_index)
