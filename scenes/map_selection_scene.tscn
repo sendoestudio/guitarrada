@@ -1,0 +1,197 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8pd0k1ausmax"]
+
+[ext_resource type="Script" uid="uid://b4x6uaphih2hd" path="res://scripts/ui_song_selection.gd" id="1_c1vum"]
+[ext_resource type="Script" uid="uid://b8os10ca176n8" path="res://scripts/ui_map_list.gd" id="1_f3ysg"]
+[ext_resource type="PackedScene" uid="uid://b8jib8v8wpu2" path="res://defaults/map_option.tscn" id="2_v7jmv"]
+[ext_resource type="Script" uid="uid://ceo13sloij7el" path="res://scripts/ui_selected_song_panel.gd" id="3_v7jmv"]
+
+[node name="MapSelectionScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c1vum")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.37036446, 0.3703645, 0.37036446, 1)
+
+[node name="ListControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 53.0
+offset_right = 528.0
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ListControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ListControl/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_f3ysg")
+
+[node name="MapOption" parent="ListControl/ScrollContainer/VBoxContainer" instance=ExtResource("2_v7jmv")]
+layout_mode = 2
+
+[node name="SelectedMapControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -542.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("3_v7jmv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectedMapControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="SelectedMapControl/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Song title"
+horizontal_alignment = 1
+
+[node name="ArtistLabel" type="Label" parent="SelectedMapControl/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Artist title"
+horizontal_alignment = 1
+
+[node name="Thumbnail" type="Control" parent="SelectedMapControl/VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="SelectedMapControl/VBoxContainer/Thumbnail"]
+layout_mode = 0
+offset_top = -4.0
+offset_right = 542.0
+offset_bottom = -4.0
+expand_mode = 4
+
+[node name="AddInfoVBoxContainer" type="VBoxContainer" parent="SelectedMapControl/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BPM"
+
+[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Duration"
+
+[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1:23"
+
+[node name="Control" type="Control" parent="SelectedMapControl/VBoxContainer"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectedMapControl/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Best score"
+horizontal_alignment = 1
+
+[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "1234"
+horizontal_alignment = 1
+
+[node name="DifficultyLabel" type="Label" parent="SelectedMapControl/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Difficulty Name"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="SelectedMapControl/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsControl/MarginContainer"]
+layout_mode = 2
+
+[node name="LatencyButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Latency Options"
+
+[node name="EditorButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Level Editor"
+
+[node name="QuitButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[connection signal="pressed" from="SelectedMapControl/VBoxContainer/PlayButton" to="SelectedMapControl" method="_on_play_button_pressed"]
+[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/LatencyButton" to="." method="_on_latency_button_pressed"]
+[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
+[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

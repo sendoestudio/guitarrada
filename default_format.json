@@ -32,18 +32,13 @@
 				{ 
 					"time" : 3,
 			 		"duration" : -1
-				}
-			]
-		},
-		{
-			"track_index" : 3,
-			"times" : [
+				},
 				{ 
 					"time" : 5,
 			 		"duration" : 1
 				}
 			]
-		}	
+		}
 	],
 	"old_chart": [
 		{

@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8jib8v8wpu2"]
+
+[ext_resource type="Script" uid="uid://b1w1mi7841h1j" path="res://scripts/ui_map_list_option.gd" id="1_khf7k"]
+
+[node name="MapOption" type="Control"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+script = ExtResource("1_khf7k")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArtistLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 63.0
+offset_right = 163.0
+offset_bottom = 86.0
+text = "Artist Name Sample"
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 14.0
+offset_right = 280.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 32
+text = "Song Title Sample"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

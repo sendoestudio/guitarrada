@@ -1,0 +1,303 @@
+[gd_scene load_steps=3 format=3 uid="uid://helrnw4wf103"]
+
+[ext_resource type="Script" uid="uid://0dagj868ql3y" path="res://scripts/ui_results.gd" id="1_2fneg"]
+[ext_resource type="Script" uid="uid://dx46cvmm2757j" path="res://scripts/ui_results_player_panel.gd" id="2_8a2dw"]
+
+[node name="ResultsScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2fneg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.24115604, 0.24115604, 0.24115604, 1)
+
+[node name="SongSelectedControl" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 88.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/SongSelectedControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="ColorRect/SongSelectedControl/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Song Title"
+horizontal_alignment = 1
+
+[node name="ArtistLabel" type="Label" parent="ColorRect/SongSelectedControl/VBoxContainer"]
+layout_mode = 2
+text = "Artist Name"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -201.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P1MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_8a2dw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlacementLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "1st Place"
+horizontal_alignment = 1
+
+[node name="PlayerCodeLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "12345678"
+horizontal_alignment = 1
+
+[node name="AddInfoVBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max Combo"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Perfects Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Good Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Average Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mistakes"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="P2MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlacementLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "2st Place"
+horizontal_alignment = 1
+
+[node name="PlayerCodeLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "12345678"
+horizontal_alignment = 1
+
+[node name="AddInfoVBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max Combo"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Perfects Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Good Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Average Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mistakes"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="OptionsControl" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -115.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/OptionsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/OptionsControl/MarginContainer"]
+layout_mode = 2
+
+[node name="AgainButton" type="Button" parent="ColorRect/OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play Again"
+
+[node name="DifficultyButton" type="Button" parent="ColorRect/OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Change Difficulty"
+
+[node name="SongSelectionButton" type="Button" parent="ColorRect/OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Song Selection"
+
+[connection signal="pressed" from="ColorRect/OptionsControl/MarginContainer/HBoxContainer/AgainButton" to="." method="_on_again_button_pressed"]
+[connection signal="pressed" from="ColorRect/OptionsControl/MarginContainer/HBoxContainer/DifficultyButton" to="." method="_on_difficulty_button_pressed"]
+[connection signal="pressed" from="ColorRect/OptionsControl/MarginContainer/HBoxContainer/SongSelectionButton" to="." method="_on_song_selection_button_pressed"]

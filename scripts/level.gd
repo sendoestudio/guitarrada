@@ -2,12 +2,15 @@ extends Node3D
 class_name Level
 
 @export var countdown_timer : float = 3
+@export var post_gameplay_timer : float = 3
 
 @export var tracks : Array[Node3D]
 
 @export var tracks_velocity : float = 1
 @export var visibility_time_before_hit : float = 4
 @export var visibility_time_after_hit : float = 1
+
+#decide how to implement pause panel and pause warning
 
 #multiplier, amount of consecutive hits
 var multiplier_rules : Dictionary[int, int] = {
@@ -45,7 +48,7 @@ func _ready() -> void:
 	current_map = JSON.parse_string(map_content)
 	
 	if "length" in current_map:
-		end_of_level = current_map.length
+		end_of_level = current_map.length + post_gameplay_timer
 	
 	if "audio" in current_map:
 		var audio_file = load(current_map.audio)
@@ -80,5 +83,5 @@ func _process(delta: float) -> void:
 		finish_level()
 
 func finish_level():
-	print("reached the end")
+	Manager.go_to_result_scene()
 	pass

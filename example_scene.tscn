@@ -52,7 +52,7 @@ player = NodePath("../../Player2Scoring")
 script = ExtResource("5_71y1r")
 level_manager = NodePath("..")
 player_index = 0
-tracks = [NodePath("../Player1Tracks/Track"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3"), NodePath("../Player1Tracks/Track4")]
+tracks = [NodePath("../Player1Tracks/Track"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3")]
 tracks_velocity = 6.0
 visibility_time_before_hit = 3.0
 
@@ -60,28 +60,22 @@ visibility_time_before_hit = 3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8482625, 0, 0)
 
 [node name="Track" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
 
 [node name="Track2" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
 track_index = 1
 main_color = Color(0, 1, 0, 1)
 
 [node name="Track3" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 track_index = 2
 main_color = Color(1, 0, 1, 1)
-
-[node name="Track4" parent="Player1Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.225, 0, 0)
-track_index = 3
-main_color = Color(0.13333334, 1, 1, 1)
 
 [node name="Player2Scoring" type="Node" parent="." node_paths=PackedStringArray("level_manager", "tracks")]
 script = ExtResource("5_71y1r")
 level_manager = NodePath("..")
 player_index = 1
-tracks = [NodePath("../Player2Tracks/Track"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3"), NodePath("../Player2Tracks/Track4")]
+tracks = [NodePath("../Player2Tracks/Track"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3")]
 tracks_velocity = 6.0
 visibility_time_before_hit = 3.0
 
@@ -89,19 +83,13 @@ visibility_time_before_hit = 3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0733736, 0, 0)
 
 [node name="Track" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
 
 [node name="Track2" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
 track_index = 1
 main_color = Color(0, 1, 0, 1)
 
 [node name="Track3" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 track_index = 2
 main_color = Color(1, 0, 1, 1)
-
-[node name="Track4" parent="Player2Tracks" instance=ExtResource("3_5xswu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.225, 0, 0)
-track_index = 3
-main_color = Color(0.13333334, 1, 1, 1)
