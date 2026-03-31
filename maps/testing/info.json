@@ -1,0 +1,14 @@
+{
+    "title" : "Song title",
+    "artist" : "Artist sample",
+    "bpm" : 123,
+    "length" : 83,
+    "audio" : "res://_testing/2025012701 synapsis.wav",
+    "audio_preview_start" : "",
+    "chart_paths" : {
+        "easy" : null,
+        "medium" : "res://default_format.json",
+        "hard" : null,
+        "expert" : null
+    }
+}

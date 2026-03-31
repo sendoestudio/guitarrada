@@ -1,6 +1,7 @@
 extends Node
 class_name Player
 
+var is_working : bool
 @export var level_manager : Level
 
 @export var player_index : int = -1
@@ -45,6 +46,7 @@ var track_upcoming_times : Dictionary[int, int]
 #track index, time left to hold
 var track_hold_timers : Dictionary[int, float]
 
+var stats : ResultStats
 
 func _ready() -> void:
 	if Manager.current_player_chart_path == null || Manager.current_player_chart_path.size() == 0:
@@ -53,7 +55,16 @@ func _ready() -> void:
 	if !Manager.current_player_chart_path.has(player_index) || player_index == -1:
 		return
 	
+	stats = ResultStats.new()
+	
 	var map_path = Manager.current_player_chart_path[player_index]
+	if map_path == "" || map_path == null:
+		is_working = false
+		for track in tracks:
+			track.visible = false
+		return
+	
+	is_working = true
 	var map_file = FileAccess.open(map_path, FileAccess.READ)
 	var map_content = map_file.get_as_text()
 	current_map = JSON.parse_string(map_content)
@@ -115,11 +126,13 @@ func verify_track(index, track_index, time_delta):
 			timer = 0
 			
 		if timer <= 0:
-			current_score += roundi(cumulative_points * continuous_point_per_second)
+			current_score += floori(cumulative_points * continuous_point_per_second)
 			track_hold_timers.erase(track_index)
+			stats.score = current_score
 	
 	var time_pointer = track_indexes.get(index)
 	if time_pointer == -1 || current_map.chart[index].times.size() <= time_pointer:
+		send_stats()
 		return
 	
 	var note_time = current_map.chart[index].times[time_pointer].time
@@ -137,16 +150,22 @@ func verify_track(index, track_index, time_delta):
 		var points = roundi(delta * max_points)
 		if points < min_points:
 			points = min_points
+		
+		update_stats(delta)
+			
 		current_score += points
+		stats.score = current_score
 		
 		current_combo += 1
 		
 		if current_combo > highest_combo:
 			highest_combo = current_combo
+			stats.max_combo = highest_combo
 		
 		track_indexes.set(index, time_pointer + 1)
 		if track_indexes.get(index) >=  current_map.chart[index].times.size():
 			track_indexes.set(index, -1)
+			send_stats()
 		
 		var length = current_map.chart[index].times[time_pointer].duration
 		if length > 0:
@@ -155,15 +174,17 @@ func verify_track(index, track_index, time_delta):
 	elif current_time > (note_time + after_error_margin):
 		print("miss")
 		current_combo = 0
+		update_stats(-1)
 		
 		track_indexes.set(index, time_pointer + 1)
 		if track_indexes.get(index) >=  current_map.chart[index].times.size():
 			track_indexes.set(index, -1)
+			send_stats()
 		
 	elif Input.is_action_just_pressed(button_name):
 		#depends if you want to count an additional click as a mistake
 		#although I recommend using with a timer to avoid players believing the score is too harsh
-		
+		stats.overclicks += 1
 		print("miss")
 		current_combo = 0
 
@@ -175,3 +196,16 @@ func get_current_multiplier():
 
 func get_current_combo():
 	return current_combo
+
+func update_stats(delta):
+	if delta > 0.95:
+		stats.perfect_hits += 1
+	elif delta > 0.75:
+		stats.good_hits += 1
+	elif  delta >= 0:
+		stats.average_hits += 1
+	else:
+		stats.mistakes += 1
+
+func send_stats():
+	Manager.current_player_stats[player_index] = stats

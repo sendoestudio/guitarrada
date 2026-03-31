@@ -42,17 +42,14 @@ var has_audio_started : bool
 var end_of_level : float
 
 func _ready() -> void:
-	
-	var map_file = FileAccess.open(Manager.current_map_path, FileAccess.READ)
-	var map_content = map_file.get_as_text()
-	current_map = JSON.parse_string(map_content)
+	current_map = Manager.current_map_info
 	
 	if "length" in current_map:
 		end_of_level = current_map.length + post_gameplay_timer
 	
 	if "audio" in current_map:
 		var audio_file = load(current_map.audio)
-		if audio_player != null && audio_player.stream != null:
+		if audio_player != null && audio_file != null:
 			audio_player.stream = audio_file
 	
 	has_audio_started = false

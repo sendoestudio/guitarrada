@@ -63,6 +63,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("2_8a2dw")
+player_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer"]
 layout_mode = 2
@@ -89,72 +90,86 @@ horizontal_alignment = 1
 [node name="AddInfoVBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="MaxComboHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/MaxComboHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Max Combo"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/MaxComboHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="PerfectsHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/PerfectsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Perfects Hits"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/PerfectsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="GoodsHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/GoodsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Good Hits"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/GoodsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="AveragesHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/AveragesHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Average Hits"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/AveragesHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="MistakesHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/MistakesHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mistakes"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/MistakesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="OverclicksHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/OverclicksHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Overclicks"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P1MarginContainer/VBoxContainer/AddInfoVBoxContainer/OverclicksHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
@@ -162,6 +177,8 @@ text = "1234"
 [node name="P2MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("2_8a2dw")
+player_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer"]
 layout_mode = 2
@@ -170,13 +187,13 @@ theme_override_constants/separation = 10
 [node name="PlacementLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "2st Place"
+text = "1st Place"
 horizontal_alignment = 1
 
 [node name="PlayerCodeLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-text = "Player 2"
+text = "Player 1"
 horizontal_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
@@ -188,72 +205,86 @@ horizontal_alignment = 1
 [node name="AddInfoVBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="MaxComboHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/MaxComboHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Max Combo"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/MaxComboHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="PerfectsHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/PerfectsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Perfects Hits"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/PerfectsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="GoodsHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/GoodsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Good Hits"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer3"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/GoodsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="AveragesHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/AveragesHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Average Hits"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer4"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/AveragesHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+[node name="MistakesHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/MistakesHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mistakes"
 horizontal_alignment = 2
 
-[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/HBoxContainer5"]
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/MistakesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="OverclicksHBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/OverclicksHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Overclicks"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="ColorRect/HBoxContainer/P2MarginContainer/VBoxContainer/AddInfoVBoxContainer/OverclicksHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1234"

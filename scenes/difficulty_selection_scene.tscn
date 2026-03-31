@@ -73,6 +73,7 @@ size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 script = ExtResource("2_3ik6v")
+player_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P1MarginContainer"]
 layout_mode = 2
@@ -138,6 +139,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
+script = ExtResource("2_3ik6v")
+player_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer"]
 layout_mode = 2
@@ -146,7 +149,7 @@ size_flags_horizontal = 3
 [node name="PlayerCodeLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-text = "Player 2"
+text = "Player 1"
 horizontal_alignment = 1
 
 [node name="SelectionVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer"]
@@ -160,39 +163,39 @@ horizontal_alignment = 1
 [node name="DiffsVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+[node name="EasyButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
 layout_mode = 2
 text = "Easy"
 
-[node name="Button2" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+[node name="MediumButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
 layout_mode = 2
 text = "Medium"
 
-[node name="Button3" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+[node name="HardButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
 layout_mode = 2
 text = "Hard"
 
-[node name="Button4" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+[node name="ExpertButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
 layout_mode = 2
 text = "Expert"
 
-[node name="ConfirmVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer"]
+[node name="ConfirmedVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 1
 
-[node name="ChangeButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmVBoxContainer"]
+[node name="ChangeButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
 layout_mode = 2
 text = "Change Difficulty"
 
-[node name="DifficultyLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmVBoxContainer"]
+[node name="DifficultyLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Difficulty"
 horizontal_alignment = 1
 
-[node name="ConfirmLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmVBoxContainer"]
+[node name="ConfirmLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "READY!"
@@ -228,4 +231,10 @@ text = "Play"
 [connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/HardButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_hard_button_pressed"]
 [connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/ExpertButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_expert_button_pressed"]
 [connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/ConfirmedVBoxContainer/ChangeButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_change_button_pressed"]
+[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/EasyButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_easy_button_pressed"]
+[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/MediumButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_medium_button_pressed"]
+[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/HardButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_hard_button_pressed"]
+[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/ExpertButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_expert_button_pressed"]
+[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer/ChangeButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_change_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

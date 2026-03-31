@@ -1,5 +1,8 @@
 extends Node
 
+const map_folder_path: String = "res://maps/"
+const map_file_format : String = "info.json"
+
 const song_selection_path : String = "res://scenes/map_selection_scene.tscn"
 const difficulty_selection_path : String = "res://scenes/difficulty_selection_scene.tscn"
 const stage_path : String = "res://example_scene.tscn" #temp scene
@@ -9,10 +12,14 @@ const av_sync_path : String = ""
 const go_to_level_editor : String = ""
 
 
-var current_map_path : String = "res://default_format.json" #change to agregator
-var current_map_info
+
+var current_map_path : String = "=" #change to agregator
+var current_map_info : Dictionary = {}
+var current_chart_path : String = "res://default_format.json"
 
 var last_song_selection_index : int = -1
+
+var tracklist : Array[Dictionary] = []
 #player id, selected map path
 var current_player_chart_path : Dictionary[int, String] = {
 	0 : "res://default_format.json",
@@ -23,6 +30,11 @@ var current_player_chart_path : Dictionary[int, String] = {
 var current_player_score : Dictionary[int, int] = {
 	0 : -1,
 	1 : -1
+}
+
+var current_player_stats : Dictionary[int, ResultStats] = {
+	0 : null,
+	1 : null
 }
 
 var current_time : float = -1
@@ -69,3 +81,88 @@ func load_json_file(file_path):
 
 func quit_game():
 	get_tree().quit()
+
+#lazy load: only loads if tracklist hasn't been loaded before
+#however if there is a possibility the tracklist may change in realtime
+#lazy load should be off
+func load_tracklist(is_lazy = true):
+	if !is_lazy || tracklist.size() == 0:
+		tracklist = _load_map_objects_from_folder()
+		
+	return tracklist
+
+#add further atttributes to validate your maps
+func _validate_tracklist_file(json_data) -> bool:
+	var errors : int = 0
+	
+	if !("title" in json_data):
+		errors += 1
+
+	if !("artist" in json_data):
+		errors += 1
+	if !("bpm" in json_data):
+		errors += 1
+	if !("length" in json_data):
+		errors += 1
+	if !("chart_paths" in json_data):
+		errors += 1
+	if !("audio" in json_data):
+		errors += 1
+	if !(FileAccess.file_exists(json_data.audio)):
+		errors += 1
+	#validade chart files tbi
+	
+	
+	return errors == 0
+	
+func _load_map_objects_from_folder():
+	var objects_array : Array[Dictionary] = []
+	var dir = DirAccess.open(map_folder_path)
+	if dir:
+		dir.list_dir_begin()
+		var map_folder_name = dir.get_next()
+		while map_folder_name != "":
+			if dir.current_is_dir():
+				#print("Found directory: " + file_name)
+				var info_file_path = map_folder_path + "/" + map_folder_name + "/" + map_file_format
+				if FileAccess.file_exists(info_file_path):
+					var current_file = load_json_file(info_file_path)
+					if _validate_tracklist_file(current_file):
+						current_file.path = info_file_path
+						objects_array.append(current_file)
+					#print("info file for " + file_name + " found")
+					#var current_file = load(info_file_path)
+						
+			#else:
+				#print("Found file: " + file_name)
+			map_folder_name = dir.get_next()
+	#else:
+		#print("An error occurred when trying to access the path.")
+	
+	return objects_array
+
+	
+func _load_map_paths_from_folder():
+	var paths_array : Array[String] = []
+	var dir = DirAccess.open(map_folder_path)
+	if dir:
+		dir.list_dir_begin()
+		var map_folder_name = dir.get_next()
+		while map_folder_name != "":
+			if dir.current_is_dir():
+				#print("Found directory: " + file_name)
+				var info_file_path = map_folder_path + "/" + map_folder_name + map_file_format
+				if FileAccess.file_exists(info_file_path):
+					var current_file = load_json_file(info_file_path)
+					if _validate_tracklist_file(current_file):
+						paths_array.append(info_file_path)
+					#print("info file for " + file_name + " found")
+					#var current_file = load(info_file_path)
+						
+			#else:
+				#print("Found file: " + file_name)
+			map_folder_name = dir.get_next()
+	#else:
+		#print("An error occurred when trying to access the path.")
+	
+	return paths_array

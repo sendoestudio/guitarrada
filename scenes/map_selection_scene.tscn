@@ -97,28 +97,28 @@ expand_mode = 4
 [node name="AddInfoVBoxContainer" type="VBoxContainer" parent="SelectedMapControl/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
+[node name="BPMHBoxContainer" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/BPMHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "BPM"
 
-[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer"]
+[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/BPMHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "123"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
+[node name="LengthHBoxContainer" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/LengthHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Duration"
+text = "Length"
 
-[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/HBoxContainer2"]
+[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/LengthHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1:23"
@@ -183,15 +183,28 @@ layout_mode = 2
 layout_mode = 2
 text = "Latency Options"
 
+[node name="SettingsButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
 [node name="EditorButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Level Editor"
+
+[node name="CreditsButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Credits"
 
 [node name="QuitButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Quit Game"
 
+[node name="PreviewStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="index_changed" from="ListControl/ScrollContainer/VBoxContainer" to="SelectedMapControl" method="_on_v_box_container_index_changed"]
 [connection signal="pressed" from="SelectedMapControl/VBoxContainer/PlayButton" to="SelectedMapControl" method="_on_play_button_pressed"]
 [connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/LatencyButton" to="." method="_on_latency_button_pressed"]
+[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
+[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

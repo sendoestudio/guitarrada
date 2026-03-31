@@ -16,11 +16,11 @@ func set_info(list, artist, title, index) -> void:
 	title_label.text = title
 	artist_label.text = artist
 	
-	
 
 func _on_button_pressed() -> void:
 	if list_parent == null:
 		return
 	
+	list_parent.set_selection(item_index)
 	#highlight element
 	

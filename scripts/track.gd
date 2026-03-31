@@ -3,6 +3,8 @@ class_name Track
 
 const default_note_path : String = "res://defaults/example_note.tscn"
 
+var is_working : bool
+
 @export var track_index : int = 0
 @export var main_color : Color
 @export var highlight_while_pressing : bool = false
@@ -29,7 +31,7 @@ var invisible_area_node_index : int = -1
 var player_index
 var action_button_name
 
-func _ready() -> void:
+func _ready() -> void:	
 	var material : StandardMaterial3D = StandardMaterial3D.new()
 	material.albedo_color = main_color
 	material.emission = main_color
@@ -41,6 +43,9 @@ func _ready() -> void:
 	turn_off_timer = 0
 
 func _process(delta: float) -> void:
+	if !is_working:
+		return
+	
 	if Manager.is_playing && track_times != null:
 		var time = Manager.current_time
 		notes_parent.position = time * track_velocity
@@ -108,3 +113,8 @@ func set_track_notes(times) -> void:
 func set_player_index(index) -> void:
 	player_index = index
 	action_button_name = "p"+str(player_index)+"_button_" + str(track_index)
+	
+	var map_path = Manager.current_player_chart_path[player_index]
+	is_working = !(map_path == "" || map_path == null)
+	if !is_working:
+		return
