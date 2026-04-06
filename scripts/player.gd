@@ -27,7 +27,9 @@ var multiplier_rules : Dictionary[int, int] = {
 
 var cumulative_points : float
 
-var current_time
+#var current_time
+var current_video_time : float
+var current_audio_time : float
 
 var current_score
 var current_combo
@@ -107,7 +109,9 @@ func _ready() -> void:
 	current_multiplier = 1
 
 func _process(delta: float) -> void:
-	current_time = Manager.current_time 
+	current_audio_time = Manager.get_current_audio_time()
+	current_video_time = Manager.get_current_video_time()
+	
 	for i in local_index_to_track_index:
 		verify_track(local_index_to_file_index[i], local_index_to_track_index[i], delta)
 
@@ -137,13 +141,13 @@ func verify_track(index, track_index, time_delta):
 	
 	var note_time = current_map.chart[index].times[time_pointer].time
 	
-	if Input.is_action_just_pressed(button_name) && current_time >= (note_time - before_error_margin) && current_time <= (note_time + after_error_margin):
+	if Input.is_action_just_pressed(button_name) && current_audio_time >= (note_time - before_error_margin) && current_audio_time <= (note_time + after_error_margin):
 		print("hit")
 		var negative_delta : float
-		if note_time <= current_time:
-			negative_delta = (current_time - note_time) / before_error_margin
+		if note_time <= current_audio_time:
+			negative_delta = (current_audio_time - note_time) / before_error_margin
 		else:
-			negative_delta = (note_time - current_time) / before_error_margin
+			negative_delta = (note_time - current_audio_time) / before_error_margin
 		var delta = 1 - negative_delta
 		
 		#the function you decide here should interfere slightly in the score's difficulty
@@ -171,7 +175,7 @@ func verify_track(index, track_index, time_delta):
 		if length > 0:
 			track_hold_timers.set(track_index, length)
 	
-	elif current_time > (note_time + after_error_margin):
+	elif current_audio_time > (note_time + after_error_margin):
 		print("miss")
 		current_combo = 0
 		update_stats(-1)

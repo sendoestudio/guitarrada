@@ -69,14 +69,16 @@ func _process(delta: float) -> void:
 	else:
 		current_time += delta
 	
-	Manager.current_time = current_time
+	#Manager.current_time = current_time
+	Manager.set_current_time(current_time)
+	var current_audio_time = Manager.get_current_audio_time()
 	
 	if current_time >= 0 && !has_audio_started:
 		has_audio_started = true
 		if audio_player != null:
 			audio_player.play(current_time)
 			
-	if current_time >= end_of_level:
+	if current_audio_time >= end_of_level:
 		finish_level()
 
 func finish_level():

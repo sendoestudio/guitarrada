@@ -1,0 +1,1229 @@
+[gd_scene load_steps=18 format=3 uid="uid://bfw50hsh5bsmy"]
+
+[ext_resource type="Script" uid="uid://baw3cn5nsl22o" path="res://scripts/latency_set.gd" id="1_v43dq"]
+[ext_resource type="Texture2D" uid="uid://1f4gvx1y6n80" path="res://sprites/paw/animacircus icon pawonly 2025110301 fill.svg" id="3_d1i7m"]
+[ext_resource type="Texture2D" uid="uid://dqxhnx0gbnyx2" path="res://sprites/paw/animacircus icon pawonly 2025110301 line.svg" id="4_1pa82"]
+[ext_resource type="Texture2D" uid="uid://bwbmmratye1yn" path="res://sprites/confirmation/confirm_symbol_simple.svg" id="5_u1d0q"]
+[ext_resource type="AudioStream" uid="uid://bxc4bde2lecii" path="res://sounds/animacircus rhythic 25110301.ogg" id="8_8vmmn"]
+
+[sub_resource type="Animation" id="Animation_k66cx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl/PawTextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VideoControl/PawTextureRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_obs05"]
+resource_name = "audio_prep"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioControl:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FinishControl:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioControl/InstructionLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioControl/StartAudioButton:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioControl/CountdownLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioControl/CancelButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8vmmn"]
+resource_name = "audio_sync"
+length = 18.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioControl:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FinishControl:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioControl/InstructionLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioControl/StartAudioButton:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioControl/CountdownLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioControl/CountdownLabel:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["4", "3", "2", "1"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AudioControl/CancelButton:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kea3c"]
+resource_name = "finish"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioControl:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FinishControl:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_u1d0q"]
+resource_name = "video_prep"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioControl:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FinishControl:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VideoControl/InstructionLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VideoControl/StartVideoButton:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VideoControl/CountdownLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("VideoControl/PawTextureRect:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("VideoControl/PawTextureRect:size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(259.917, 200)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("VideoControl/PawTextureRectBG:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("VideoControl/CancelButton:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_eh2t7"]
+resource_name = "video_sync"
+length = 18.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioControl:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FinishControl:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VideoControl/InstructionLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VideoControl/StartVideoButton:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VideoControl/CountdownLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("VideoControl/CountdownLabel:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["4", "3", "2", "1"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("VideoControl/PawTextureRect:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.5, 2.1, 2.5, 3.1, 3.5, 4.1, 4.5, 5.1, 5.5, 6.1, 6.5, 7.1, 7.5, 8.1, 8.5, 9.1, 9.5, 10.1, 10.5, 11.1, 11.5, 12.1, 12.5, 13.1, 13.5, 14.1, 14.5, 15.1, 15.5, 16.1, 16.5, 17.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("VideoControl/PawTextureRect:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.5, 2, 2.1, 2.5, 3, 3.1, 3.5, 4, 4.1, 4.5, 5, 5.1, 5.5, 6, 6.1, 6.5, 7, 7.1, 7.5, 8, 8.1, 8.5, 9, 9.1, 9.5, 10, 10.1, 10.5, 11, 11.1, 11.5, 12, 12.1, 12.5, 13, 13.1, 13.5, 14, 14.1, 14.5, 15, 15.1, 15.5, 16, 16.1, 16.5, 17, 17.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7308011, 0.3841615, 5.7756904e-07, 1), Color(0.7294118, 0.38431373, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("VideoControl/PawTextureRectBG:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 2, 2.25, 3, 3.25, 4, 4.25, 5, 5.25, 6, 6.25, 7, 7.25, 8, 8.25, 9, 9.25, 10, 10.25, 11, 11.25, 12, 12.25, 13, 13.25, 14, 14.25, 15, 15.25, 16, 16.25, 17, 17.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1), Vector2(1.09, 1.09), Vector2(1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("VideoControl/PawTextureRectBG:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(2, 2.25, 3, 3.25, 4, 4.25, 5, 5.25, 6, 6.25, 7, 7.25, 8, 8.25, 9, 9.25, 10, 10.25, 11, 11.25, 12, 12.25, 13, 13.25, 14, 14.25, 15, 15.25, 16, 16.25, 17, 17.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0), Color(0, 1, 0, 1), Color(0, 1, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("VideoControl/PawTextureRectBG:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("VideoControl/PawTextureRect:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(1.5, 2, 2.2, 2.5, 3, 3.2, 3.5, 4, 4.2, 4.5, 5, 5.2, 5.5, 6, 6.2, 6.5, 7, 7.2, 7.5, 8, 8.2, 8.5, 9, 9.2, 9.5, 10, 10.2, 10.5, 11, 11.2, 11.5, 12, 12.2, 12.5, 13, 13.2, 13.5, 14, 14.2, 14.5, 15, 15.2, 15.5, 16, 16.2, 16.5, 17),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("VideoControl/CancelButton:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8vmmn"]
+_data = {
+&"RESET": SubResource("Animation_k66cx"),
+&"audio_prep": SubResource("Animation_obs05"),
+&"audio_sync": SubResource("Animation_8vmmn"),
+&"finish": SubResource("Animation_kea3c"),
+&"video_prep": SubResource("Animation_u1d0q"),
+&"video_sync": SubResource("Animation_eh2t7")
+}
+
+[sub_resource type="Animation" id="Animation_lfq4l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl/ConfirmationTextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(957, 396)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VideoControl/ConfirmationTextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VideoControl/ConfirmationTextureRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioControl/ConfirmationTextureRect:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioControl/ConfirmationTextureRect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioControl/ConfirmationTextureRect:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(837, 340)]
+}
+
+[sub_resource type="Animation" id="Animation_q8kbh"]
+resource_name = "audio_input"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioControl/ConfirmationTextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(837, 390), Vector2(837, 340)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioControl/ConfirmationTextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioControl/ConfirmationTextureRect:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tq8ex"]
+resource_name = "clean"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl/ConfirmationTextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioControl/ConfirmationTextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_04jlb"]
+resource_name = "video_input"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VideoControl/ConfirmationTextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VideoControl/ConfirmationTextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VideoControl/ConfirmationTextureRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(957, 446), Vector2(957, 396)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfq4l"]
+_data = {
+&"RESET": SubResource("Animation_lfq4l"),
+&"audio_input": SubResource("Animation_q8kbh"),
+&"clean": SubResource("Animation_tq8ex"),
+&"video_input": SubResource("Animation_04jlb")
+}
+
+[node name="LatencyControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v43dq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(0.33303642, 0.018102283, 0.14759514, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="StartControl" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="StartControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = -164.0
+offset_right = 39.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "START_AV_SYNC"
+
+[node name="CancelButton" type="Button" parent="StartControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = -164.0
+offset_right = 39.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "GO_BACK"
+
+[node name="Label" type="Label" parent="StartControl"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="VideoControl" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PawTextureRectBG" type="TextureRect" parent="VideoControl"]
+self_modulate = Color(0, 1, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.39258
+offset_top = -100.0
+offset_right = 129.52441
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(129.959, 100)
+texture = ExtResource("4_1pa82")
+expand_mode = 1
+
+[node name="PawTextureRect" type="TextureRect" parent="VideoControl"]
+self_modulate = Color(0.7308011, 0.3841615, 5.7756904e-07, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.393
+offset_top = -100.0
+offset_right = 129.52393
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(129.959, 100)
+texture = ExtResource("3_d1i7m")
+expand_mode = 1
+
+[node name="PawTextureRect2" type="TextureRect" parent="VideoControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.39258
+offset_top = -100.0
+offset_right = 129.52441
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(129.959, 100)
+texture = ExtResource("4_1pa82")
+expand_mode = 1
+
+[node name="InstructionLabel" type="Label" parent="VideoControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -911.0
+offset_top = 91.0
+offset_right = 903.0
+offset_bottom = 273.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "VIDEO_SYNC_INSTRUCTION"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ConfirmationTextureRect" type="TextureRect" parent="VideoControl"]
+visible = false
+layout_mode = 0
+offset_left = 957.0
+offset_top = 396.0
+offset_right = 1257.0
+offset_bottom = 696.00037
+
+[node name="StartVideoButton" type="Button" parent="VideoControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -158.0
+offset_top = -245.0
+offset_right = 158.0
+offset_bottom = -197.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "START_VIDEO_SYNC"
+
+[node name="CountdownLabel" type="Label" parent="VideoControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -357.0
+offset_right = 43.0
+offset_bottom = -152.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "4"
+
+[node name="Label2" type="Label" parent="VideoControl"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 1855.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 32
+text = "VIDEO_SYNC"
+
+[node name="CancelButton" type="Button" parent="VideoControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -140.0
+offset_right = 75.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "CANCEL_AV_SYNC"
+
+[node name="AudioControl" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InstructionLabel" type="Label" parent="AudioControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -919.0
+offset_top = 91.0
+offset_right = 928.0
+offset_bottom = 230.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "AUDIO_SYNC_INSTRUCTION"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ConfirmationTextureRect" type="TextureRect" parent="AudioControl"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 261.0
+offset_top = 16.0
+offset_right = 561.0
+offset_bottom = 316.00037
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(150, 150)
+texture = ExtResource("5_u1d0q")
+
+[node name="StartAudioButton" type="Button" parent="AudioControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -245.0
+offset_right = 160.0
+offset_bottom = -197.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "START_AUDIO_SYNC"
+
+[node name="CountdownLabel" type="Label" parent="AudioControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -357.0
+offset_right = 43.0
+offset_bottom = -152.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "4"
+
+[node name="Label2" type="Label" parent="AudioControl"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 1885.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 32
+text = "AUDIO_SYNC"
+
+[node name="CancelButton" type="Button" parent="AudioControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -140.0
+offset_right = 75.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "CANCEL_AV_SYNC"
+
+[node name="FinishControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultControl" type="Control" parent="FinishControl"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -268.0
+offset_bottom = 262.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultVBoxContainer" type="VBoxContainer" parent="FinishControl/ResultControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -379.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FinishControl/ResultControl/ResultVBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="TypeLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "VIDEO_LATENCY"
+vertical_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "1234"
+vertical_alignment = 2
+
+[node name="UnitLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "(ms)"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="FinishControl/ResultControl/ResultVBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="TypeLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "AUDIO_LATENCY"
+vertical_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "1234"
+vertical_alignment = 2
+
+[node name="UnitLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "(ms)"
+vertical_alignment = 1
+
+[node name="OptionsVBoxContainer" type="VBoxContainer" parent="FinishControl/ResultControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -268.5
+offset_top = -312.25
+offset_right = 268.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="ConfirmButton" type="Button" parent="FinishControl/ResultControl/OptionsVBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "CONFIRM_NEW_VALUES"
+
+[node name="RejectButton" type="Button" parent="FinishControl/ResultControl/OptionsVBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "QUIT_WITHOUT_SAVING"
+
+[node name="TryAgainButton" type="Button" parent="FinishControl/ResultControl/OptionsVBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "START_ALL_OVER_BUTTON"
+
+[node name="SyncProcessAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8vmmn")
+}
+
+[node name="ResponseAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lfq4l")
+}
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 317.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 32
+text = "AUDIO/VIDEO SYNC"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_8vmmn")
+
+[connection signal="pressed" from="VideoControl/StartVideoButton" to="." method="_on_start_video_button_pressed"]
+[connection signal="pressed" from="VideoControl/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="AudioControl/StartAudioButton" to="." method="_on_start_audio_button_pressed"]
+[connection signal="pressed" from="AudioControl/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="FinishControl/ResultControl/OptionsVBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="FinishControl/ResultControl/OptionsVBoxContainer/RejectButton" to="." method="_on_reject_button_pressed"]
+[connection signal="pressed" from="FinishControl/ResultControl/OptionsVBoxContainer/TryAgainButton" to="." method="_on_try_again_button_pressed"]

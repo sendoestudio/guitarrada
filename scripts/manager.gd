@@ -11,7 +11,8 @@ const settings_path : String = ""
 const av_sync_path : String = ""
 const go_to_level_editor : String = ""
 
-
+var _video_latency : float = 0
+var _audio_latency : float = 0
 
 var current_map_path : String = "=" #change to agregator
 var current_map_info : Dictionary = {}
@@ -37,12 +38,14 @@ var current_player_stats : Dictionary[int, ResultStats] = {
 	1 : null
 }
 
-var current_time : float = -1
+var _current_time : float = -1
+var _current_audio_time : float = -1
+var _current_video_time : float = -1
 var is_playing : bool = false
 
 
-var input_video_latency : float = 0
-var input_audio_latency : float = 0
+var _input_video_latency : float = 0
+var _input_audio_latency : float = 0
 
 func go_to_song_selection_scene() -> void:
 	_go_to_scene(song_selection_path)
@@ -166,3 +169,36 @@ func _load_map_paths_from_folder():
 		#print("An error occurred when trying to access the path.")
 	
 	return paths_array
+
+
+func get_video_latency() -> float:
+	return _video_latency
+
+func get_audio_latency() -> float:
+	return _audio_latency
+
+func get_video_latency_in_ms() -> int:
+	return roundi(_video_latency * 1000)
+
+func get_audio_latency_in_ms() -> int:
+	return roundi(_audio_latency * 1000)
+
+func set_video_latency(lat_ms : int):
+	_video_latency = lat_ms / 1000.0
+	
+func set_audio_latency(lat_ms : int):
+	_audio_latency = lat_ms / 1000.0
+
+func set_current_time(time : float) -> void:
+	_current_time = time
+	_current_audio_time = time - _audio_latency if time != -1 else -1
+	_current_video_time =  time + _video_latency if time != -1 else -1
+
+func get_current_time() -> float:
+	return _current_time
+	
+func get_current_audio_time() -> float:
+	return _current_audio_time
+
+func get_current_video_time() -> float:
+	return _current_video_time

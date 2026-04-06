@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bxc4bde2lecii"
+path="res://.godot/imported/animacircus rhythic 25110301.ogg-84018a391cdbe02bea567965d59a5087.oggvorbisstr"
+
+[deps]
+
+source_file="res://sounds/animacircus rhythic 25110301.ogg"
+dest_files=["res://.godot/imported/animacircus rhythic 25110301.ogg-84018a391cdbe02bea567965d59a5087.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

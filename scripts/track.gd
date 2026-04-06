@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 		return
 	
 	if Manager.is_playing && track_times != null:
-		var time = Manager.current_time
+		var time = Manager.get_current_video_time()
 		notes_parent.position = time * track_velocity
 		
 		if visible_area_node_index != -1:

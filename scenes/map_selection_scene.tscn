@@ -180,6 +180,7 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 
 [node name="LatencyButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Latency Options"
 
