@@ -70,6 +70,7 @@ func _on_expert_button_pressed() -> void:
 	
 func _set_player(difficulty_chart):
 	Manager.current_player_chart_difficulty[player_index] = difficulty_chart
+	confirmed_diff_label.text = difficulty_chart
 	
 	selection_vbox_container.visible = false
 	confirmed_vbox_container.visible = true

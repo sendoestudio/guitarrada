@@ -72,7 +72,7 @@ func _input(event: InputEvent) -> void:
 	
 	
 	if current_time > 3 || current_time < 17.5:
-		#simpler implementation (do more robust eventually)
+		#simpler implementation
 		var offset : float = fmod(current_time, 1)
 		input_arrays.append(offset)
 		
@@ -149,5 +149,5 @@ func _on_cancel_button_pressed() -> void:
 	_call_return_scene()
 
 func _call_return_scene() -> void:
-	Manager.go_to_song_selection_scene()
-	#Manager.go_to_settings_scene()
+	#Manager.go_to_song_selection_scene()
+	Manager.go_to_settings_scene()

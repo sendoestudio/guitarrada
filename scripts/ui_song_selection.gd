@@ -20,4 +20,4 @@ func _on_credits_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	pass # Replace with function body.
+	Manager.go_to_settings_scene()

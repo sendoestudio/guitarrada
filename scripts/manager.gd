@@ -7,9 +7,14 @@ const song_selection_path : String = "res://scenes/map_selection_scene.tscn"
 const difficulty_selection_path : String = "res://scenes/difficulty_selection_scene.tscn"
 const stage_path : String = "res://example_scene.tscn" #temp scene
 const result_path : String = "res://scenes/results_scene.tscn"
-const settings_path : String = ""
-const av_sync_path : String = ""
+const settings_path : String = "res://scenes/settings_scene.tscn"
+const av_sync_path : String = "res://scenes/latency_assist_control.tscn"
 const go_to_level_editor : String = ""
+
+const audio_latency_min_limit : int = 0
+const audio_latency_max_limit : int = 9999
+const video_latency_min_limit : int = 0 #use negative value in case you want to accept 
+const video_latency_max_limit : int = 9999
 
 var _video_latency : float = 0
 var _audio_latency : float = 0
@@ -62,6 +67,12 @@ func go_to_stage_scene() -> void:
 
 func go_to_result_scene() -> void:
 	_go_to_scene(result_path)
+	
+func go_to_latency_assistant_scene() -> void:
+	_go_to_scene(av_sync_path)
+
+func go_to_settings_scene() -> void:
+	_go_to_scene(settings_path)
 
 func _go_to_scene(scene_path) -> void:
 	if scene_path == "" || scene_path == null:

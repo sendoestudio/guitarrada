@@ -577,6 +577,7 @@ custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
 [node name="Pointer" type="Control" parent="ScrollContainer/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -667,7 +668,7 @@ text = "Move Note"
 
 [node name="Button2" type="Button" parent="NoteOptionsControl/HBoxContainer"]
 layout_mode = 2
-text = "Add Length"
+text = "Add/Edit Length"
 
 [node name="Button3" type="Button" parent="NoteOptionsControl/HBoxContainer"]
 layout_mode = 2
