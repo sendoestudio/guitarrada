@@ -25,43 +25,51 @@ func _ready() -> void:
 	
 	player_code_label.text = "Player " + str(1 + player_index)
 	
-	Manager.current_player_chart_path[player_index] = ""
+	Manager.current_player_chart_difficulty[player_index] = ""
 	var info = Manager.current_map_info
-	charts = info.chart_paths
+	charts = info.charts
 	
-	easy_diff_button.visible = "easy" in charts && charts.easy != null && FileAccess.file_exists(charts.easy)
-	medium_diff_button.visible = "medium" in charts && charts.medium != null && FileAccess.file_exists(charts.medium)
-	hard_diff_button.visible = "hard" in charts && charts.hard != null && FileAccess.file_exists(charts.hard)
-	expert_diff_button.visible = "expert" in charts && charts.expert != null && FileAccess.file_exists(charts.expert)
+	easy_diff_button.visible = "easy" in charts && charts.easy != null
+	medium_diff_button.visible = "medium" in charts && charts.medium != null
+	hard_diff_button.visible = "hard" in charts && charts.hard != null
+	expert_diff_button.visible = "expert" in charts && charts.expert != null
 
 	selection_vbox_container.visible = true
 	confirmed_vbox_container.visible = false
 
 func _on_easy_button_pressed() -> void:
-	Manager.current_player_chart_path[player_index] = charts.easy
-	
-	selection_vbox_container.visible = false
-	confirmed_vbox_container.visible = true
-	player_status.emit(player_index, true)
+	_set_player("easy")
+	#Manager.current_player_chart_path[player_index] = "easy"
+	#
+	#selection_vbox_container.visible = false
+	#confirmed_vbox_container.visible = true
+	#player_status.emit(player_index, true)
 
 func _on_medium_button_pressed() -> void:
-	Manager.current_player_chart_path[player_index] = charts.medium
-
-
-	selection_vbox_container.visible = false
-	confirmed_vbox_container.visible = true
-	player_status.emit(player_index, true)
+	_set_player("medium")
+	#Manager.current_player_chart_path[player_index] = "medium"
+#
+#
+	#selection_vbox_container.visible = false
+	#confirmed_vbox_container.visible = true
+	#player_status.emit(player_index, true)
 
 func _on_hard_button_pressed() -> void:
-	Manager.current_player_chart_path[player_index] = charts.hard
-
-	
-	selection_vbox_container.visible = false
-	confirmed_vbox_container.visible = true
-	player_status.emit(player_index, true)
+	_set_player("hard")
+	#Manager.current_player_chart_path[player_index] = "hard"
+#
+	#
+	#selection_vbox_container.visible = false
+	#confirmed_vbox_container.visible = true
+	#player_status.emit(player_index, true)
 
 func _on_expert_button_pressed() -> void:
-	Manager.current_player_chart_path[player_index] = charts.expert
+	#Manager.current_player_chart_path[player_index] = "expert"
+	_set_player("expert")
+	
+	
+func _set_player(difficulty_chart):
+	Manager.current_player_chart_difficulty[player_index] = difficulty_chart
 	
 	selection_vbox_container.visible = false
 	confirmed_vbox_container.visible = true

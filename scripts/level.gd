@@ -41,6 +41,11 @@ var has_audio_started : bool
 
 var end_of_level : float
 
+var beats : Array
+var beat_pointer : int = 0
+var strong_beats : Array
+var strong_beat_pointer : int = 0
+
 func _ready() -> void:
 	current_map = Manager.current_map_info
 	
@@ -51,6 +56,17 @@ func _ready() -> void:
 		var audio_file = load(current_map.audio)
 		if audio_player != null && audio_file != null:
 			audio_player.stream = audio_file
+			
+	if "beats" in current_map:
+		if current_map.beats.size() > 0:
+			beat_pointer = 0
+			beats = current_map.beats
+	
+	
+	if "strong_beats" in current_map:
+		if current_map.strong_beats.size() > 0:
+			strong_beat_pointer = 0
+			strong_beats = current_map.strong_beats
 	
 	has_audio_started = false
 	
@@ -62,6 +78,7 @@ func _ready() -> void:
 	current_time = -countdown_timer
 	Manager.is_playing = true
 	
+	Manager.reset_beat_factor()
 			
 func _process(delta: float) -> void:
 	if audio_player.playing:
@@ -72,6 +89,7 @@ func _process(delta: float) -> void:
 	#Manager.current_time = current_time
 	Manager.set_current_time(current_time)
 	var current_audio_time = Manager.get_current_audio_time()
+	var current_video_time = Manager.get_current_video_time()
 	
 	if current_time >= 0 && !has_audio_started:
 		has_audio_started = true
@@ -80,6 +98,25 @@ func _process(delta: float) -> void:
 			
 	if current_audio_time >= end_of_level:
 		finish_level()
+		
+	if beat_pointer != -1:
+		if beats[beat_pointer] <= current_video_time:
+			beat_pointer += 1
+			if beat_pointer >= beats.size():
+				beat_pointer = -1
+		
+		if beat_pointer > 0:
+			Manager.set_beat_factor(current_video_time, beats[beat_pointer -1], beats[beat_pointer])
+	
+	if strong_beat_pointer != -1:
+		if strong_beats[strong_beat_pointer] <= current_video_time:
+			strong_beat_pointer += 1
+			if strong_beat_pointer >= strong_beats.size():
+				strong_beat_pointer = -1
+		
+		if strong_beat_pointer > 0:
+			Manager.set_strong_beat_factor(current_video_time, strong_beats[strong_beat_pointer -1], strong_beats[strong_beat_pointer])
+	
 
 func finish_level():
 	Manager.go_to_result_scene()

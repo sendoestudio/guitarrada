@@ -18,6 +18,7 @@ const min_points : int = 1
 const max_points : int = 10
 const continuous_point_per_second : int = 5
 
+var multiplier_value : int = 1
 #multiplier, amount of consecutive hits
 var multiplier_rules : Dictionary[int, int] = {
 	2 : 4,
@@ -51,25 +52,26 @@ var track_hold_timers : Dictionary[int, float]
 var stats : ResultStats
 
 func _ready() -> void:
-	if Manager.current_player_chart_path == null || Manager.current_player_chart_path.size() == 0:
+	if Manager.current_player_chart_difficulty == null || Manager.current_player_chart_difficulty.size() == 0:
 		return
 		
-	if !Manager.current_player_chart_path.has(player_index) || player_index == -1:
+	if !Manager.current_player_chart_difficulty.has(player_index) || player_index == -1:
 		return
 	
 	stats = ResultStats.new()
 	
-	var map_path = Manager.current_player_chart_path[player_index]
-	if map_path == "" || map_path == null:
+	var map_difficulty = Manager.current_player_chart_difficulty[player_index]
+	if map_difficulty == "" || map_difficulty == null:
 		is_working = false
 		for track in tracks:
 			track.visible = false
 		return
 	
 	is_working = true
-	var map_file = FileAccess.open(map_path, FileAccess.READ)
-	var map_content = map_file.get_as_text()
-	current_map = JSON.parse_string(map_content)
+	#var map_file = FileAccess.open(map_path, FileAccess.READ)
+	#var map_content = map_file.get_as_text()
+	#current_map = JSON.parse_string(map_content)
+	current_map = Manager.current_map_info.charts[map_difficulty]
 	
 	#verify tracks to see if indexes are valid
 	for i in tracks.size():
@@ -80,7 +82,7 @@ func _ready() -> void:
 		track.set_track_props(tracks_velocity, visibility_time_before_hit, visibility_time_after_hit)
 		var current_track_index : int = track.track_index
 		var file_index : int = 0
-		for track_info in current_map.chart:
+		for track_info in current_map:
 			if track_info.track_index == current_track_index:
 				if local_index_to_track_index.has(current_track_index):
 					print("alert: more than one track with the same index, please check it out")
@@ -116,7 +118,7 @@ func _process(delta: float) -> void:
 		verify_track(local_index_to_file_index[i], local_index_to_track_index[i], delta)
 
 func verify_track(index, track_index, time_delta):
-	if current_map.chart.size() <= index || current_map.chart[index] == null:
+	if current_map.size() <= index || current_map[index] == null:
 		return
 	
 	var button_name = "p"+str(player_index)+"_button_" + str(int(track_index))
@@ -135,11 +137,11 @@ func verify_track(index, track_index, time_delta):
 			stats.score = current_score
 	
 	var time_pointer = track_indexes.get(index)
-	if time_pointer == -1 || current_map.chart[index].times.size() <= time_pointer:
+	if time_pointer == -1 || current_map[index].times.size() <= time_pointer:
 		send_stats()
 		return
 	
-	var note_time = current_map.chart[index].times[time_pointer].time
+	var note_time = current_map[index].times[time_pointer].time
 	
 	if Input.is_action_just_pressed(button_name) && current_audio_time >= (note_time - before_error_margin) && current_audio_time <= (note_time + after_error_margin):
 		print("hit")
@@ -167,11 +169,11 @@ func verify_track(index, track_index, time_delta):
 			stats.max_combo = highest_combo
 		
 		track_indexes.set(index, time_pointer + 1)
-		if track_indexes.get(index) >=  current_map.chart[index].times.size():
+		if track_indexes.get(index) >=  current_map[index].times.size():
 			track_indexes.set(index, -1)
 			send_stats()
 		
-		var length = current_map.chart[index].times[time_pointer].duration
+		var length = current_map[index].times[time_pointer].duration
 		if length > 0:
 			track_hold_timers.set(track_index, length)
 	
@@ -181,7 +183,7 @@ func verify_track(index, track_index, time_delta):
 		update_stats(-1)
 		
 		track_indexes.set(index, time_pointer + 1)
-		if track_indexes.get(index) >=  current_map.chart[index].times.size():
+		if track_indexes.get(index) >=  current_map[index].times.size():
 			track_indexes.set(index, -1)
 			send_stats()
 		

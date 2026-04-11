@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://5mi6v118a5lj"]
+[gd_scene load_steps=2 format=3 uid="uid://5mi6v118a5lj"]
+
+[ext_resource type="Texture2D" uid="uid://b8xh240h1gh60" path="res://icon.svg" id="1_ph7p0"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +29,11 @@ grow_horizontal = 2
 
 [node name="Button" type="Button" parent="HBoxContainer"]
 layout_mode = 2
-text = "Create New"
+text = "New File"
+
+[node name="Button4" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Open File"
 
 [node name="Button2" type="Button" parent="HBoxContainer"]
 layout_mode = 2
@@ -35,10 +42,6 @@ text = "Save Changes"
 [node name="Button3" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 text = "Save As New"
-
-[node name="Button4" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-text = "Open Chart"
 
 [node name="Button8" type="Button" parent="HBoxContainer"]
 layout_mode = 2
@@ -65,2177 +68,630 @@ offset_top = 311.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="HeaderVBoxContainer" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/HeaderVBoxContainer"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="ScrollContainer/HBoxContainer/HeaderVBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Track 1"
-
-[node name="Label3" type="Label" parent="ScrollContainer/HBoxContainer/HeaderVBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Track 1"
-
-[node name="Label4" type="Label" parent="ScrollContainer/HBoxContainer/HeaderVBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Track 1"
-
-[node name="Control" type="Control" parent="ScrollContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2/Button"]
+[node name="TrackTimes" type="Control" parent="ScrollContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 138.22
+offset_right = 167.0
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.5686275)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control"]
 layout_mode = 0
-offset_left = -2.0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 167.105
+offset_right = 195.885
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control2"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control3" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 196.73
+offset_right = 225.51
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.06666667)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control3"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control4" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 225.38
+offset_right = 254.16
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control4"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control5" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 254.025
+offset_right = 282.80646
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.5686275)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control5"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control6" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 282.745
+offset_right = 311.525
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control6"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control7" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 311.985
+offset_right = 340.765
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.06666667)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control7"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control8" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 340.02
+offset_right = 368.79993
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control8"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control8"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control9" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 369.149
+offset_right = 397.93045
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control9"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.5686275)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control9"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control10" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 397.869
+offset_right = 426.649
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control10"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control11" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 427.109
+offset_right = 455.88904
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control11"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.06666667)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control11"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control12" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+anchors_preset = 0
+offset_left = 455.144
+offset_right = 483.92395
+offset_bottom = 165.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control12"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control12"]
+layout_mode = 0
+offset_right = 28.74
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="TracksVBoxContainer" type="VBoxContainer" parent="ScrollContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TrackControl" type="Control" parent="ScrollContainer/Control/TracksVBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+
+[node name="TrackLabel" type="Label" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 178.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Track 01"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button10" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button11" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button12" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TrackControl2" type="Control" parent="ScrollContainer/Control/TracksVBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+
+[node name="TrackLabel" type="Label" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 178.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Track 01"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button10" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button11" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button12" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TrackControl3" type="Control" parent="ScrollContainer/Control/TracksVBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+
+[node name="TrackLabel" type="Label" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 178.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Track 01"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button10" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button11" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button12" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Pointer" type="Control" parent="ScrollContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/Pointer"]
+visible = false
+layout_mode = 0
+offset_left = 135.0
+offset_right = 138.0
+offset_bottom = 171.0
+color = Color(0.8392157, 0.07058824, 1, 1)
+
+[node name="Notes" type="Control" parent="ScrollContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/Control/Notes"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 1.0
+offset_right = 165.0
+offset_bottom = 40.935
+texture = ExtResource("1_ph7p0")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="ScrollContainer/Control/Notes"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 51.0
+offset_right = 281.0
+offset_bottom = 90.935
+texture = ExtResource("1_ph7p0")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="ScrollContainer/Control/Notes"]
+layout_mode = 0
+offset_left = 372.0
 offset_top = 2.0
-offset_right = 11.0
-offset_bottom = 43.0
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer4" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer4"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer5" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer5"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer5"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer5"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer5"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer6" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer6"]
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer6"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer6"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer6"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer7" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer7"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer7"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer7"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer7"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer8" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer8"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer8"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer8"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer8"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer9" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer9"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer9"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer9"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer9"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer10" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer10"]
-layout_mode = 2
-text = "2"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer10"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer10"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer10"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer11" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer11"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer11"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer11"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer11"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer12" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer12"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer12"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer12"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer12"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer13" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer13"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer13"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer13"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer13"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer14" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer14"]
-layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer14"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer14"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer14"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer15" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer15"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer15"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer15"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer15"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer16" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer16"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer16"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer16"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer16"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer17" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer17"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer17"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer17"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer17"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer18" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer18"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer18"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer18"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer18"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer19" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer19"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer19"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer19"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer19"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer20" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer20"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer20"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer20"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer20"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer21" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer21"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer21"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer21"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer21"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer22" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer22"]
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer22"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer22"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer22"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer23" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer23"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer23"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer23"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer23"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer24" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer24"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer24"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer24"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer24"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer25" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer25"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer25"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer25"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer25"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer26" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer26"]
-layout_mode = 2
-text = "2"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer26"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer26"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer26"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer27" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer27"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer27"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer27"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer27"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer28" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer28"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer28"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer28"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer28"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer29" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer29"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer29"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer29"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer29"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer30" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer30"]
-layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer30"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer30"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer30"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer31" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer31"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer31"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer31"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer31"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer32" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer32"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer32"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer32"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer32"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer33" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer33"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer33"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer33"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer33"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer34" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer34"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer34"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer34"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer34"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer35" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer35"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer35"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer35"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer35"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer36" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer36"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer36"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer36"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer36"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer37" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer37"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer37"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer37"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer37"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer38" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer38"]
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer38"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer38"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer38"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer39" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer39"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer39"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer39"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer39"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer40" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer40"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer40"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer40"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer40"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer41" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer41"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer41"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer41"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer41"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer42" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer42"]
-layout_mode = 2
-text = "2"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer42"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer42"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer42"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer43" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer43"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer43"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer43"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer43"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer44" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer44"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer44"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer44"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer44"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer45" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer45"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer45"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer45"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer45"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer46" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer46"]
-layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer46"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer46"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer46"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer47" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer47"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer47"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer47"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer47"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer48" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer48"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer48"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer48"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer48"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer49" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer49"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer49"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer49"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer49"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer50" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer50"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer50"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer50"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer50"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer51" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer51"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer51"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer51"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer51"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer52" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer52"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer52"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer52"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer52"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer53" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer53"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer53"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer53"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer53"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer54" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer54"]
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer54"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer54"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer54"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer55" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer55"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer55"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer55"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer55"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer56" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer56"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer56"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer56"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer56"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer57" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer57"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer57"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer57"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer57"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer58" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer58"]
-layout_mode = 2
-text = "2"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer58"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer58"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer58"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer59" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer59"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer59"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer59"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer59"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer60" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer60"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer60"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer60"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer60"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer61" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer61"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer61"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer61"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer61"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer62" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer62"]
-layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer62"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer62"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer62"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer63" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer63"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer63"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer63"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer63"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer64" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer64"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer64"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer64"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer64"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer65" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer65"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer65"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer65"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer65"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer66" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer66"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer66"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer66"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer66"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer67" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer67"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer67"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer67"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer67"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer68" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer68"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer68"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer68"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer68"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer69" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer69"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer69"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer69"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer69"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer70" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer70"]
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer70"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer70"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer70"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer71" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer71"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer71"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer71"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer71"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer72" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer72"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer72"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer72"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer72"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer73" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer73"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer73"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer73"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer73"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer74" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer74"]
-layout_mode = 2
-text = "2"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer74"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer74"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer74"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer75" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer75"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer75"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer75"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer75"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer76" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer76"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer76"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer76"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer76"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer77" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer77"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer77"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer77"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer77"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer78" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer78"]
-layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer78"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer78"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer78"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer79" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer79"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer79"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer79"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer79"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer80" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer80"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer80"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer80"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer80"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer81" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer81"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer81"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer81"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer81"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer82" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer82"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer82"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer82"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer82"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer83" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer83"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer83"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer83"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer83"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer84" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer84"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer84"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer84"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer84"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer85" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer85"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer85"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer85"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer85"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer86" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer86"]
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer86"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer86"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer86"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer87" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer87"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer87"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer87"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer87"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer88" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer88"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer88"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer88"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer88"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer89" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer89"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer89"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer89"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer89"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer90" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer90"]
-layout_mode = 2
-text = "2"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer90"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer90"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer90"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer91" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer91"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer91"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer91"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer91"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer92" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer92"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer92"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer92"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer92"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer93" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer93"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer93"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer93"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer93"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer94" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer94"]
-layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer94"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer94"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer94"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer95" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer95"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer95"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer95"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer95"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer96" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer96"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer96"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer96"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer96"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="VBoxContainer97" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer97"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer97"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer97"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer97"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
+offset_right = 397.0
+offset_bottom = 41.935
+texture = ExtResource("1_ph7p0")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="ScrollContainer/Control/Notes/TextureRect3"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 11.0
+offset_right = 84.0
+offset_bottom = 32.0
+texture = ExtResource("1_ph7p0")
+expand_mode = 1
 
 [node name="FileDialog" type="FileDialog" parent="."]
 oversampling_override = 1.0
+
+[node name="NoteOptionsControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NoteOptionsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+layout_mode = 2
+text = "Move Note"
+
+[node name="Button2" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+layout_mode = 2
+text = "Add Length"
+
+[node name="Button3" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+layout_mode = 2
+text = "Delete Note"
+
+[node name="NotesOptionsControl2" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 270.68
+offset_right = 1150.0
+offset_bottom = 311.68002
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NotesOptionsControl2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -2.2888184e-05
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="NotesOptionsControl2/HBoxContainer"]
+layout_mode = 2
+text = "Copy Interval"
+
+[node name="Button2" type="Button" parent="NotesOptionsControl2/HBoxContainer"]
+layout_mode = 2
+text = "Delete Interval"

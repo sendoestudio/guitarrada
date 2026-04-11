@@ -114,7 +114,7 @@ func set_player_index(index) -> void:
 	player_index = index
 	action_button_name = "p"+str(player_index)+"_button_" + str(track_index)
 	
-	var map_path = Manager.current_player_chart_path[player_index]
-	is_working = !(map_path == "" || map_path == null)
+	var map_difficulty = Manager.current_player_chart_difficulty[player_index]
+	is_working = !(map_difficulty == "" || map_difficulty == null)
 	if !is_working:
 		return

@@ -1,14 +1,74 @@
 {
-    "title" : "Song title",
-    "artist" : "Artist sample",
-    "bpm" : 123,
-    "length" : 83,
-    "audio" : "res://_testing/2025012701 synapsis.wav",
-    "audio_preview_start" : "",
-    "chart_paths" : {
-        "easy" : null,
-        "medium" : "res://default_format.json",
-        "hard" : null,
-        "expert" : null
-    }
+	"title": "Song title",
+	"artist": "Artist sample",
+	"bpm": 123,
+	"length": 83,
+	"audio": "res://_testing/2025012701 synapsis.wav",
+	"audio_preview_start": "",
+	"charts": {
+		"easy": null,
+		"medium": [
+			{
+				"track_index": 0,
+				"times": [
+					{
+						"time": 1,
+						"duration": -1
+					},
+					{
+						"time": 3,
+						"duration": -1
+					}
+				]
+			},
+			{
+				"track_index": 1,
+				"times": [
+					{
+						"time": 2,
+						"duration": -1
+					}
+				]
+			},
+			{
+				"track_index": 2,
+				"times": [
+					{
+						"time": 3,
+						"duration": -1
+					},
+					{
+						"time": 5,
+						"duration": 1
+					}
+				]
+			}
+		],
+		"hard": null,
+		"expert": null
+	},
+	"beats": [
+		0,
+		0.5,
+		1,
+		1.5,
+		2,
+		2.5,
+		3,
+		3.5,
+		4,
+		4.5,
+		5,
+		5.5,
+		6,
+		6.5,
+		7,
+		7.5
+	],
+	"strong_beats": [
+		0,
+		2,
+		4,
+		6
+	]
 }

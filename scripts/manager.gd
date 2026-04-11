@@ -22,9 +22,9 @@ var last_song_selection_index : int = -1
 
 var tracklist : Array[Dictionary] = []
 #player id, selected map path
-var current_player_chart_path : Dictionary[int, String] = {
-	0 : "res://default_format.json",
-	1 : "res://default_format.json"
+var current_player_chart_difficulty : Dictionary[int, String] = {
+	0 : "",
+	1 : ""
 }
 
 #player id, scoring
@@ -46,6 +46,10 @@ var is_playing : bool = false
 
 var _input_video_latency : float = 0
 var _input_audio_latency : float = 0
+
+var _beat_factor : float = 0
+var _strong_beat_factor : float = 0
+
 
 func go_to_song_selection_scene() -> void:
 	_go_to_scene(song_selection_path)
@@ -107,7 +111,7 @@ func _validate_tracklist_file(json_data) -> bool:
 		errors += 1
 	if !("length" in json_data):
 		errors += 1
-	if !("chart_paths" in json_data):
+	if !("charts" in json_data):
 		errors += 1
 	if !("audio" in json_data):
 		errors += 1
@@ -202,3 +206,21 @@ func get_current_audio_time() -> float:
 
 func get_current_video_time() -> float:
 	return _current_video_time
+
+func set_beat_factor(time : float, current_beat : float, next_beat : float):
+	var diff = next_beat - current_beat
+	_beat_factor = ((next_beat - time) / (diff))
+
+func set_strong_beat_factor(time : float, current_beat : float, next_beat : float):
+	var diff = next_beat - current_beat
+	_strong_beat_factor = ((next_beat - time) / (diff))
+
+func reset_beat_factor():
+	_beat_factor = 0
+	_strong_beat_factor = 0
+
+func get_beat_factor() -> float:
+	return _beat_factor
+
+func get_strong_beat_factor() -> float:
+	return _strong_beat_factor

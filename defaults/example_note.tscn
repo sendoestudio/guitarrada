@@ -1,13 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk7bssujfd3c0"]
+[gd_scene load_steps=6 format=3 uid="uid://bk7bssujfd3c0"]
+
+[ext_resource type="Script" uid="uid://dfm043l4l3lsl" path="res://scripts/note.gd" id="1_xqwt8"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_08apm"]
 top_radius = 0.25
 bottom_radius = 0.4
 height = 0.25
 
-[node name="Node3D2" type="Node3D"]
+[sub_resource type="Gradient" id="Gradient_bb75p"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xqwt8"]
+gradient = SubResource("Gradient_bb75p")
+height = 250
+
+[sub_resource type="SphereMesh" id="SphereMesh_xqwt8"]
+radius = 0.04
+height = 0.045
+
+[node name="Note" type="Node3D"]
+script = ExtResource("1_xqwt8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 mesh = SubResource("CylinderMesh_08apm")
 skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.89, 0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -1.2544918)
+texture = SubResource("GradientTexture2D_xqwt8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018792272, 0)
+emitting = false
+amount = 15
+mesh = SubResource("SphereMesh_xqwt8")
+emission_shape = 1
+emission_sphere_radius = 0.4
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.35
+initial_velocity_max = 0.85
