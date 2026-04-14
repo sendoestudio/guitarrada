@@ -71,7 +71,7 @@ func _input(event: InputEvent) -> void:
 	var current_time : float = sync_process_animation_player.current_animation_position
 	
 	
-	if current_time > 3 || current_time < 17.5:
+	if current_time > 2.5 || current_time < 17.5:
 		#simpler implementation
 		var offset : float = fmod(current_time, 1)
 		input_arrays.append(offset)
@@ -95,13 +95,12 @@ func _on_start_audio_button_pressed() -> void:
 func _on_confirm_button_pressed() -> void:
 	Manager.set_audio_latency(audio_latency_ms)
 	Manager.set_video_latency(video_latency_ms)
-	#Manager.save_settings()
-	#update latency values
+	#call persistence method
+	
 	_call_return_scene()
 
 
 func _on_reject_button_pressed() -> void:
-	#go back to menu
 	_call_return_scene()
 
 

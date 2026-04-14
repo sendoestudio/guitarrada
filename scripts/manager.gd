@@ -26,6 +26,8 @@ var current_chart_path : String = "res://default_format.json"
 var last_song_selection_index : int = -1
 
 var tracklist : Array[Dictionary] = []
+
+const interval_beats_amount : int = 3
 #player id, selected map path
 var current_player_chart_difficulty : Dictionary[int, String] = {
 	0 : "",

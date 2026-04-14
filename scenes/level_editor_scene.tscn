@@ -1,14 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://5mi6v118a5lj"]
+[gd_scene load_steps=8 format=3 uid="uid://5mi6v118a5lj"]
 
+[ext_resource type="Script" uid="uid://7w6ufbv4ue8u" path="res://scripts/level_editor.gd" id="1_ebucd"]
 [ext_resource type="Texture2D" uid="uid://b8xh240h1gh60" path="res://icon.svg" id="1_ph7p0"]
+[ext_resource type="PackedScene" uid="uid://bl1trpd1xghce" path="res://defaults/level_editor_track_beat_marker.tscn" id="2_7mkra"]
+[ext_resource type="Script" uid="uid://bapu4rvvmaa5p" path="res://scripts/level_editor_beat_track.gd" id="2_o7ty0"]
+[ext_resource type="Script" uid="uid://ce38mjc5fa1dd" path="res://scripts/level_editor_track.gd" id="2_w7yhb"]
+[ext_resource type="PackedScene" uid="uid://da1433t2o612f" path="res://defaults/level_editor_track_empty_button.tscn" id="3_w7yhb"]
+[ext_resource type="PackedScene" uid="uid://bxi3c6sw6m4gk" path="res://defaults/level_editor_note.tscn" id="7_pdktn"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ebucd")
+track_times_display = NodePath("ScrollContainer/MarginContainer/HBoxContainer")
+main_tracks = [NodePath("ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer"), NodePath("ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2"), NodePath("ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3")]
+notes_parent = NodePath("ScrollContainer/MarginContainer/Notes")
+current_note_options_control = NodePath("NoteOptionsControl")
+duration_lineedit = NodePath("NoteOptionsControl/HBoxContainer/DurationLineEdit")
+moment_label = NodePath("NoteOptionsControl/MomentLabel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -65,29 +78,48 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 311.0
+offset_bottom = -93.0
 grow_horizontal = 2
 grow_vertical = 2
+follow_focus = true
 
-[node name="Control" type="Control" parent="ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="TrackTimes" type="Control" parent="ScrollContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+script = ExtResource("2_o7ty0")
 
-[node name="Control" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control" type="Control" parent="ScrollContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(137.05, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" parent="ScrollContainer/MarginContainer/HBoxContainer/HBoxContainer" instance=ExtResource("2_7mkra")]
+layout_mode = 2
+
+[node name="TrackTimes" type="Control" parent="ScrollContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 138.22
 offset_right = 167.0
 offset_bottom = 165.0
+tooltip_text = "Example123"
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,7 +128,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.5686275)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -104,13 +136,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control2" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control2" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 167.105
 offset_right = 195.885
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control2"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,7 +151,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control2"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control2"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -127,13 +159,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control3" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control3" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 196.73
 offset_right = 225.51
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control3"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,7 +174,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.06666667)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control3"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control3"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -150,13 +182,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control4" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control4" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 225.38
 offset_right = 254.16
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control4"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control4"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,7 +197,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control4"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control4"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -173,13 +205,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control5" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control5" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 254.025
 offset_right = 282.80646
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control5"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control5"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -188,7 +220,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.5686275)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control5"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control5"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -196,13 +228,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control6" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control6" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 282.745
 offset_right = 311.525
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control6"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control6"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -211,7 +243,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control6"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control6"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -219,13 +251,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control7" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control7" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 311.985
 offset_right = 340.765
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control7"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control7"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,7 +266,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.06666667)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control7"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control7"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -242,13 +274,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control8" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control8" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 340.02
 offset_right = 368.79993
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control8"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control8"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -257,7 +289,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control8"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control8"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -265,13 +297,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control9" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control9" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 369.149
 offset_right = 397.93045
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control9"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control9"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -280,7 +312,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.5686275)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control9"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control9"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -288,13 +320,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control10" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control10" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 397.869
 offset_right = 426.649
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control10"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control10"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -303,7 +335,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control10"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control10"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -311,13 +343,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control11" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control11" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 427.109
 offset_right = 455.88904
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control11"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control11"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -326,7 +358,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.06666667)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control11"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control11"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -334,13 +366,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control12" type="Control" parent="ScrollContainer/Control/TrackTimes"]
+[node name="Control12" type="Control" parent="ScrollContainer/MarginContainer/TrackTimes"]
 anchors_preset = 0
 offset_left = 455.144
 offset_right = 483.92395
 offset_bottom = 165.0
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/TrackTimes/Control12"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/TrackTimes/Control12"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -349,7 +381,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Label" type="Label" parent="ScrollContainer/Control/TrackTimes/Control12"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/TrackTimes/Control12"]
 layout_mode = 0
 offset_right = 28.74
 offset_bottom = 23.0
@@ -357,236 +389,203 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="TracksVBoxContainer" type="VBoxContainer" parent="ScrollContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 22.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TrackControl" type="Control" parent="ScrollContainer/Control/TracksVBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+[node name="TracksVBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(516.485, 0)
 layout_mode = 2
 
-[node name="TrackLabel" type="Label" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 178.0
-grow_vertical = 2
+[node name="Spacing" type="HBoxContainer" parent="ScrollContainer/MarginContainer/TracksVBoxContainer"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/TracksVBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_w7yhb")
+
+[node name="TrackLabel" type="Label" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(136, 0)
+layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Track 01"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 140.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer"]
+layout_direction = 2
+layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_w7yhb")]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button3" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button3" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button4" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button4" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button5" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button5" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button6" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button6" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button7" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button7" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button8" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button8" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button9" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button9" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button10" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button10" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button11" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button11" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
+[node name="Button12" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button12" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/MarginContainer/TracksVBoxContainer"]
 layout_mode = 2
+script = ExtResource("2_w7yhb")
 
-[node name="TrackControl2" type="Control" parent="ScrollContainer/Control/TracksVBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+[node name="TrackLabel" type="Label" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(136, 0)
 layout_mode = 2
-
-[node name="TrackLabel" type="Label" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 178.0
-grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 text = "Track 01"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 140.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2"]
+layout_direction = 2
+layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer" instance=ExtResource("3_w7yhb")]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button3" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button3" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button4" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button4" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button5" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button5" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button6" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button6" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button7" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button7" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button8" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button8" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button9" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button9" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button10" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button10" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button11" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button11" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
+[node name="Button12" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button12" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/MarginContainer/TracksVBoxContainer"]
 layout_mode = 2
+script = ExtResource("2_w7yhb")
 
-[node name="TrackControl3" type="Control" parent="ScrollContainer/Control/TracksVBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+[node name="TrackLabel" type="Label" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(136, 0)
 layout_mode = 2
-
-[node name="TrackLabel" type="Label" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 178.0
-grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 text = "Track 01"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 140.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3"]
+layout_direction = 2
+layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer" instance=ExtResource("3_w7yhb")]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button3" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button3" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button4" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button4" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button5" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button5" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button6" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button6" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button7" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button7" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button8" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button8" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button9" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button9" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button10" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button10" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button11" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button11" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
+[node name="Button12" type="Button" parent="ScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Button12" type="Button" parent="ScrollContainer/Control/TracksVBoxContainer/TrackControl3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Pointer" type="Control" parent="ScrollContainer/Control"]
+[node name="Pointer" type="Control" parent="ScrollContainer/MarginContainer"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control/Pointer"]
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/MarginContainer/Pointer"]
 visible = false
 layout_mode = 0
 offset_left = 135.0
@@ -594,44 +593,42 @@ offset_right = 138.0
 offset_bottom = 171.0
 color = Color(0.8392157, 0.07058824, 1, 1)
 
-[node name="Notes" type="Control" parent="ScrollContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 23.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Notes" type="Control" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/Control/Notes"]
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/MarginContainer/Notes"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 1.0
+offset_top = 25.0
 offset_right = 165.0
-offset_bottom = 40.935
+offset_bottom = 64.935
 texture = ExtResource("1_ph7p0")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="ScrollContainer/Control/Notes"]
+[node name="TextureRect4" parent="ScrollContainer/MarginContainer/Notes" instance=ExtResource("7_pdktn")]
+visible = false
+layout_mode = 0
+
+[node name="TextureRect2" type="TextureRect" parent="ScrollContainer/MarginContainer/Notes"]
 layout_mode = 0
 offset_left = 256.0
-offset_top = 51.0
+offset_top = 75.0
 offset_right = 281.0
-offset_bottom = 90.935
+offset_bottom = 114.935
 texture = ExtResource("1_ph7p0")
 expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="ScrollContainer/Control/Notes"]
+[node name="TextureRect3" type="TextureRect" parent="ScrollContainer/MarginContainer/Notes"]
 layout_mode = 0
 offset_left = 372.0
-offset_top = 2.0
+offset_top = 26.0
 offset_right = 397.0
-offset_bottom = 41.935
+offset_bottom = 65.935
 texture = ExtResource("1_ph7p0")
 expand_mode = 1
 
-[node name="TextureRect4" type="TextureRect" parent="ScrollContainer/Control/Notes/TextureRect3"]
+[node name="TextureRect4" type="TextureRect" parent="ScrollContainer/MarginContainer/Notes/TextureRect3"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 11.0
@@ -639,6 +636,11 @@ offset_right = 84.0
 offset_bottom = 32.0
 texture = ExtResource("1_ph7p0")
 expand_mode = 1
+
+[node name="Button" type="Button" parent="ScrollContainer/MarginContainer/Notes"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="FileDialog" type="FileDialog" parent="."]
 oversampling_override = 1.0
@@ -653,6 +655,13 @@ offset_top = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="MomentLabel" type="Label" parent="NoteOptionsControl"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -23.0
+offset_right = 1150.0
+horizontal_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="NoteOptionsControl"]
 layout_mode = 1
 anchors_preset = 15
@@ -662,17 +671,30 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+[node name="DurationLabel" type="Label" parent="NoteOptionsControl/HBoxContainer"]
+layout_mode = 2
+text = "Duration (in beats):"
+
+[node name="DurationLineEdit" type="LineEdit" parent="NoteOptionsControl/HBoxContainer"]
+layout_mode = 2
+virtual_keyboard_type = 2
+
+[node name="MoveButton" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Move Note"
 
-[node name="Button2" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+[node name="DurationButton" type="Button" parent="NoteOptionsControl/HBoxContainer"]
 layout_mode = 2
-text = "Add/Edit Length"
+text = "Update Duration"
 
-[node name="Button3" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+[node name="DeleteButton" type="Button" parent="NoteOptionsControl/HBoxContainer"]
 layout_mode = 2
 text = "Delete Note"
+
+[node name="CancelButton" type="Button" parent="NoteOptionsControl/HBoxContainer"]
+layout_mode = 2
+text = "Deselect Note"
 
 [node name="NotesOptionsControl2" type="Control" parent="."]
 anchors_preset = 0
@@ -696,3 +718,8 @@ text = "Copy Interval"
 [node name="Button2" type="Button" parent="NotesOptionsControl2/HBoxContainer"]
 layout_mode = 2
 text = "Delete Interval"
+
+[connection signal="text_changed" from="NoteOptionsControl/HBoxContainer/DurationLineEdit" to="." method="_on_duration_line_edit_text_changed"]
+[connection signal="pressed" from="NoteOptionsControl/HBoxContainer/DurationButton" to="." method="_on_duration_button_pressed"]
+[connection signal="pressed" from="NoteOptionsControl/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="NoteOptionsControl/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

@@ -824,7 +824,7 @@ offset_bottom = -116.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "START_AV_SYNC"
+text = "Start"
 
 [node name="CancelButton" type="Button" parent="StartControl"]
 layout_mode = 1
@@ -840,7 +840,7 @@ offset_bottom = -116.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "GO_BACK"
+text = "Go Back"
 
 [node name="Label" type="Label" parent="StartControl"]
 layout_mode = 0
@@ -915,13 +915,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -911.0
+offset_left = -576.0
 offset_top = 91.0
-offset_right = 903.0
+offset_right = 576.0
 offset_bottom = 273.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "VIDEO_SYNC_INSTRUCTION"
+theme_override_font_sizes/font_size = 32
+text = "Hit any key  when the paw hits the line"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -973,7 +973,7 @@ offset_top = 15.0
 offset_right = 1855.0
 offset_bottom = 60.0
 theme_override_font_sizes/font_size = 32
-text = "VIDEO_SYNC"
+text = "VIDEO SYNC"
 
 [node name="CancelButton" type="Button" parent="VideoControl"]
 visible = false
@@ -993,7 +993,6 @@ theme_override_font_sizes/font_size = 32
 text = "CANCEL_AV_SYNC"
 
 [node name="AudioControl" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1007,13 +1006,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -919.0
+offset_left = -576.0
 offset_top = 91.0
-offset_right = 928.0
+offset_right = 576.0
 offset_bottom = 230.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "AUDIO_SYNC_INSTRUCTION"
+theme_override_font_sizes/font_size = 32
+text = "Hit any key when you hear the claps"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -1075,7 +1074,7 @@ offset_top = 15.0
 offset_right = 1885.0
 offset_bottom = 60.0
 theme_override_font_sizes/font_size = 32
-text = "AUDIO_SYNC"
+text = "AUDIO SYNC"
 
 [node name="CancelButton" type="Button" parent="AudioControl"]
 visible = false
@@ -1095,6 +1094,7 @@ theme_override_font_sizes/font_size = 32
 text = "CANCEL_AV_SYNC"
 
 [node name="FinishControl" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1185,17 +1185,17 @@ theme_override_constants/separation = 30
 [node name="ConfirmButton" type="Button" parent="FinishControl/ResultControl/OptionsVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "CONFIRM_NEW_VALUES"
+text = "CONFIRM NEW VALUES"
 
 [node name="RejectButton" type="Button" parent="FinishControl/ResultControl/OptionsVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "QUIT_WITHOUT_SAVING"
+text = "QUIT WITHOUT SAVING"
 
 [node name="TryAgainButton" type="Button" parent="FinishControl/ResultControl/OptionsVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "START_ALL_OVER_BUTTON"
+text = "START ALL OVER"
 
 [node name="SyncProcessAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

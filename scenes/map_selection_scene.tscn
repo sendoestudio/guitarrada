@@ -193,6 +193,7 @@ layout_mode = 2
 text = "Level Editor"
 
 [node name="CreditsButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Credits"
 

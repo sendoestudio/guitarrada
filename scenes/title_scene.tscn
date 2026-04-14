@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.3553136, 0.35531354, 0.35531357, 1)
 
-[node name="TempTitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -53,10 +53,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -23.0
-offset_top = -116.0
-offset_right = 23.0
-offset_bottom = -85.0
+offset_left = -41.5
+offset_top = -162.0
+offset_right = 41.5
+offset_bottom = -109.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
@@ -68,10 +68,11 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -60.0
+offset_top = -89.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Copyright Sendo Estudio 2026
+text = "Developed by Cadu Rodrigues
+Copyright Sendo Estudio 2026
 MIT License"
 horizontal_alignment = 1
 

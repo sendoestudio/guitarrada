@@ -29,10 +29,10 @@ func _ready() -> void:
 	var info = Manager.current_map_info
 	charts = info.charts
 	
-	easy_diff_button.visible = "easy" in charts && charts.easy != null
-	medium_diff_button.visible = "medium" in charts && charts.medium != null
-	hard_diff_button.visible = "hard" in charts && charts.hard != null
-	expert_diff_button.visible = "expert" in charts && charts.expert != null
+	easy_diff_button.visible = "easy" in charts && charts.easy != null && "tracks" in charts.easy && charts.easy.tracks.size() > 0
+	medium_diff_button.visible = "medium" in charts && charts.medium != null && "tracks" in charts.medium && charts.medium.tracks.size() > 0
+	hard_diff_button.visible = "hard" in charts && charts.hard != null && "tracks" in charts.hard && charts.hard.tracks.size() > 0
+	expert_diff_button.visible = "expert" in charts && charts.expert != null && "tracks" in charts.expert && charts.expert.tracks.size() > 0
 
 	selection_vbox_container.visible = true
 	confirmed_vbox_container.visible = false

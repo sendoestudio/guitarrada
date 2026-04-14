@@ -38,6 +38,7 @@ var highest_combo
 var current_multiplier
 
 var current_map
+var current_tracks
 
 var local_index_to_track_index : Dictionary[int, int]
 #var file_index_to_track_index : Dictionary[int, int]
@@ -72,7 +73,7 @@ func _ready() -> void:
 	#var map_content = map_file.get_as_text()
 	#current_map = JSON.parse_string(map_content)
 	current_map = Manager.current_map_info.charts[map_difficulty]
-	
+	current_tracks = current_map.tracks
 	#verify tracks to see if indexes are valid
 	for i in tracks.size():
 		var track : Track = tracks[i]
@@ -82,7 +83,7 @@ func _ready() -> void:
 		track.set_track_props(tracks_velocity, visibility_time_before_hit, visibility_time_after_hit)
 		var current_track_index : int = track.track_index
 		var file_index : int = 0
-		for track_info in current_map:
+		for track_info in current_tracks:
 			if track_info.track_index == current_track_index:
 				if local_index_to_track_index.has(current_track_index):
 					print("alert: more than one track with the same index, please check it out")
@@ -118,7 +119,7 @@ func _process(delta: float) -> void:
 		verify_track(local_index_to_file_index[i], local_index_to_track_index[i], delta)
 
 func verify_track(index, track_index, time_delta):
-	if current_map.size() <= index || current_map[index] == null:
+	if current_tracks.size() <= index || current_tracks[index] == null:
 		return
 	
 	var button_name = "p"+str(player_index)+"_button_" + str(int(track_index))
@@ -137,11 +138,11 @@ func verify_track(index, track_index, time_delta):
 			stats.score = current_score
 	
 	var time_pointer = track_indexes.get(index)
-	if time_pointer == -1 || current_map[index].times.size() <= time_pointer:
+	if time_pointer == -1 || current_tracks[index].times.size() <= time_pointer:
 		send_stats()
 		return
 	
-	var note_time = current_map[index].times[time_pointer].time
+	var note_time = current_tracks[index].times[time_pointer].time
 	
 	if Input.is_action_just_pressed(button_name) && current_audio_time >= (note_time - before_error_margin) && current_audio_time <= (note_time + after_error_margin):
 		print("hit")
@@ -169,11 +170,11 @@ func verify_track(index, track_index, time_delta):
 			stats.max_combo = highest_combo
 		
 		track_indexes.set(index, time_pointer + 1)
-		if track_indexes.get(index) >=  current_map[index].times.size():
+		if track_indexes.get(index) >=  current_tracks[index].times.size():
 			track_indexes.set(index, -1)
 			send_stats()
 		
-		var length = current_map[index].times[time_pointer].duration
+		var length = current_tracks[index].times[time_pointer].duration
 		if length > 0:
 			track_hold_timers.set(track_index, length)
 	
@@ -183,7 +184,7 @@ func verify_track(index, track_index, time_delta):
 		update_stats(-1)
 		
 		track_indexes.set(index, time_pointer + 1)
-		if track_indexes.get(index) >=  current_map[index].times.size():
+		if track_indexes.get(index) >=  current_tracks[index].times.size():
 			track_indexes.set(index, -1)
 			send_stats()
 		
