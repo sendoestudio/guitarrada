@@ -7,6 +7,10 @@ var _representing_time : float
 func setup(parent : LevelEditorTrack, time : float):
 	_parent_track = parent
 	_representing_time = time
+	print(str(global_position))
 
 func _on_pressed() -> void:
 	_parent_track.create_note(_representing_time, global_position)
+
+func create_note_from_loading(duration : float) -> void:
+	_parent_track.create_note(_representing_time, global_position, duration, true)
