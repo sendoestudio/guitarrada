@@ -1,12 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://5mi6v118a5lj"]
+[gd_scene load_steps=12 format=3 uid="uid://5mi6v118a5lj"]
 
 [ext_resource type="Script" uid="uid://7w6ufbv4ue8u" path="res://scripts/level_editor.gd" id="1_ebucd"]
-[ext_resource type="Texture2D" uid="uid://b8xh240h1gh60" path="res://icon.svg" id="1_ph7p0"]
 [ext_resource type="PackedScene" uid="uid://bl1trpd1xghce" path="res://defaults/level_editor_track_beat_marker.tscn" id="2_7mkra"]
 [ext_resource type="Script" uid="uid://bapu4rvvmaa5p" path="res://scripts/level_editor_beat_track.gd" id="2_o7ty0"]
 [ext_resource type="Script" uid="uid://ce38mjc5fa1dd" path="res://scripts/level_editor_track.gd" id="2_w7yhb"]
 [ext_resource type="PackedScene" uid="uid://da1433t2o612f" path="res://defaults/level_editor_track_empty_button.tscn" id="3_w7yhb"]
-[ext_resource type="PackedScene" uid="uid://bxi3c6sw6m4gk" path="res://defaults/level_editor_note.tscn" id="7_pdktn"]
 [ext_resource type="Script" uid="uid://cpony0h84mbne" path="res://scripts/level_editor_simple_timeline.gd" id="8_rpkyd"]
 [ext_resource type="Script" uid="uid://deu8l4hdbtuln" path="res://scripts/level_editor_timeline_creation.gd" id="8_vklls"]
 [ext_resource type="Script" uid="uid://c7ken0uldmoi" path="res://scripts/level_editor_manual_timeline.gd" id="10_75mhr"]
@@ -18,7 +16,7 @@ content_margin_left = 3.0
 content_margin_right = 3.0
 bg_color = Color(0.44731838, 0, 0.04496886, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "copy_difficulty_control", "copy_difficulty_selection_optionbutton", "create_timeline_control", "default_file_dialog", "confirmation_dialog")]
+[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "timeline_pointer_colorrect", "track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "copy_difficulty_control", "copy_difficulty_selection_optionbutton", "create_timeline_control", "default_file_dialog", "confirmation_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +26,7 @@ grow_vertical = 2
 script = ExtResource("1_ebucd")
 timeline_scrollcontainer = NodePath("TimelineScrollContainer")
 chart_notes_options_control = NodePath("NotesOptionsControl")
+timeline_pointer_colorrect = NodePath("TimelineScrollContainer/MarginContainer/Pointer/PointerColorRect")
 track_times_display = NodePath("TimelineScrollContainer/MarginContainer/HBoxContainer")
 main_tracks = [NodePath("TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer"), NodePath("TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2"), NodePath("TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3")]
 notes_parent = NodePath("TimelineScrollContainer/MarginContainer/Notes")
@@ -114,7 +113,6 @@ layout_mode = 2
 text = "Quit Assistant"
 
 [node name="TimelineScrollContainer" type="ScrollContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -431,6 +429,17 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
+[node name="Pointer" type="Control" parent="TimelineScrollContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PointerColorRect" type="ColorRect" parent="TimelineScrollContainer/MarginContainer/Pointer"]
+layout_mode = 0
+offset_left = 137.0
+offset_right = 141.0
+offset_bottom = 240.0
+color = Color(0.8392157, 0.07058824, 1, 1)
+
 [node name="TracksVBoxContainer" type="VBoxContainer" parent="TimelineScrollContainer/MarginContainer"]
 custom_minimum_size = Vector2(516.485, 0)
 layout_mode = 2
@@ -622,67 +631,9 @@ layout_mode = 2
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Pointer" type="Control" parent="TimelineScrollContainer/MarginContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-
-[node name="ColorRect" type="ColorRect" parent="TimelineScrollContainer/MarginContainer/Pointer"]
-visible = false
-layout_mode = 0
-offset_left = 135.0
-offset_right = 138.0
-offset_bottom = 171.0
-color = Color(0.8392157, 0.07058824, 1, 1)
-
 [node name="Notes" type="Control" parent="TimelineScrollContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="TimelineScrollContainer/MarginContainer/Notes"]
-layout_mode = 0
-offset_left = 140.0
-offset_top = 25.0
-offset_right = 165.0
-offset_bottom = 64.935
-texture = ExtResource("1_ph7p0")
-expand_mode = 1
-
-[node name="TextureRect4" parent="TimelineScrollContainer/MarginContainer/Notes" instance=ExtResource("7_pdktn")]
-visible = false
-layout_mode = 0
-
-[node name="TextureRect2" type="TextureRect" parent="TimelineScrollContainer/MarginContainer/Notes"]
-layout_mode = 0
-offset_left = 256.0
-offset_top = 75.0
-offset_right = 281.0
-offset_bottom = 114.935
-texture = ExtResource("1_ph7p0")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="TimelineScrollContainer/MarginContainer/Notes"]
-layout_mode = 0
-offset_left = 372.0
-offset_top = 26.0
-offset_right = 397.0
-offset_bottom = 65.935
-texture = ExtResource("1_ph7p0")
-expand_mode = 1
-
-[node name="TextureRect4" type="TextureRect" parent="TimelineScrollContainer/MarginContainer/Notes/TextureRect3"]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 11.0
-offset_right = 84.0
-offset_bottom = 32.0
-texture = ExtResource("1_ph7p0")
-expand_mode = 1
-
-[node name="Button" type="Button" parent="TimelineScrollContainer/MarginContainer/Notes"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
 
 [node name="NoteOptionsControl" type="Control" parent="."]
 layout_mode = 1
@@ -1280,67 +1231,85 @@ text = "Apply"
 
 [node name="OriginLabel" type="Label" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 124.0
-offset_top = 79.0
-offset_right = 165.0
-offset_bottom = 102.0
+offset_left = 90.0
+offset_top = 97.0
+offset_right = 202.0
+offset_bottom = 120.0
 text = "Origin Interval"
 
 [node name="OriginStartLabel" type="Label" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 124.0
-offset_top = 124.0
-offset_right = 236.0
-offset_bottom = 147.0
+offset_left = 90.0
+offset_top = 142.0
+offset_right = 202.0
+offset_bottom = 165.0
 text = "Start Beat"
 
 [node name="TargetPointLabel" type="Label" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 630.0
-offset_top = 124.0
-offset_right = 742.0
-offset_bottom = 147.0
+offset_left = 778.0
+offset_top = 142.0
+offset_right = 890.0
+offset_bottom = 165.0
 text = "Start Beat"
 
 [node name="OriginEndLabel" type="Label" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 124.0
-offset_top = 180.0
-offset_right = 236.0
-offset_bottom = 203.0
+offset_left = 372.0
+offset_top = 148.0
+offset_right = 484.0
+offset_bottom = 171.0
 text = "End Beat"
 
 [node name="TargetLabel" type="Label" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 628.0
-offset_top = 79.0
-offset_right = 740.0
-offset_bottom = 102.0
+offset_left = 776.0
+offset_top = 97.0
+offset_right = 890.0
+offset_bottom = 120.0
 text = "Target Interval"
 
 [node name="OriginStartLineEdit" type="LineEdit" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 210.0
-offset_top = 124.0
-offset_right = 353.0
-offset_bottom = 155.0
+offset_left = 176.0
+offset_top = 142.0
+offset_right = 319.0
+offset_bottom = 173.0
 virtual_keyboard_type = 2
 
 [node name="TargetStartLineEdit" type="LineEdit" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 713.0
-offset_top = 124.0
-offset_right = 856.0
-offset_bottom = 155.0
+offset_left = 861.0
+offset_top = 142.0
+offset_right = 1004.0
+offset_bottom = 173.0
 virtual_keyboard_type = 2
 
 [node name="OriginEndLineEdit" type="LineEdit" parent="CopyIntervalControl"]
 layout_mode = 0
-offset_left = 210.0
-offset_top = 174.0
-offset_right = 353.0
-offset_bottom = 205.0
+offset_left = 458.0
+offset_top = 142.0
+offset_right = 601.0
+offset_bottom = 173.0
 virtual_keyboard_type = 2
+
+[node name="ExclusiveLabel" type="Label" parent="CopyIntervalControl"]
+layout_mode = 0
+offset_left = 461.0
+offset_top = 181.0
+offset_right = 602.0
+offset_bottom = 204.0
+text = "(Exclusive)"
+horizontal_alignment = 1
+
+[node name="InclusiveLabel" type="Label" parent="CopyIntervalControl"]
+layout_mode = 0
+offset_left = 178.0
+offset_top = 181.0
+offset_right = 319.0
+offset_bottom = 204.0
+text = "(Inclusive)"
+horizontal_alignment = 1
 
 [node name="CopyFromDifficultyControl" type="Control" parent="."]
 visible = false
@@ -1489,6 +1458,15 @@ offset_top = 165.0
 offset_right = 955.0
 offset_bottom = 188.0
 text = "(Exclusive)"
+horizontal_alignment = 1
+
+[node name="InclusiveLabel" type="Label" parent="DeleteIntervalControl"]
+layout_mode = 0
+offset_left = 287.0
+offset_top = 165.0
+offset_right = 428.0
+offset_bottom = 188.0
+text = "(Inclusive)"
 horizontal_alignment = 1
 
 [node name="StartLineEdit" type="LineEdit" parent="DeleteIntervalControl"]

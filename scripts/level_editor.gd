@@ -13,6 +13,9 @@ enum confirmation_options {
 
 @export var timeline_scrollcontainer : ScrollContainer
 @export var chart_notes_options_control : Control
+@export var timeline_pointer_colorrect : ColorRect
+const timeline_pointer_start_point : float = 135
+const timeline_pointer_note_width : float = 29
 
 @export var track_times_display : LevelEditorBeatTrack 
 @export var main_tracks : Array[LevelEditorTrack]
@@ -141,13 +144,20 @@ func _ready() -> void:
 	create_timeline_control.set_level_editor(self)
 	
 func _process(delta: float) -> void:
+	var change_pointer_pos : float = -1
 	if audio_stream_player.playing:
 		var audio_pos = audio_stream_player.get_playback_position()
 		audio_execution_hslider.value = audio_pos
+		change_pointer_pos = audio_pos
 		instant_lineedit.text = str(snappedf(audio_pos, 0.001))
 	elif is_dragging_instant:
 		var proposed_pos = audio_execution_hslider.value
+		change_pointer_pos = proposed_pos
 		instant_lineedit.text = str(snappedf(proposed_pos, 0.001))
+	
+	if change_pointer_pos >= 0:
+		var proportion_pos = convert_time_to_beat(change_pointer_pos) * (Manager.interval_beats_amount + 1)
+		timeline_pointer_colorrect.position.x = proportion_pos * timeline_pointer_note_width + timeline_pointer_start_point
 	
 	if is_waiting_for_load_buttons:
 		clean_notes()
@@ -283,8 +293,9 @@ func _on_delete_button_pressed() -> void:
 	_on_cancel_button_pressed()
 	
 	current_map.charts[current_difficulty_index] = current_chart
-	has_unsaved_changes = true
-
+	#has_unsaved_changes = true
+	update_file_path_display(false)
+	
 func _on_duration_button_pressed() -> void:
 	if current_note_display == null || current_note_on_chart == null || current_note_track_index == -1:
 		return
@@ -304,7 +315,10 @@ func _on_duration_button_pressed() -> void:
 	delete_timeline_notes_on_interval(time + beat_error, time + duration - (beat_error / 2), current_note_track_index)
 	
 	current_map.charts[current_difficulty_index] = current_chart
-	has_unsaved_changes = true
+	
+	update_file_path_display(false)
+	#has_unsaved_changes = true
+	#file_path_label.text = "* " + current_file_path if current_file_path != "" else "[untitled]"
 	
 
 func _on_cancel_button_pressed() -> void:
@@ -592,8 +606,8 @@ func handle_audio_file(path) -> bool:
 	#file_handler.close()
 
 
-func _on_open_file_button_pressed() -> void:
-	if has_unsaved_changes:
+func _on_open_file_button_pressed(force : bool = false) -> void:
+	if has_unsaved_changes && !force:
 		set_confirmation_type(confirmation_options.discard_changes_to_open_file)
 		confirmation_dialog.visible = true
 		confirmation_dialog.title = "Unsaved Changes"
@@ -622,8 +636,9 @@ func _on_file_dialog_file_selected(path: String) -> void:
 			map_audio_path_lineedit.text = path
 			current_map.audio = path
 	
-		has_unsaved_changes = true
-	
+		#has_unsaved_changes = true
+		update_file_path_display(false)
+		
 	if is_saving_file:
 		_save_map_to_file(path)
 		
@@ -650,8 +665,8 @@ func _on_difficulty_option_button_item_selected(index: int) -> void:
 	
 
 
-func _on_new_file_button_pressed() -> void:
-	if has_unsaved_changes:
+func _on_new_file_button_pressed(force : bool = false) -> void:
+	if has_unsaved_changes && !force:
 		set_confirmation_type(confirmation_options.discard_changes_to_new_file)
 		confirmation_dialog.visible = true
 		confirmation_dialog.title = "Unsaved Changes"
@@ -729,16 +744,18 @@ func _save_map_to_file(path : String) -> void:
 	current_file_path = path
 	file_path_label.text = current_file_path
 	
-	has_unsaved_changes = false
-
+	#has_unsaved_changes = false
+	update_file_path_display(true)
 
 func _on_title_line_edit_text_changed(new_text: String) -> void:
 	current_map.title = new_text
-	has_unsaved_changes = true
+	#has_unsaved_changes = true
+	update_file_path_display(false)
 
 func _on_artist_line_edit_text_changed(new_text: String) -> void:
 	current_map.artist = new_text
-	has_unsaved_changes = true
+	#has_unsaved_changes = true
+	update_file_path_display(false)
 
 func _on_preview_start_line_edit_text_changed(new_text: String) -> void:
 	if new_text.is_valid_float():
@@ -746,7 +763,8 @@ func _on_preview_start_line_edit_text_changed(new_text: String) -> void:
 	else:
 		map_audio_preview_start_lineedit.text = str(current_map.audio_preview_start)
 	
-	has_unsaved_changes = true
+	#has_unsaved_changes = true
+	update_file_path_display(false)
 
 func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInterval]):
 	if bpm_intervals.size() > 1:
@@ -772,7 +790,8 @@ func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInte
 	
 	copy_difficulty_selection_optionbutton.selected = -1
 	
-	has_unsaved_changes = true
+	#has_unsaved_changes = true
+	update_file_path_display(false)
 	#build_timeline(current_map.beats, current_map.strong_beats, current_chart.tracks) 
 	
 func create_timeline_from_lists(length : float, beat_list : Array[float], strong_beat_list : Array[float]):
@@ -822,7 +841,9 @@ func _on_playback_stop_button_pressed() -> void:
 	if audio_stream_player.stream != null:
 		audio_stream_player.stop()
 		_audio_previous_position = 0
+		instant_lineedit.text = "0"
 		audio_execution_hslider.value = _audio_previous_position
+		timeline_pointer_colorrect.position.x = timeline_pointer_start_point
 
 
 func _on_playback_execution_h_slider_drag_started() -> void:
@@ -859,7 +880,8 @@ func delete_timeline_notes_on_interval(start_time : float, end_time : float, tra
 	for deleting_note in deleting_display_notes:
 		notes_parent.remove_child(deleting_note)
 		
-	has_unsaved_changes = true
+	#has_unsaved_changes = true
+	update_file_path_display(false)
 
 func delete_timeline_notes():
 	for track_index in current_chart.tracks.size():
@@ -871,7 +893,8 @@ func delete_timeline_notes():
 	for deleting_note in display_notes:
 		notes_parent.remove_child(deleting_note)
 
-	has_unsaved_changes = true
+	#has_unsaved_changes = true
+	update_file_path_display(false)
 
 func _on_delete_notes_button_pressed() -> void:
 	delete_notes_interval_control.visible = true
@@ -939,11 +962,12 @@ func _on_confirmation_dialog_confirmed() -> void:
 	if danger_is_deleting_notes:
 		delete_timeline_notes()
 	elif danger_is_discarding_for_new_file:
-		has_unsaved_changes = false
-		_on_new_file_button_pressed()
+		#has_unsaved_changes = false
+		_on_new_file_button_pressed(true)
 	elif danger_is_discarding_for_open_file:
-		has_unsaved_changes = false
-		_on_open_file_button_pressed()
+		#has_unsaved_changes = false
+		#update_file_path_display(false)
+		_on_open_file_button_pressed(true)
 	elif danger_is_deleting_timeline:
 		difficulty_selection_optionbutton.selected = -1
 		
@@ -963,7 +987,8 @@ func _on_confirmation_dialog_confirmed() -> void:
 		for i in current_map.charts.keys():
 			current_map.charts[i] = null
 		
-		has_unsaved_changes = true
+		#has_unsaved_changes = true
+		update_file_path_display(false)
 	
 	set_confirmation_type(confirmation_options.none)
 	
@@ -1044,13 +1069,15 @@ func _on_copy_interval_apply_button_pressed() -> void:
 
 	for track_index in current_chart.tracks.size():
 		var origin_maps : Array[ChartTrackTime] = []
-		origin_maps = current_chart.tracks[track_index].times.filter(func(a) : return a.time >= (origin_start_time - error) && a.time <= (origin_end_time - error))
+		origin_maps = current_chart.tracks[track_index].times.filter(func(a) : return a.time >= (origin_start_time - error) && a.time <= (origin_end_time - error) )
 		for i in origin_maps.size():
 			var new_time : ChartTrackTime = ChartTrackTime.new()
-			new_time.duration = origin_maps[i].duration
 			
 			var original_point = origin_maps[i].time
 			var original_beat_point = convert_time_to_beat(original_point)
+			
+			new_time.duration = min(origin_maps[i].duration, origin_end_time - original_point)
+			
 			
 			var target_beat_point = original_beat_point + origin_target_beat_diff
 			var target_point = convert_beat_to_time(target_beat_point)
@@ -1066,7 +1093,8 @@ func _on_copy_interval_apply_button_pressed() -> void:
 	load_timeline(current_difficulty_index)
 	
 	copy_notes_interval_control.visible = false
-	has_unsaved_changes = true
+	#has_unsaved_changes = true
+	update_file_path_display(false)
 
 func validade_copy_interval_fields() -> bool:
 	var errors : int = 0
@@ -1114,3 +1142,9 @@ func _on_delete_timeline_button_pressed() -> void:
 	set_confirmation_type(confirmation_options.delete_timeline)
 	confirmation_dialog.title = "Delete Timeline"
 	confirmation_dialog.dialog_text = "Are you sure you want to delete timeline? All charting done will be deleted"
+
+func update_file_path_display(is_saved : bool):
+	has_unsaved_changes = !is_saved
+	var displaying_title = "" if is_saved else "* "
+	displaying_title += current_file_path if current_file_path != "" else "[untitled]"
+	file_path_label.text = displaying_title
