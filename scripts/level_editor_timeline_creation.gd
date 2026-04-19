@@ -34,9 +34,15 @@ func _set_visibility(index : int) -> void:
 	complex_control.visible = index == 2
 	manual_control.visible = index == 3
 
+func set_length(length : float):
+	_level_editor.set_length(length)
+
 func build_simple_timeline(bpm_interval : LevelEditorBpmInterval):
 	var interval : Array[LevelEditorBpmInterval] = [ bpm_interval ]
 	_level_editor.create_timeline_from_bpm_intervals(interval)
+
+func build_complex_timeline(bpm_intervals : Array[LevelEditorBpmInterval]):
+	_level_editor.create_timeline_from_bpm_intervals(bpm_intervals)
 
 func build_manual_timeline(length : float, beats_string : Array[float], strong_beats_string : Array[float],):
 	_level_editor.create_timeline_from_lists(length, beats_string, strong_beats_string)

@@ -23,10 +23,18 @@ func clean_fields() -> void:
 func validade_fields() -> bool:
 	var errors : int = 0
 	
+	var length : float = -1
+	var offset : float = -1
+	
 	if length_lineedit.text == "":
 		errors += 1
 	elif !length_lineedit.text.is_valid_float():
 		errors += 1
+	elif float(length_lineedit.text) <= 0:
+		errors += 1
+	else:
+		length = float(length_lineedit.text)
+	
 	if bpm_lineedit.text == "":
 		errors += 1
 	elif !bpm_lineedit.text.is_valid_float():
@@ -43,8 +51,14 @@ func validade_fields() -> bool:
 		errors += 1
 	elif int(signature_den_lineedit.text) <= 0:
 		errors += 1
+		
 	
 	if offset_lineedit.text != "" && !offset_lineedit.text.is_valid_float():
+		errors += 1
+	else:
+		offset = 0 if (offset_lineedit.text == "") else float(offset_lineedit.text)
+	
+	if offset >= length:
 		errors += 1
 	
 	return errors == 0
@@ -63,6 +77,7 @@ func _on_create_button_pressed() -> void:
 	bpm_interval.numerator = int(signature_num_lineedit.text)
 	bpm_interval.denominator = int(signature_den_lineedit.text)
 	
+	_timeline_creation_handler.set_length(bpm_interval.end)
 	_timeline_creation_handler.build_simple_timeline(bpm_interval)
 
 

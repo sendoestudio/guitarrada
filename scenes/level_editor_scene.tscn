@@ -18,7 +18,7 @@ content_margin_left = 3.0
 content_margin_right = 3.0
 bg_color = Color(0.44731838, 0, 0.04496886, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "create_timeline_control", "default_file_dialog")]
+[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "copy_difficulty_control", "copy_difficulty_selection_optionbutton", "create_timeline_control", "default_file_dialog", "confirmation_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,8 +55,11 @@ copy_notes_target_start_lineedit = NodePath("CopyIntervalControl/TargetStartLine
 delete_notes_interval_control = NodePath("DeleteIntervalControl")
 delete_notes_origin_start_lineedit = NodePath("DeleteIntervalControl/StartLineEdit")
 delete_notes_origin_end_lineedit = NodePath("DeleteIntervalControl/EndLineEdit")
+copy_difficulty_control = NodePath("CopyFromDifficultyControl")
+copy_difficulty_selection_optionbutton = NodePath("CopyFromDifficultyControl/DifficultyOptionButton")
 create_timeline_control = NodePath("CreateTimelineControl")
 default_file_dialog = NodePath("FileDialog")
+confirmation_dialog = NodePath("ConfirmationDialog")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -783,10 +786,10 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 
-[node name="CleanNotesButton" type="Button" parent="NotesOptionsControl/DangerHBoxContainer"]
+[node name="DeleteNotesButton" type="Button" parent="NotesOptionsControl/DangerHBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_pdktn")
-text = "Clean Existing Notes"
+text = "Delete Existing Notes"
 
 [node name="DeleteTimelineButton" type="Button" parent="NotesOptionsControl/DangerHBoxContainer"]
 layout_mode = 2
@@ -874,6 +877,7 @@ offset_bottom = 145.0
 text = "Find File"
 
 [node name="CreateTimelineControl" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_top = 271.0
 offset_right = 1150.0
@@ -1085,7 +1089,6 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 
 [node name="Control" parent="CreateTimelineControl/Complex/IntervalsScrollContainer/VBoxContainer" instance=ExtResource("11_3a03e")]
-visible = false
 layout_mode = 2
 
 [node name="Manual" type="Control" parent="CreateTimelineControl"]
@@ -1339,6 +1342,87 @@ offset_right = 353.0
 offset_bottom = 205.0
 virtual_keyboard_type = 2
 
+[node name="CopyFromDifficultyControl" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -340.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CopyFromDifficultyControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.26657522, 0.2665752, 0.2665752, 1)
+
+[node name="TitleLabel" type="Label" parent="CopyFromDifficultyControl"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 26.0
+offset_right = 132.0
+offset_bottom = 49.0
+text = "Copy From Difficulty"
+
+[node name="CancelButton" type="Button" parent="CopyFromDifficultyControl"]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 242.0
+offset_right = 465.0
+offset_bottom = 273.0
+text = "Cancel"
+
+[node name="ApplyButton" type="Button" parent="CopyFromDifficultyControl"]
+layout_mode = 0
+offset_left = 668.0
+offset_top = 242.0
+offset_right = 763.0
+offset_bottom = 273.0
+text = "Apply"
+
+[node name="DifficultyLabel" type="Label" parent="CopyFromDifficultyControl"]
+layout_mode = 0
+offset_left = 341.0
+offset_top = 130.0
+offset_right = 411.0
+offset_bottom = 153.0
+text = "Difficulty"
+
+[node name="DifficultyOptionButton" type="OptionButton" parent="CopyFromDifficultyControl"]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 129.0
+offset_right = 794.0
+offset_bottom = 161.0
+item_count = 4
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Expert"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="CopyFromDifficultyControl"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 22.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Important: this action it will overwrite all marks in your current timeline"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="DeleteIntervalControl" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -1398,6 +1482,15 @@ offset_right = 838.0
 offset_bottom = 153.0
 text = "End Beat"
 
+[node name="ExclusiveLabel" type="Label" parent="DeleteIntervalControl"]
+layout_mode = 0
+offset_left = 814.0
+offset_top = 165.0
+offset_right = 955.0
+offset_bottom = 188.0
+text = "(Exclusive)"
+horizontal_alignment = 1
+
 [node name="StartLineEdit" type="LineEdit" parent="DeleteIntervalControl"]
 layout_mode = 0
 offset_left = 287.0
@@ -1419,6 +1512,11 @@ oversampling_override = 1.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(300, 100)
+
 [connection signal="pressed" from="HBoxContainer/NewFileButton" to="." method="_on_new_file_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/OpenFileButton" to="." method="_on_open_file_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
@@ -1427,6 +1525,11 @@ oversampling_override = 1.0
 [connection signal="pressed" from="NoteOptionsControl/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
 [connection signal="pressed" from="NoteOptionsControl/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="item_selected" from="NotesOptionsControl/HBoxContainer/DifficultyOptionButton" to="." method="_on_difficulty_option_button_item_selected"]
+[connection signal="pressed" from="NotesOptionsControl/HBoxContainer/CopyDifficultyButton" to="." method="_on_copy_difficulty_button_pressed"]
+[connection signal="pressed" from="NotesOptionsControl/HBoxContainer/CopyNotesButton" to="." method="_on_copy_notes_button_pressed"]
+[connection signal="pressed" from="NotesOptionsControl/HBoxContainer/DeleteNotesButton" to="." method="_on_delete_notes_button_pressed"]
+[connection signal="pressed" from="NotesOptionsControl/DangerHBoxContainer/DeleteNotesButton" to="." method="_on_delete_all_notes_button_pressed"]
+[connection signal="pressed" from="NotesOptionsControl/DangerHBoxContainer/DeleteTimelineButton" to="." method="_on_delete_timeline_button_pressed"]
 [connection signal="text_changed" from="MapPropertiesControl/TitleLineEdit" to="." method="_on_title_line_edit_text_changed"]
 [connection signal="text_changed" from="MapPropertiesControl/ArtistLineEdit" to="." method="_on_artist_line_edit_text_changed"]
 [connection signal="text_changed" from="MapPropertiesControl/PreviewStartLineEdit" to="." method="_on_preview_start_line_edit_text_changed"]
@@ -1436,6 +1539,8 @@ oversampling_override = 1.0
 [connection signal="pressed" from="CreateTimelineControl/VBoxContainer/ManualTimelineButton" to="CreateTimelineControl" method="_on_manual_timeline_button_pressed"]
 [connection signal="pressed" from="CreateTimelineControl/Simple/CreateButton" to="CreateTimelineControl/Simple" method="_on_create_button_pressed"]
 [connection signal="pressed" from="CreateTimelineControl/Simple/CancelButton" to="CreateTimelineControl/Simple" method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="CreateTimelineControl/Complex/CreateButton" to="CreateTimelineControl/Complex" method="_on_create_button_pressed"]
+[connection signal="pressed" from="CreateTimelineControl/Complex/CancelButton" to="CreateTimelineControl/Complex" method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="CreateTimelineControl/Manual/CreateButton" to="CreateTimelineControl/Manual" method="_on_create_button_pressed"]
 [connection signal="pressed" from="CreateTimelineControl/Manual/CancelButton" to="CreateTimelineControl/Manual" method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="PlaybackControl/MarginContainer/HBoxContainer/PlayButton" to="." method="_on_playback_play_button_pressed"]
@@ -1443,4 +1548,12 @@ oversampling_override = 1.0
 [connection signal="pressed" from="PlaybackControl/MarginContainer/HBoxContainer/StopButton" to="." method="_on_playback_stop_button_pressed"]
 [connection signal="drag_ended" from="PlaybackControl/MarginContainer/HBoxContainer/ExecutionHSlider" to="." method="_on_playback_execution_h_slider_drag_ended"]
 [connection signal="drag_started" from="PlaybackControl/MarginContainer/HBoxContainer/ExecutionHSlider" to="." method="_on_playback_execution_h_slider_drag_started"]
+[connection signal="pressed" from="CopyIntervalControl/CancelButton" to="." method="_on_copy_interval_cancel_button_pressed"]
+[connection signal="pressed" from="CopyIntervalControl/ApplyButton" to="." method="_on_copy_interval_apply_button_pressed"]
+[connection signal="pressed" from="CopyFromDifficultyControl/CancelButton" to="." method="_on_copy_difficulty_cancel_button_pressed"]
+[connection signal="pressed" from="CopyFromDifficultyControl/ApplyButton" to="." method="_on_copy_difficulty_apply_button_pressed"]
+[connection signal="pressed" from="DeleteIntervalControl/CancelButton" to="." method="_on_delete_interval_cancel_button_pressed"]
+[connection signal="pressed" from="DeleteIntervalControl/ApplyButton" to="." method="_on_delete_interval_apply_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

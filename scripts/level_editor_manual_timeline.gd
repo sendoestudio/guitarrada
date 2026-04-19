@@ -81,4 +81,5 @@ func _on_create_button_pressed() -> void:
 	for j in strong_beats_string_list:
 		strong_beats_list.append(float(j))
 	
+	_timeline_creation_handler.set_length(length)
 	_timeline_creation_handler.build_manual_timeline(length, beats_list, strong_beats_list)

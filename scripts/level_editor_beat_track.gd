@@ -77,5 +77,5 @@ func is_strong_beat(current_time, strong_list, error = 0.005) -> bool:
 		elif i >= current_time - (error * 3):
 			break
 		
-	print(response)
+	#print(response)
 	return response

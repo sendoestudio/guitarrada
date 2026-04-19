@@ -3,6 +3,14 @@ class_name LevelEditor
 
 const note_path : String = "res://defaults/level_editor_note.tscn"
 
+enum confirmation_options {
+	none,
+	delete_all_notes,
+	delete_timeline,
+	discard_changes_to_new_file,
+	discard_changes_to_open_file
+}
+
 @export var timeline_scrollcontainer : ScrollContainer
 @export var chart_notes_options_control : Control
 
@@ -30,6 +38,7 @@ var current_note : ChartTrackTime = null
 var current_note_display : LevelEditorTrackNoteButton = null
 var current_note_track_index : int = -1
 var current_note_index : int = -1
+var current_note_on_chart
 var current_difficulty_index : String = ""
 var current_file_name : String = ""
 
@@ -61,13 +70,23 @@ var is_dragging_instant : bool = false
 @export var delete_notes_origin_start_lineedit : LineEdit
 @export var delete_notes_origin_end_lineedit : LineEdit
 
+@export var copy_difficulty_control : Control
+@export var copy_difficulty_selection_optionbutton : OptionButton
+
 @export var create_timeline_control : LevelEditorTimelineCreation
 
 
 @export var default_file_dialog : FileDialog
+@export var confirmation_dialog : ConfirmationDialog
+
 var is_loading_file : bool = false
 var is_saving_file : bool = false
 var is_loading_audio : bool = false
+
+var danger_is_deleting_timeline : bool = false
+var danger_is_deleting_notes : bool = false
+var danger_is_discarding_for_new_file : bool = false
+var danger_is_discarding_for_open_file : bool = false
 
 var has_unsaved_changes : bool = false
 
@@ -107,6 +126,13 @@ func _ready() -> void:
 	create_timeline_control.visible = false
 	map_properties_control.visible = false
 	audio_play_control.visible = false
+	
+	delete_notes_interval_control.visible = false
+	copy_notes_interval_control.visible = false
+	copy_difficulty_control.visible = false
+	
+	default_file_dialog.visible = false
+	confirmation_dialog.visible = false
 	
 	is_saving_file = false
 	is_loading_audio = false
@@ -163,7 +189,7 @@ func _create_strong_beats_from_bpm(num : int, den : int, bpm : float, length : f
 	var strong_beats : Array[float] = []
 	
 	var bpm_interval =  60.0 / bpm
-	var strong_beat_interval = bpm_interval * num * (float(num) / den)
+	var strong_beat_interval = bpm_interval * float(num)
 	
 	var strong_beat_amount = roundi((length - offset) / strong_beat_interval)
 	
@@ -206,7 +232,8 @@ func create_note_at_spot(pos : Vector2, inner_index : int, time : float, duratio
 	note_instance.set_info(self, time, inner_index, duration)
 	
 	if duration > 0:
-		pass
+		var beat_percentage = convert_duration_to_beat(time, duration)
+		note_instance.set_duration_display(beat_percentage)
 	
 	if !is_loading:
 		var new_time : ChartTrackTime = ChartTrackTime.new()
@@ -234,7 +261,7 @@ func select_note(note_object : LevelEditorTrackNoteButton ) -> void:
 	
 	var found_node = current_chart.tracks[note_track].times.filter(func(a) : return a.time >= note_time - error && a.time <= note_time + error)
 	if found_node.size() == 1:
-		current_note_index = current_chart.tracks[note_track].times.find(found_node[0])
+		current_note_on_chart = found_node[0]
 
 	current_note_options_control.visible = true
 	if note_duration > 0:
@@ -246,49 +273,55 @@ func select_note(note_object : LevelEditorTrackNoteButton ) -> void:
 
 
 func _on_delete_button_pressed() -> void:
-	if current_note_display == null || current_note_index == -1 || current_note_track_index == -1:
+	if current_note_display == null || current_note_on_chart == null || current_note_track_index == -1:
 		return
 	
-	current_chart.tracks[current_note_track_index].times.remove_at(current_note_index)
+	current_chart.tracks[current_note_track_index].times.erase(current_note_on_chart)
 	notes_parent.remove_child(current_note_display)
 	current_note_display.queue_free()
 
 	_on_cancel_button_pressed()
 	
 	current_map.charts[current_difficulty_index] = current_chart
+	has_unsaved_changes = true
 
 func _on_duration_button_pressed() -> void:
-	if current_note_display == null || current_note_index == -1 || current_note_track_index == -1:
+	if current_note_display == null || current_note_on_chart == null || current_note_track_index == -1:
 		return
 		
-	var beat_percentage = float(_previous_duration_lineedit_value)
+	var beat_percentage = float(duration_lineedit.text)
 	
 	#validate before applying
-	var time = current_chart.tracks[current_note_track_index].times[current_note_index].time
+	var time = current_note_on_chart.time
 	current_note_display.set_duration_display(beat_percentage)
 	var duration = convert_beat_to_duration(time, beat_percentage)
 	
 	current_note_display.set_duration(duration)
-	current_chart.tracks[current_note_track_index].times[current_note_index].duration = duration
-	#call method to clean interval
+	var find_note_index = current_chart.tracks[current_note_track_index].times.find(current_note_on_chart)
+	current_chart.tracks[current_note_track_index].times[find_note_index].duration = duration
+
+	var beat_error = (duration / beat_percentage) / float(Manager.interval_beats_amount + 1.0)
+	delete_timeline_notes_on_interval(time + beat_error, time + duration - (beat_error / 2), current_note_track_index)
 	
 	current_map.charts[current_difficulty_index] = current_chart
+	has_unsaved_changes = true
 	
 
 func _on_cancel_button_pressed() -> void:
 	current_note_display = null
 	current_note_index = -1
 	current_note_track_index = -1
+	current_note_on_chart = null
 	current_note_options_control.visible = false
 
 
 func _on_duration_line_edit_text_changed(new_text: String) -> void:
 	if new_text == "":
-		_previous_duration_lineedit_value = "0"
-	elif new_text.is_valid_float():
-		_previous_duration_lineedit_value = new_text
+		duration_lineedit.text = "0"
+	elif !new_text.is_valid_float():
+		duration_lineedit.text = _previous_duration_lineedit_value
 	
-	duration_lineedit.text = _previous_duration_lineedit_value
+	_previous_duration_lineedit_value = duration_lineedit.text
 
 func convert_beat_to_duration(start_point : float, beats : float) -> float:
 	var response : float = 0.0
@@ -363,8 +396,35 @@ func convert_duration_to_beat(start_point : float, duration : float) -> float:
 	response = end_beat_index - start_beat_index
 	return response
 
-func calculate_note_duration() -> void:
-	pass
+func convert_beat_to_time(beat : float) -> float:
+	var response : float
+	var error : float = 0.001
+	
+	var absolute_beat = floori(beat)
+	response = current_beat_list[absolute_beat]
+	
+	if (beat - absolute_beat) > error:
+		var difference = beat - absolute_beat
+		response += (current_beat_list[absolute_beat + 1] -  current_beat_list[absolute_beat]) * difference
+	
+	return response
+
+func convert_time_to_beat(time : float) -> float:
+	var response : float
+	var error : float = 0.0025
+	
+	var before_beats = current_beat_list.filter(func(a) : return a <= time + 0.001)
+	response = before_beats.size() - 1
+	
+	if (time - current_beat_list[roundi(response)]) > error:
+		var diff = time - current_beat_list[roundi(response)]
+		var interval = current_beat_list[roundi(response) + 1] - current_beat_list[roundi(response)]
+		response += diff / interval
+	
+	return response
+
+#func calculate_note_duration() -> void:
+	#pass
 
 
 func fill_properties_fields() -> void:
@@ -493,7 +553,8 @@ func build_timeline(beats : Array[float], strong_beats : Array[float], tracks : 
 			main_tracks[index].create_track(beats)
 	is_waiting_for_load_buttons = true
 	
-	
+	current_beat_list = beats
+	current_strong_beat_list = strong_beats
 
 func handle_audio_file(path) -> bool:
 	var has_loaded_audio : bool = false
@@ -513,28 +574,31 @@ func handle_audio_file(path) -> bool:
 	
 	return has_loaded_audio
 
-func save_map(path) -> void:
-	if path == "":
-		return
-		
-	current_map.charts[current_difficulty_index] = current_chart
-	
-	
-	
-	var json_file = JSON.stringify(JSON.from_native(current_map, true))
-	print(str(json_file))
-	
-	var file_handler = FileAccess.open(path, FileAccess.WRITE)
-	
-	#file_handler.store_string(json_file)
-	file_handler.store_string(file_handler)
-	file_handler.close()
+#func save_map(path) -> void:
+	#if path == "":
+		#return
+		#
+	#current_map.charts[current_difficulty_index] = current_chart
+	#
+	#
+	#
+	#var json_file = JSON.stringify(JSON.from_native(current_map, true))
+	#print(str(json_file))
+	#
+	#var file_handler = FileAccess.open(path, FileAccess.WRITE)
+	#
+	##file_handler.store_string(json_file)
+	#file_handler.store_string(file_handler)
+	#file_handler.close()
 
 
 func _on_open_file_button_pressed() -> void:
 	if has_unsaved_changes:
-		#handle
-		pass
+		set_confirmation_type(confirmation_options.discard_changes_to_open_file)
+		confirmation_dialog.visible = true
+		confirmation_dialog.title = "Unsaved Changes"
+		confirmation_dialog.dialog_text = "Are you sure you want to discard all unsaved changes to the current map?"
+		return
 	
 	is_saving_file = false
 	is_loading_audio = false
@@ -558,6 +622,8 @@ func _on_file_dialog_file_selected(path: String) -> void:
 			map_audio_path_lineedit.text = path
 			current_map.audio = path
 	
+		has_unsaved_changes = true
+	
 	if is_saving_file:
 		_save_map_to_file(path)
 		
@@ -566,15 +632,16 @@ func _on_difficulty_option_button_item_selected(index: int) -> void:
 	if current_map.beats.size() == 0:
 		return
 	
-	var difficulty : String = ""
-	if index == 0:
-		difficulty = "easy"
-	elif index == 1:
-		difficulty = "medium"
-	elif index == 2:
-		difficulty = "hard"
-	elif index == 3:
-		difficulty = "expert"
+	var difficulty : String = Manager.difficulties[index]
+	#""
+	#if index == 0:
+		#difficulty = "easy"
+	#elif index == 1:
+		#difficulty = "medium"
+	#elif index == 2:
+		#difficulty = "hard"
+	#elif index == 3:
+		#difficulty = "expert"
 		
 	if difficulty != "":
 		current_chart = current_map.charts[difficulty]
@@ -584,6 +651,13 @@ func _on_difficulty_option_button_item_selected(index: int) -> void:
 
 
 func _on_new_file_button_pressed() -> void:
+	if has_unsaved_changes:
+		set_confirmation_type(confirmation_options.discard_changes_to_new_file)
+		confirmation_dialog.visible = true
+		confirmation_dialog.title = "Unsaved Changes"
+		confirmation_dialog.dialog_text = "Are you sure you want to discard all unsaved changes to the current map?"
+		return
+	
 	load_file("")
 
 
@@ -654,21 +728,25 @@ func _save_map_to_file(path : String) -> void:
 	
 	current_file_path = path
 	file_path_label.text = current_file_path
+	
+	has_unsaved_changes = false
 
 
 func _on_title_line_edit_text_changed(new_text: String) -> void:
 	current_map.title = new_text
-
+	has_unsaved_changes = true
 
 func _on_artist_line_edit_text_changed(new_text: String) -> void:
 	current_map.artist = new_text
-
+	has_unsaved_changes = true
 
 func _on_preview_start_line_edit_text_changed(new_text: String) -> void:
 	if new_text.is_valid_float():
 		current_map.audio_preview_start = float(new_text)
 	else:
 		map_audio_preview_start_lineedit.text = str(current_map.audio_preview_start)
+	
+	has_unsaved_changes = true
 
 func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInterval]):
 	if bpm_intervals.size() > 1:
@@ -691,12 +769,18 @@ func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInte
 	
 	chart_notes_options_control.visible = true
 	create_timeline_control.visible = false
+	
+	copy_difficulty_selection_optionbutton.selected = -1
+	
+	has_unsaved_changes = true
 	#build_timeline(current_map.beats, current_map.strong_beats, current_chart.tracks) 
 	
 func create_timeline_from_lists(length : float, beat_list : Array[float], strong_beat_list : Array[float]):
 	current_map.length = length
 	current_map.beats = beat_list
 	current_map.strong_beats = strong_beat_list
+	
+	copy_difficulty_selection_optionbutton.selected = -1
 	
 	chart_notes_options_control.visible = true
 	create_timeline_control.visible = false
@@ -754,3 +838,279 @@ func _on_playback_execution_h_slider_drag_ended(value_changed: bool) -> void:
 			var current_position = audio_execution_hslider.value
 			audio_stream_player.play(current_position)
 		is_dragging_instant = false
+
+
+func delete_timeline_notes_on_interval(start_time : float, end_time : float, track : int = -1) -> void:
+	if end_time <= start_time:
+		return
+		
+	var error = 0.001
+	for track_index in current_chart.tracks.size():
+		if track != -1 && track != track_index:
+			continue
+		var deleting_times = current_chart.tracks[track_index].times.filter(func(a) : return a.time >= start_time - error && a.time < end_time - error)
+		for deleting_time in deleting_times:
+			current_chart.tracks[track_index].times.erase(deleting_time)
+		
+	current_map.charts[current_difficulty_index] = current_chart
+		
+	var display_notes = notes_parent.get_children()
+	var deleting_display_notes = display_notes.filter(func(a) : return  a._time >= start_time - error && a._time <= end_time + error && (track == -1 || track == a._track_index))
+	for deleting_note in deleting_display_notes:
+		notes_parent.remove_child(deleting_note)
+		
+	has_unsaved_changes = true
+
+func delete_timeline_notes():
+	for track_index in current_chart.tracks.size():
+		current_chart.tracks[track_index].times.clear()
+		
+	current_map.charts[current_difficulty_index] = current_chart
+	
+	var display_notes = notes_parent.get_children()
+	for deleting_note in display_notes:
+		notes_parent.remove_child(deleting_note)
+
+	has_unsaved_changes = true
+
+func _on_delete_notes_button_pressed() -> void:
+	delete_notes_interval_control.visible = true
+	delete_notes_origin_start_lineedit.text = ""
+	delete_notes_origin_end_lineedit.text = ""
+
+func _on_copy_notes_button_pressed() -> void:
+	copy_notes_interval_control.visible = true
+	copy_notes_origin_start_lineedit.text = ""
+	copy_notes_origin_end_lineedit.text = ""
+	copy_notes_target_start_lineedit.text = ""
+
+func _on_copy_difficulty_button_pressed() -> void:
+	copy_difficulty_control.visible = true
+	copy_difficulty_selection_optionbutton.selected = -1
+	for i in copy_difficulty_selection_optionbutton.item_count:
+		var diff_index = Manager.difficulties[i]
+		copy_difficulty_selection_optionbutton.set_item_disabled(i, diff_index == current_difficulty_index)
+
+func _on_delete_interval_cancel_button_pressed() -> void:
+	delete_notes_interval_control.visible = false
+
+
+func _on_delete_interval_apply_button_pressed() -> void:
+	if !validate_delete_interval_fields():
+		return
+	
+	var start_beat = float(delete_notes_origin_start_lineedit.text)
+	var end_beat = float(delete_notes_origin_end_lineedit.text)
+	
+	var start_time = convert_beat_to_time(start_beat)
+	var end_time = convert_beat_to_time(end_beat)
+	
+	delete_timeline_notes_on_interval(start_time, end_time)
+	
+	delete_notes_interval_control.visible = false
+
+func validate_delete_interval_fields() -> bool:
+	var errors = 0
+	
+	var start : float = -1
+	var end : float = -1
+	
+	if delete_notes_origin_start_lineedit.text == "":
+		errors += 1
+	elif !delete_notes_origin_start_lineedit.text.is_valid_float():
+		errors += 1
+	else:
+		start = float(delete_notes_origin_start_lineedit.text)
+	
+	if delete_notes_origin_end_lineedit.text == "":
+		errors += 1
+	elif !delete_notes_origin_end_lineedit.text.is_valid_float():
+		errors += 1
+	else:
+		end = float(delete_notes_origin_end_lineedit.text)
+		
+	if end <= start:
+		errors += 1
+	
+	return errors == 0
+
+
+func _on_confirmation_dialog_confirmed() -> void:
+	if danger_is_deleting_notes:
+		delete_timeline_notes()
+	elif danger_is_discarding_for_new_file:
+		has_unsaved_changes = false
+		_on_new_file_button_pressed()
+	elif danger_is_discarding_for_open_file:
+		has_unsaved_changes = false
+		_on_open_file_button_pressed()
+	elif danger_is_deleting_timeline:
+		difficulty_selection_optionbutton.selected = -1
+		
+		timeline_scrollcontainer.visible = false
+		create_timeline_control.visible = true
+		create_timeline_control.reset()
+		chart_notes_options_control.visible = false
+		
+		current_beat_list = []
+		current_strong_beat_list = []
+		
+		current_map.beats = []
+		current_map.strong_beats = []
+		
+		current_difficulty_index = ""
+		current_chart = null
+		for i in current_map.charts.keys():
+			current_map.charts[i] = null
+		
+		has_unsaved_changes = true
+	
+	set_confirmation_type(confirmation_options.none)
+	
+
+func _on_confirmation_dialog_canceled() -> void:
+	confirmation_dialog.visible = false
+	set_confirmation_type(confirmation_options.none)
+
+func _on_delete_all_notes_button_pressed() -> void:
+	confirmation_dialog.visible = true
+	set_confirmation_type(confirmation_options.delete_all_notes)
+	confirmation_dialog.title = "Delete Notes"
+	confirmation_dialog.dialog_text = "Are you sure you want to delete all notes from " + current_difficulty_index.to_upper() + " difficulty?"
+
+func set_confirmation_type(option : confirmation_options):
+	danger_is_deleting_notes = option == confirmation_options.delete_all_notes
+	danger_is_discarding_for_new_file = option == confirmation_options.discard_changes_to_new_file
+	danger_is_discarding_for_open_file = option == confirmation_options.discard_changes_to_open_file
+	danger_is_deleting_timeline = option == confirmation_options.delete_timeline
+
+func set_length(length : float):
+	current_map.length = length
+
+
+func _on_copy_difficulty_cancel_button_pressed() -> void:
+	copy_difficulty_control.visible = false
+
+
+func _on_copy_difficulty_apply_button_pressed() -> void:
+	var index = copy_difficulty_selection_optionbutton.selected
+	
+	if index == -1 || !Manager.difficulties.has(index):
+		return
+	
+	var difficulty = Manager.difficulties[index]
+	
+	if difficulty == current_difficulty_index:
+		return
+	
+	var ref_tracks : Array[ChartTrack] = current_map.charts[difficulty].tracks
+	
+	clean_notes()
+	
+	for track_index in current_chart.tracks.size():
+		current_chart.tracks[track_index].times.append_array(ref_tracks[track_index].times)
+	current_map.charts[current_difficulty_index] = current_chart
+	
+	load_timeline(current_difficulty_index)
+	
+	copy_difficulty_control.visible = false
+
+
+func _on_copy_interval_cancel_button_pressed() -> void:
+	copy_notes_interval_control.visible = false
+
+
+func _on_copy_interval_apply_button_pressed() -> void:
+	if !validade_copy_interval_fields():
+		return
+	
+	var upcoming_chart : Chart = Chart.new() 
+	upcoming_chart.tracks = []
+	
+	var error : float = 0.001
+	var origin_start_beat : float = float(copy_notes_origin_start_lineedit.text)
+	var origin_end_beat : float = float(copy_notes_origin_end_lineedit.text)
+	var target_start_beat : float = float(copy_notes_target_start_lineedit.text)
+	
+	var origin_target_beat_diff = target_start_beat - origin_start_beat
+	
+	var origin_start_time : float = convert_beat_to_time(origin_start_beat)
+	var origin_end_time : float = convert_beat_to_time(origin_end_beat)
+	
+	var target_start_time : float = convert_beat_to_time(target_start_beat)
+	var target_end_time : float = convert_beat_to_time(origin_end_beat + origin_target_beat_diff)
+
+	delete_timeline_notes_on_interval(target_start_time, target_end_time)
+
+	for track_index in current_chart.tracks.size():
+		var origin_maps : Array[ChartTrackTime] = []
+		origin_maps = current_chart.tracks[track_index].times.filter(func(a) : return a.time >= (origin_start_time - error) && a.time <= (origin_end_time - error))
+		for i in origin_maps.size():
+			var new_time : ChartTrackTime = ChartTrackTime.new()
+			new_time.duration = origin_maps[i].duration
+			
+			var original_point = origin_maps[i].time
+			var original_beat_point = convert_time_to_beat(original_point)
+			
+			var target_beat_point = original_beat_point + origin_target_beat_diff
+			var target_point = convert_beat_to_time(target_beat_point)
+			new_time.time = target_point
+			current_chart.tracks[track_index].times.append(new_time)
+		
+		#current_chart.tracks[track_index].times.append_array(origin_maps)
+		current_chart.tracks[track_index].times.sort_custom(func(a, b) : return a.time < b.time)
+		#upcoming_chart.tracks.append(origin_maps)
+	
+	current_map.charts[current_difficulty_index] = current_chart
+	
+	load_timeline(current_difficulty_index)
+	
+	copy_notes_interval_control.visible = false
+	has_unsaved_changes = true
+
+func validade_copy_interval_fields() -> bool:
+	var errors : int = 0
+	
+	var start : float = -1
+	var end : float = -1
+	
+	if copy_notes_origin_start_lineedit.text == "":
+		errors += 1
+	elif !copy_notes_origin_start_lineedit.text.is_valid_float():
+		errors += 1
+	else:
+		start = float(copy_notes_origin_start_lineedit.text)
+		if start < 0:
+			errors += 1
+	
+	if copy_notes_origin_end_lineedit.text == "":
+		errors += 1
+	elif !copy_notes_origin_end_lineedit.text.is_valid_float():
+		errors += 1
+	else:
+		end = float(copy_notes_origin_end_lineedit.text)
+		if end < 0:
+			errors += 1
+	
+	if copy_notes_target_start_lineedit.text == "":
+		errors += 1
+	elif !copy_notes_target_start_lineedit.text.is_valid_float():
+		errors += 1
+	else:
+		var target_start = float(copy_notes_target_start_lineedit.text)
+		if target_start < 0:
+			errors += 1
+		elif target_start >= start && target_start <= end:
+			errors += 1
+	
+	if end <= start:
+		errors += 1
+	
+	return errors == 0
+
+
+func _on_delete_timeline_button_pressed() -> void:
+	confirmation_dialog.visible = true
+	set_confirmation_type(confirmation_options.delete_timeline)
+	confirmation_dialog.title = "Delete Timeline"
+	confirmation_dialog.dialog_text = "Are you sure you want to delete timeline? All charting done will be deleted"

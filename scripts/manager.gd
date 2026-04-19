@@ -45,6 +45,13 @@ var current_player_stats : Dictionary[int, ResultStats] = {
 	1 : null
 }
 
+const difficulties : Dictionary[int, String] = {
+	0 : "easy",
+	1 : "medium",
+	2 : "hard",
+	3 : "expert"
+}
+
 var _current_time : float = -1
 var _current_audio_time : float = -1
 var _current_video_time : float = -1
