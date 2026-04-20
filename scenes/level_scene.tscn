@@ -1,0 +1,304 @@
+[gd_scene load_steps=9 format=3 uid="uid://c64xj8oeg7dgb"]
+
+[ext_resource type="Script" uid="uid://df7ggqqjob28b" path="res://scripts/level.gd" id="1_fkwfp"]
+[ext_resource type="Script" uid="uid://bk8r8mshvyrve" path="res://scripts/ui_score_testing.gd" id="2_eohcs"]
+[ext_resource type="Script" uid="uid://btgj1r6ly5g2j" path="res://scripts/player.gd" id="3_2m3ut"]
+[ext_resource type="PackedScene" uid="uid://cxio0bbr3prnf" path="res://defaults/track.tscn" id="4_ojpky"]
+[ext_resource type="Script" uid="uid://dqpf2mwgwhd6y" path="res://scripts/synesthesia_handler.gd" id="5_1lj4f"]
+[ext_resource type="Script" uid="uid://bhv563v2m05n2" path="res://scripts/level_pause.gd" id="6_eohcs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jnonn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eohcs"]
+bg_color = Color(0.34362775, 0, 0.11990497, 1)
+
+[node name="Level" type="Node3D" node_paths=PackedStringArray("audio_player")]
+script = ExtResource("1_fkwfp")
+tracks_velocity = 6.0
+visibility_time_before_hit = 3.0
+audio_player = NodePath("AudioStreamPlayer")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3834367, 6.529675)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Player1Scoring" type="Node" parent="." node_paths=PackedStringArray("level_manager", "tracks")]
+script = ExtResource("3_2m3ut")
+level_manager = NodePath("..")
+player_index = 0
+tracks = [NodePath("../Player1Tracks/Track"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3")]
+tracks_velocity = 6.0
+visibility_time_before_hit = 3.0
+
+[node name="Player1Tracks" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8482625, 0, 0)
+
+[node name="Track" parent="Player1Tracks" instance=ExtResource("4_ojpky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+
+[node name="Track2" parent="Player1Tracks" instance=ExtResource("4_ojpky")]
+track_index = 1
+main_color = Color(0, 1, 0, 1)
+
+[node name="Track3" parent="Player1Tracks" instance=ExtResource("4_ojpky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+track_index = 2
+main_color = Color(1, 0, 1, 1)
+
+[node name="Player2Scoring" type="Node" parent="." node_paths=PackedStringArray("level_manager", "tracks")]
+script = ExtResource("3_2m3ut")
+level_manager = NodePath("..")
+player_index = 1
+tracks = [NodePath("../Player2Tracks/Track"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3")]
+tracks_velocity = 6.0
+visibility_time_before_hit = 3.0
+
+[node name="Player2Tracks" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0733736, 0, 0)
+
+[node name="Track" parent="Player2Tracks" instance=ExtResource("4_ojpky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+
+[node name="Track2" parent="Player2Tracks" instance=ExtResource("4_ojpky")]
+track_index = 1
+main_color = Color(0, 1, 0, 1)
+
+[node name="Track3" parent="Player2Tracks" instance=ExtResource("4_ojpky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+track_index = 2
+main_color = Color(1, 0, 1, 1)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.711866)
+script = ExtResource("5_1lj4f")
+use_scale = true
+scale_modifier = Vector3(1, 1, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("BoxMesh_jnonn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SimpleScoreControl" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TempScoreLabel" type="Label" parent="CanvasLayer/SimpleScoreControl" node_paths=PackedStringArray("player")]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Player X
+Current Score: 0123456789
+Multiplier: 0123
+Combo: 0123"
+script = ExtResource("2_eohcs")
+player = NodePath("../../../Player1Scoring")
+
+[node name="TempScoreLabel2" type="Label" parent="CanvasLayer/SimpleScoreControl" node_paths=PackedStringArray("player")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -207.0
+offset_bottom = 75.0
+grow_horizontal = 0
+text = "Player X
+Current Score: 0123456789
+Multiplier: 0123
+Combo: 0123"
+script = ExtResource("2_eohcs")
+player = NodePath("../../../Player2Scoring")
+
+[node name="PauseControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("_level_handler")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_eohcs")
+_level_handler = NodePath("../..")
+restart_confirmation_call = true
+song_selection_confirmation_call = true
+song_resume_timer = 2.0
+
+[node name="OptionsControl" type="Control" parent="CanvasLayer/PauseControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PauseControl/OptionsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.30692267, 0.3069227, 0.3069227, 1)
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/PauseControl/OptionsControl"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "PAUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseControl/OptionsControl"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -207.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseControl/OptionsControl/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Continue"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Restart Map"
+
+[node name="SongSelectionButton" type="Button" parent="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Go Back to Song Selection"
+
+[node name="ConfirmationControl" type="Control" parent="CanvasLayer/PauseControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PauseControl/ConfirmationControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.20152658, 0.20152658, 0.20152658, 1)
+
+[node name="QuestionLabel" type="Label" parent="CanvasLayer/PauseControl/ConfirmationControl"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -139.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActionLabel" type="Label" parent="CanvasLayer/PauseControl/ConfirmationControl"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 157.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Action Name"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseControl/ConfirmationControl"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -243.0
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PauseControl/ConfirmationControl/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CancelButton" type="Button" parent="CanvasLayer/PauseControl/ConfirmationControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Cancel"
+
+[node name="ConfirmButton" type="Button" parent="CanvasLayer/PauseControl/ConfirmationControl/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_eohcs")
+text = "Confirm"
+
+[node name="CountdownControl" type="Control" parent="CanvasLayer/PauseControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundColorRect" type="ColorRect" parent="CanvasLayer/PauseControl/CountdownControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 0.29803923)
+
+[node name="CountColorRect" type="ColorRect" parent="CanvasLayer/PauseControl/CountdownControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -20.0
+offset_right = 280.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(280, 0)
+
+[connection signal="pressed" from="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer/ContinueButton" to="CanvasLayer/PauseControl" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer/RestartButton" to="CanvasLayer/PauseControl" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer/SongSelectionButton" to="CanvasLayer/PauseControl" method="_on_song_selection_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseControl/ConfirmationControl/MarginContainer/HBoxContainer/CancelButton" to="CanvasLayer/PauseControl" method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseControl/ConfirmationControl/MarginContainer/HBoxContainer/ConfirmButton" to="CanvasLayer/PauseControl" method="_on_confirm_button_pressed"]

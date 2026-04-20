@@ -5,7 +5,7 @@ const map_file_format : String = "info.json"
 
 const song_selection_path : String = "res://scenes/map_selection_scene.tscn"
 const difficulty_selection_path : String = "res://scenes/difficulty_selection_scene.tscn"
-const stage_path : String = "res://example_scene.tscn" #temp scene
+const stage_path : String = "res://scenes/level_scene.tscn"
 const result_path : String = "res://scenes/results_scene.tscn"
 const settings_path : String = "res://scenes/settings_scene.tscn"
 const av_sync_path : String = "res://scenes/latency_assist_control.tscn"

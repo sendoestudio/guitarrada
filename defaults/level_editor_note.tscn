@@ -1,19 +1,19 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxi3c6sw6m4gk"]
 
-[ext_resource type="Texture2D" uid="uid://b8xh240h1gh60" path="res://icon.svg" id="1_551l6"]
+[ext_resource type="Texture2D" uid="uid://conxmik8qnave" path="res://sprites/interface/level_editor_note_v2.png" id="1_426v6"]
 [ext_resource type="Script" uid="uid://cvmjipej1j7g6" path="res://scripts/level_editor_track_note_button.gd" id="2_426v6"]
 
 [node name="Note" type="TextureRect"]
 offset_right = 25.0
 offset_bottom = 45.0
-texture = ExtResource("1_551l6")
+texture = ExtResource("1_426v6")
 expand_mode = 1
 script = ExtResource("2_426v6")
 
 [node name="BGColorRect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_bottom = 45.0
-color = Color(0.09411765, 0.09411765, 0.09411765, 0.654902)
+color = Color(0.09411765, 0.09411765, 0.09411765, 0.27450982)
 
 [node name="DurationColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -22,6 +22,7 @@ offset_bottom = 29.0
 color = Color(0.31764707, 0.6313726, 1, 0.654902)
 
 [node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0.4745098)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

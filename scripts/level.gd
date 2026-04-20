@@ -9,6 +9,7 @@ class_name Level
 @export var tracks_velocity : float = 1
 @export var visibility_time_before_hit : float = 4
 @export var visibility_time_after_hit : float = 1
+@export var post_pause_countdown : float = 1
 
 #decide how to implement pause panel and pause warning
 
