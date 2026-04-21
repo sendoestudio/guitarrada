@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxi3c6sw6m4gk"]
 
-[ext_resource type="Texture2D" uid="uid://conxmik8qnave" path="res://sprites/interface/level_editor_note_v2.png" id="1_426v6"]
+[ext_resource type="Texture2D" uid="uid://conxmik8qnave" path="res://sprites/interface/level_editor_note.png" id="1_426v6"]
 [ext_resource type="Script" uid="uid://cvmjipej1j7g6" path="res://scripts/level_editor_track_note_button.gd" id="2_426v6"]
 
 [node name="Note" type="TextureRect"]

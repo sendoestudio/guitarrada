@@ -1,19 +1,65 @@
-[gd_scene load_steps=9 format=3 uid="uid://c64xj8oeg7dgb"]
+[gd_scene load_steps=15 format=3 uid="uid://c64xj8oeg7dgb"]
 
 [ext_resource type="Script" uid="uid://df7ggqqjob28b" path="res://scripts/level.gd" id="1_fkwfp"]
 [ext_resource type="Script" uid="uid://bk8r8mshvyrve" path="res://scripts/ui_score_testing.gd" id="2_eohcs"]
+[ext_resource type="JSON" path="res://maps/autertesting/info.json" id="2_ojpky"]
 [ext_resource type="Script" uid="uid://btgj1r6ly5g2j" path="res://scripts/player.gd" id="3_2m3ut"]
 [ext_resource type="PackedScene" uid="uid://cxio0bbr3prnf" path="res://defaults/track.tscn" id="4_ojpky"]
 [ext_resource type="Script" uid="uid://dqpf2mwgwhd6y" path="res://scripts/synesthesia_handler.gd" id="5_1lj4f"]
 [ext_resource type="Script" uid="uid://bhv563v2m05n2" path="res://scripts/level_pause.gd" id="6_eohcs"]
+[ext_resource type="Script" uid="uid://dldqaub83l7i7" path="res://scripts/combo_modifier.gd" id="7_2m3ut"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jnonn"]
+
+[sub_resource type="Animation" id="Animation_2m3ut"]
+resource_name = "enhance_on"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ojpky"]
+resource_name = "enhance_off"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ojpky"]
+_data = {
+&"enhance_off": SubResource("Animation_ojpky"),
+&"enhance_on": SubResource("Animation_2m3ut")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_ojpky"]
+radius = 0.675
+height = 1.21
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eohcs"]
 bg_color = Color(0.34362775, 0, 0.11990497, 1)
 
 [node name="Level" type="Node3D" node_paths=PackedStringArray("audio_player")]
 script = ExtResource("1_fkwfp")
+nested_level = ExtResource("2_ojpky")
+nested_difficulty = "medium"
 tracks_velocity = 6.0
 visibility_time_before_hit = 3.0
 audio_player = NodePath("AudioStreamPlayer")
@@ -29,7 +75,6 @@ level_manager = NodePath("..")
 player_index = 0
 tracks = [NodePath("../Player1Tracks/Track"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3")]
 tracks_velocity = 6.0
-visibility_time_before_hit = 3.0
 
 [node name="Player1Tracks" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8482625, 0, 0)
@@ -52,7 +97,6 @@ level_manager = NodePath("..")
 player_index = 1
 tracks = [NodePath("../Player2Tracks/Track"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3")]
 tracks_velocity = 6.0
-visibility_time_before_hit = 3.0
 
 [node name="Player2Tracks" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0733736, 0, 0)
@@ -69,14 +113,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 track_index = 2
 main_color = Color(1, 0, 1, 1)
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="SynasthesiaExample" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.711866)
 script = ExtResource("5_1lj4f")
 use_scale = true
 scale_modifier = Vector3(1, 1, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SynasthesiaExample"]
 mesh = SubResource("BoxMesh_jnonn")
+
+[node name="ComboModifier" type="Node3D" parent="." node_paths=PackedStringArray("players", "effect_animation_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.3687563)
+script = ExtResource("7_2m3ut")
+minimum_player_amount = 1
+players = [NodePath("../Player1Scoring"), NodePath("../Player2Scoring")]
+effect_animation_player = NodePath("AnimationPlayer")
+starting_animation_name = "enhance_off"
+positive_combo_animation_name = "enhance_on"
+negative_combo_animation_name = "enhance_off"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ComboModifier"]
+libraries = {
+&"": SubResource("AnimationLibrary_ojpky")
+}
+
+[node name="Items" type="Node3D" parent="ComboModifier"]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ComboModifier/Items"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.271555, 0, 0)
+mesh = SubResource("SphereMesh_ojpky")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ComboModifier/Items"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.455187, 0.93418026, -1.9033213)
+mesh = SubResource("SphereMesh_ojpky")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="ComboModifier/Items"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1454897, 3.621173, -1.9033213)
+mesh = SubResource("SphereMesh_ojpky")
+skeleton = NodePath("../..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -296,6 +373,11 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(280, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.466194, -1.279289)
+omni_range = 13.315
+omni_attenuation = 0.04
 
 [connection signal="pressed" from="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer/ContinueButton" to="CanvasLayer/PauseControl" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer/RestartButton" to="CanvasLayer/PauseControl" method="_on_restart_button_pressed"]

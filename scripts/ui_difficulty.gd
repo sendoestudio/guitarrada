@@ -17,8 +17,6 @@ func _ready() -> void:
 		song_artist_label.text = info.artist
 
 func _on_play_button_pressed() -> void:
-	pass # Replace with function body.
-	
 	Manager.go_to_stage_scene()
 
 

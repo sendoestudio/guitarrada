@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bl1trpd1xghce"]
 
-[ext_resource type="Script" uid="uid://doverydjo84fb" path="res://defaults/level_editor_beat_marker.gd" id="1_1pmem"]
+[ext_resource type="Script" uid="uid://doverydjo84fb" path="res://scripts/level_editor_beat_marker.gd" id="1_1pmem"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(25, 0)

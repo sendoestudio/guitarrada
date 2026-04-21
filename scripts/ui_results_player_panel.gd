@@ -23,7 +23,9 @@ func _ready() -> void:
 		visible = false
 		return
 	
-	placement_label.visible = false #tbi
+	var player_placement = Manager.get_player_placement(player_index)
+	placement_label.visible = player_placement != -1
+	placement_label.text = get_placement_name(player_placement)
 	
 	player_code_label.text = "Player " + str(1 + player_index)
 	var stats : ResultStats = Manager.current_player_stats[player_index]
@@ -35,3 +37,24 @@ func _ready() -> void:
 	average_value_label.text = str(stats.average_hits)
 	mistakes_value_label.text = str(stats.mistakes)
 	overclicks_value_label.text = str(stats.overclicks)
+
+func get_placement_name(pos : int) -> String:
+	if pos < 0:
+		return ""
+	
+	pos += 1
+	var response : String
+	var pos_text = str(pos)
+	
+	if pos_text.ends_with("1"):
+		response = pos_text + "st "
+	elif pos_text.ends_with("2"):
+		response = pos_text + "nd "
+	elif pos_text.ends_with("3"):
+		response = pos_text + "rd "
+	else:
+		response = pos_text + "th "
+	
+	response += "Place"
+	
+	return response

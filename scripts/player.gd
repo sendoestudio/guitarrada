@@ -1,6 +1,10 @@
 extends Node
 class_name Player
 
+signal score_updated(player_index : int, score : int, multiplier : int, combo : int)
+signal multiplier_updated
+signal combo_updated
+
 var is_working : bool
 @export var level_manager : Level
 
@@ -12,19 +16,13 @@ var is_working : bool
 @export var visibility_time_before_hit : float = 4
 @export var visibility_time_after_hit : float = 1
 
-const before_error_margin : float = 0.05
-const after_error_margin : float = 0.05
+const before_error_margin : float = 0.75
+const after_error_margin : float = 0.75
 const min_points : int = 1
 const max_points : int = 10
 const continuous_point_per_second : int = 5
 
 var multiplier_value : int = 1
-#multiplier, amount of consecutive hits
-var multiplier_rules : Dictionary[int, int] = {
-	2 : 4,
-	3 : 8,
-	4 : 12
-}
 
 var cumulative_points : float
 
@@ -51,6 +49,8 @@ var track_upcoming_times : Dictionary[int, int]
 var track_hold_timers : Dictionary[int, float]
 
 var stats : ResultStats
+
+var is_first_process_frame : bool
 
 func _ready() -> void:
 	if Manager.current_player_chart_difficulty == null || Manager.current_player_chart_difficulty.size() == 0:
@@ -101,22 +101,27 @@ func _ready() -> void:
 	if local_index_to_track_index.size() != tracks.size():
 		print("alert: the amount of tracks loaded diverge from the amount of existing tracks, please verify")
 	
-	
-	
-	multiplier_rules.sort()
-	for mult in multiplier_rules:
-		print("m: " + str(mult) + " > " + str(multiplier_rules[mult]))
+	#for mult in multiplier_rules:
+		#print("m: " + str(mult) + " > " + str(multiplier_rules[mult]))
 	current_score = 0
 	current_combo = 0
 	highest_combo = 0
 	current_multiplier = 1
-
+	
+	is_first_process_frame = true
+	
+	Manager.update_player_placement(player_index, current_score)
+	
 func _process(delta: float) -> void:
 	current_audio_time = Manager.get_current_audio_time()
 	current_video_time = Manager.get_current_video_time()
 	
 	for i in local_index_to_track_index:
 		verify_track(local_index_to_file_index[i], local_index_to_track_index[i], delta)
+	
+	if is_first_process_frame:
+		score_updated.emit(player_index, get_current_score(), current_multiplier, current_combo)
+		is_first_process_frame = false
 
 func verify_track(index, track_index, time_delta):
 	if current_tracks.size() <= index || current_tracks[index] == null:
@@ -127,15 +132,24 @@ func verify_track(index, track_index, time_delta):
 	if track_hold_timers.has(track_index) && track_hold_timers.get(track_index) > 0:
 		var timer = track_hold_timers.get(track_index)
 		timer -= time_delta
-		if Input.is_action_pressed(button_name):
-			cumulative_points += time_delta
-		else:
-			timer = 0
+		
+		if timer > 0:
+			if Input.is_action_pressed(button_name):
+				cumulative_points += time_delta * multiplier_value * continuous_point_per_second
+			else:
+				timer = 0
 			
 		if timer <= 0:
-			current_score += floori(cumulative_points * continuous_point_per_second)
+			current_score += floori(cumulative_points)
+			cumulative_points = 0
 			track_hold_timers.erase(track_index)
 			stats.score = current_score
+			send_stats()
+			
+			tracks[track_index].set_continous_end()
+	
+		track_hold_timers[track_index] = timer
+		score_updated.emit(player_index, get_current_score(), current_multiplier, current_combo)
 	
 	var time_pointer = track_indexes.get(index)
 	if time_pointer == -1 || current_tracks[index].times.size() <= time_pointer:
@@ -145,7 +159,7 @@ func verify_track(index, track_index, time_delta):
 	var note_time = current_tracks[index].times[time_pointer].time
 	
 	if Input.is_action_just_pressed(button_name) && current_audio_time >= (note_time - before_error_margin) && current_audio_time <= (note_time + after_error_margin):
-		print("hit")
+		#print("hit")
 		var negative_delta : float
 		if note_time <= current_audio_time:
 			negative_delta = (current_audio_time - note_time) / before_error_margin
@@ -160,15 +174,18 @@ func verify_track(index, track_index, time_delta):
 		
 		update_stats(delta)
 			
-		current_score += points
+		current_score += points * multiplier_value
 		stats.score = current_score
 		
 		current_combo += 1
+		current_multiplier = calculate_multiplier()
 		
 		if current_combo > highest_combo:
 			highest_combo = current_combo
 			stats.max_combo = highest_combo
 		
+		
+		tracks[track_index].set_note_hit(time_pointer)
 		track_indexes.set(index, time_pointer + 1)
 		if track_indexes.get(index) >=  current_tracks[index].times.size():
 			track_indexes.set(index, -1)
@@ -178,25 +195,39 @@ func verify_track(index, track_index, time_delta):
 		if length > 0:
 			track_hold_timers.set(track_index, length)
 	
+		score_updated.emit(player_index, get_current_score(), current_multiplier, current_combo)
+		multiplier_updated.emit()
+		combo_updated.emit()
+		
+		
 	elif current_audio_time > (note_time + after_error_margin):
-		print("miss")
+		#print("miss")
 		current_combo = 0
 		update_stats(-1)
 		
+		tracks[track_index].set_note_miss(time_pointer)
 		track_indexes.set(index, time_pointer + 1)
 		if track_indexes.get(index) >=  current_tracks[index].times.size():
 			track_indexes.set(index, -1)
 			send_stats()
 		
+		score_updated.emit(player_index, get_current_score(), current_multiplier, current_combo)
+		multiplier_updated.emit()
+		combo_updated.emit()
+		
 	elif Input.is_action_just_pressed(button_name):
 		#depends if you want to count an additional click as a mistake
 		#although I recommend using with a timer to avoid players believing the score is too harsh
 		stats.overclicks += 1
-		print("miss")
-		current_combo = 0
-
+		#print("miss")
+		#current_combo = 0
+		
+		score_updated.emit(player_index, get_current_score(), current_multiplier, current_combo)
+		multiplier_updated.emit()
+		combo_updated.emit()
+		
 func get_current_score():
-	return current_score
+	return floori(current_score + cumulative_points)
 	
 func get_current_multiplier():
 	return current_multiplier
@@ -216,3 +247,16 @@ func update_stats(delta):
 
 func send_stats():
 	Manager.current_player_stats[player_index] = stats
+	Manager.update_player_placement(player_index, current_score)
+
+func calculate_multiplier():
+	var response = 1
+	
+	if current_combo >= 12:
+		response = 4
+	elif current_combo >= 8:
+		response = 3
+	elif current_combo >= 4:
+		response = 2
+	
+	return response

@@ -19,7 +19,7 @@ const video_latency_max_limit : int = 9999
 var _video_latency : float = 0
 var _audio_latency : float = 0
 
-var current_map_path : String = "=" #change to agregator
+var current_map_path : String = "" #change to agregator
 var current_map_info : Dictionary = {}
 var current_chart_path : String = "res://default_format.json"
 
@@ -52,6 +52,9 @@ const difficulties : Dictionary[int, String] = {
 	3 : "expert"
 }
 
+var player_position_list : Array[PlayerPosition] = []
+
+#multiplier, amount of consecutive hits
 var _current_time : float = -1
 var _current_audio_time : float = -1
 var _current_video_time : float = -1
@@ -72,6 +75,7 @@ func go_to_difficulty_selection_scene() -> void:
 	_go_to_scene(difficulty_selection_path)
 	
 func go_to_stage_scene() -> void:
+	player_position_list.clear()
 	_go_to_scene(stage_path)
 
 func go_to_result_scene() -> void:
@@ -244,3 +248,36 @@ func get_beat_factor() -> float:
 
 func get_strong_beat_factor() -> float:
 	return _strong_beat_factor
+	
+func update_player_placement(player_index, score) -> void:
+	var found_player = player_position_list.find_custom(func(a) : return a.player_index == player_index)
+	if found_player == -1:
+		var new_player_position : PlayerPosition = PlayerPosition.new()
+		new_player_position.player_index = player_index
+		new_player_position.score = score
+		player_position_list.append(new_player_position)
+	else:
+		player_position_list[found_player].score = score
+	
+	player_position_list.sort_custom(func(a, b) : return a.score > b.score)
+	
+
+func get_player_placement(player_index) -> int:
+	if player_position_list.size() < 2:
+		return -1
+	
+	var found_position = player_position_list.find_custom(func(a) : return a.player_index == player_index)
+	
+	if found_position != -1:
+		var score = player_position_list[found_position].score
+		var ties : Array[PlayerPosition] = player_position_list.filter(func(a) : return a.score == score && a.player_index != player_index)
+		if ties.size() > 0:
+			player_position_list[found_position].is_tied = true
+			var highest_position : int = found_position
+			for tie in ties:
+				var pos = player_position_list.find_custom(func(a) : return a.player_index == tie.player_index)
+				if pos < highest_position:
+					highest_position = pos
+			found_position = highest_position
+	
+	return found_position
