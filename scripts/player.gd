@@ -6,7 +6,6 @@ signal multiplier_updated
 signal combo_updated
 
 var is_working : bool
-@export var level_manager : Level
 
 @export var player_index : int = -1
 
@@ -219,6 +218,8 @@ func verify_track(index, track_index, time_delta):
 		#depends if you want to count an additional click as a mistake
 		#although I recommend using with a timer to avoid players believing the score is too harsh
 		stats.overclicks += 1
+		current_combo = 0 #example: if you want to break the combo the player is overclicking
+		current_multiplier = calculate_multiplier()
 		#print("miss")
 		#current_combo = 0
 		
@@ -258,5 +259,11 @@ func calculate_multiplier():
 		response = 3
 	elif current_combo >= 4:
 		response = 2
+	
+	#in case you don't want to completely break the combo
+	#when the player makes a mistake
+	if current_combo == 0:
+		if current_multiplier > 1:
+			response = current_multiplier - 1
 	
 	return response

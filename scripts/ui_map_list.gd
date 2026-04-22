@@ -6,7 +6,7 @@ signal index_changed
 var tracklist : Array[Dictionary]
 var current_index : int = -1
 
-const map_option_pattern_path : String = "res://defaults/map_option.tscn"
+const map_option_pattern_path : String = "res://ui_patterns/ui_map_list_option.tscn"
 
 func _ready() -> void:
 	tracklist = Manager.load_tracklist(true)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4x6uaphih2hd" path="res://scripts/ui_song_selection.gd" id="1_c1vum"]
 [ext_resource type="Script" uid="uid://b8os10ca176n8" path="res://scripts/ui_map_list.gd" id="1_f3ysg"]
-[ext_resource type="PackedScene" uid="uid://b8jib8v8wpu2" path="res://defaults/map_option.tscn" id="2_v7jmv"]
+[ext_resource type="PackedScene" uid="uid://b8jib8v8wpu2" path="res://ui_patterns/ui_map_list_option.tscn" id="2_v7jmv"]
 [ext_resource type="Script" uid="uid://ceo13sloij7el" path="res://scripts/ui_selected_song_panel.gd" id="3_v7jmv"]
 
 [node name="MapSelectionScene" type="Control"]

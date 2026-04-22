@@ -69,9 +69,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3834367, 6.529675)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="Player1Scoring" type="Node" parent="." node_paths=PackedStringArray("level_manager", "tracks")]
+[node name="Player1Scoring" type="Node" parent="." node_paths=PackedStringArray("tracks")]
 script = ExtResource("3_2m3ut")
-level_manager = NodePath("..")
 player_index = 0
 tracks = [NodePath("../Player1Tracks/Track"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3")]
 tracks_velocity = 6.0
@@ -91,9 +90,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 track_index = 2
 main_color = Color(1, 0, 1, 1)
 
-[node name="Player2Scoring" type="Node" parent="." node_paths=PackedStringArray("level_manager", "tracks")]
+[node name="Player2Scoring" type="Node" parent="." node_paths=PackedStringArray("tracks")]
 script = ExtResource("3_2m3ut")
-level_manager = NodePath("..")
 player_index = 1
 tracks = [NodePath("../Player2Tracks/Track"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3")]
 tracks_velocity = 6.0
@@ -125,6 +123,7 @@ mesh = SubResource("BoxMesh_jnonn")
 [node name="ComboModifier" type="Node3D" parent="." node_paths=PackedStringArray("players", "effect_animation_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.3687563)
 script = ExtResource("7_2m3ut")
+minimum_multiplier = 2
 minimum_player_amount = 1
 players = [NodePath("../Player1Scoring"), NodePath("../Player2Scoring")]
 effect_animation_player = NodePath("AnimationPlayer")

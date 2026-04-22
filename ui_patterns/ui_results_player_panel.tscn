@@ -1,0 +1,117 @@
+[gd_scene load_steps=2 format=3 uid="uid://40ytpwp8qbyn"]
+
+[ext_resource type="Script" uid="uid://dx46cvmm2757j" path="res://scripts/ui_results_player_panel.gd" id="1_tcbbv"]
+
+[node name="P1MarginContainer" type="MarginContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_tcbbv")
+player_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlacementLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "1st Place"
+horizontal_alignment = 1
+
+[node name="PlayerCodeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "12345678"
+horizontal_alignment = 1
+
+[node name="AddInfoVBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MaxComboHBoxContainer" type="HBoxContainer" parent="VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/MaxComboHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max Combo"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/MaxComboHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="PerfectsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/PerfectsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Perfects Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/PerfectsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="GoodsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/GoodsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Good Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/GoodsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="AveragesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/AveragesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Average Hits"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/AveragesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="MistakesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/MistakesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mistakes"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/MistakesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"
+
+[node name="OverclicksHBoxContainer" type="HBoxContainer" parent="VBoxContainer/AddInfoVBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/OverclicksHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Overclicks"
+horizontal_alignment = 2
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer/AddInfoVBoxContainer/OverclicksHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234"

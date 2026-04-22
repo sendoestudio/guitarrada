@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bl5fvnfinbylt"]
 
 [ext_resource type="Script" uid="uid://c6jwqyhn823d4" path="res://scripts/ui_difficulty.gd" id="1_t2llc"]
-[ext_resource type="Script" uid="uid://5k8bwbmr4v15" path="res://scripts/ui_difficulty_selection_panel.gd" id="2_3ik6v"]
+[ext_resource type="PackedScene" uid="uid://clcd307ukj6rj" path="res://ui_patterns/ui_difficulty_selection_panel.tscn" id="2_3ik6v"]
 
 [node name="DifficultySelectionScene" type="Control"]
 layout_mode = 3
@@ -67,139 +67,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="P1MarginContainer" type="MarginContainer" parent="OptionsControl/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-script = ExtResource("2_3ik6v")
-player_index = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P1MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PlayerCodeLabel" type="Label" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Player 1"
-horizontal_alignment = 1
-
-[node name="SelectionVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer"]
+[node name="P1MarginContainer" parent="OptionsControl/HBoxContainer" instance=ExtResource("2_3ik6v")]
 layout_mode = 2
 
-[node name="DescLabel" type="Label" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer"]
+[node name="P1MarginContainer2" parent="OptionsControl/HBoxContainer" instance=ExtResource("2_3ik6v")]
 layout_mode = 2
-text = "Select Difficulty"
-horizontal_alignment = 1
-
-[node name="DiffsVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer"]
-layout_mode = 2
-
-[node name="EasyButton" type="Button" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Easy"
-
-[node name="MediumButton" type="Button" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Medium"
-
-[node name="HardButton" type="Button" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Hard"
-
-[node name="ExpertButton" type="Button" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Expert"
-
-[node name="ConfirmedVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 15
-alignment = 1
-
-[node name="ChangeButton" type="Button" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
-layout_mode = 2
-text = "Change Difficulty"
-
-[node name="DifficultyLabel" type="Label" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Difficulty"
-horizontal_alignment = 1
-
-[node name="ConfirmLabel" type="Label" parent="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "READY!"
-horizontal_alignment = 1
-
-[node name="P2MarginContainer" type="MarginContainer" parent="OptionsControl/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-script = ExtResource("2_3ik6v")
 player_index = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PlayerCodeLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Player 1"
-horizontal_alignment = 1
-
-[node name="SelectionVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="DescLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer"]
-layout_mode = 2
-text = "Select Difficulty"
-horizontal_alignment = 1
-
-[node name="DiffsVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer"]
-layout_mode = 2
-
-[node name="EasyButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Easy"
-
-[node name="MediumButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Medium"
-
-[node name="HardButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Hard"
-
-[node name="ExpertButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
-layout_mode = 2
-text = "Expert"
-
-[node name="ConfirmedVBoxContainer" type="VBoxContainer" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 15
-alignment = 1
-
-[node name="ChangeButton" type="Button" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
-layout_mode = 2
-text = "Change Difficulty"
-
-[node name="DifficultyLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Difficulty"
-horizontal_alignment = 1
-
-[node name="ConfirmLabel" type="Label" parent="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "READY!"
-horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 0
@@ -226,15 +99,5 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/EasyButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_easy_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/MediumButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_medium_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/HardButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_hard_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/ExpertButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_expert_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P1MarginContainer/VBoxContainer/ConfirmedVBoxContainer/ChangeButton" to="OptionsControl/HBoxContainer/P1MarginContainer" method="_on_change_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/EasyButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_easy_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/MediumButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_medium_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/HardButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_hard_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer/ExpertButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_expert_button_pressed"]
-[connection signal="pressed" from="OptionsControl/HBoxContainer/P2MarginContainer/VBoxContainer/ConfirmedVBoxContainer/ChangeButton" to="OptionsControl/HBoxContainer/P2MarginContainer" method="_on_change_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
