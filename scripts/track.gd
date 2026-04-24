@@ -68,7 +68,10 @@ func _process(delta: float) -> void:
 					visible_area_node_index = -1
 		
 		if invisible_area_node_index != -1:
-			if time > track_times[invisible_area_node_index].time + visibility_end_time:
+			var duration = track_times[invisible_area_node_index].duration
+			if duration <= 0:
+				duration = 0
+			if time > track_times[invisible_area_node_index].time + visibility_end_time + duration:
 				notes_parent.get_child(invisible_area_node_index).visible = false
 				invisible_area_node_index += 1
 				if invisible_area_node_index >= track_times.size():
@@ -102,6 +105,9 @@ func _process(delta: float) -> void:
 func set_track_props(velocity : float, time_before_view : float, time_afer_view : float) -> void:
 	absolute_velocity = velocity
 	track_velocity = absolute_velocity * notes_direction
+	
+	visibility_start_time = time_before_view
+	visibility_end_time = time_afer_view
 
 func set_track_notes(times) -> void:
 	if times == null:

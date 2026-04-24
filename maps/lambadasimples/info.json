@@ -1,7 +1,7 @@
 {
 	"artist": "Cadu Rodrigues",
-	"audio": "res://maps/lambadasimples/lambada simples.mp3",
-	"audio_preview_start": 0.0,
+	"audio": "res://maps/lambadasimples/lambada_simples.ogg",
+	"audio_preview_start": 27.42,
 	"beats": [
 		0.0,
 		0.428571428571429,

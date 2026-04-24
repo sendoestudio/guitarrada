@@ -12,9 +12,7 @@ func create_note(duration : float, velocity : float):
 	has_duration = duration > 0
 	continuous_center.visible = has_duration
 	if has_duration:
-		var local_scale = duration * velocity
-		continuous_mesh.scale.y = local_scale
-		continuous_mesh.position.z = -  local_scale / 2
+		continuous_center.scale.z = duration * velocity
 	
 	main_mesh.set_surface_override_material(0, StandardMaterial3D.new())
 	continuous_mesh.set_surface_override_material(0, StandardMaterial3D.new())
