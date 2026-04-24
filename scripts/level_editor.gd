@@ -8,7 +8,8 @@ enum confirmation_options {
 	delete_all_notes,
 	delete_timeline,
 	discard_changes_to_new_file,
-	discard_changes_to_open_file
+	discard_changes_to_open_file,
+	discard_changes_to_quit
 }
 
 @export var timeline_scrollcontainer : ScrollContainer
@@ -90,6 +91,7 @@ var danger_is_deleting_timeline : bool = false
 var danger_is_deleting_notes : bool = false
 var danger_is_discarding_for_new_file : bool = false
 var danger_is_discarding_for_open_file : bool = false
+var danger_is_discarding_to_quit : bool = false
 
 var has_unsaved_changes : bool = false
 
@@ -97,6 +99,7 @@ var has_unsaved_changes : bool = false
 var is_waiting_for_load_buttons : bool = false
 
 func _ready() -> void:
+	
 	if track_times_display != null:
 		track_times_display.set_level_editor(self)
 	
@@ -253,6 +256,8 @@ func create_note_at_spot(pos : Vector2, inner_index : int, time : float, duratio
 		current_chart.tracks[inner_index].times.sort_custom(func(a, b) : return a.time < b.time)
 		#print(current_chart.tracks[inner_index].times)
 		current_map.charts[current_difficulty_index] = current_chart
+		
+		update_file_path_display(false)
 
 func clean_notes() -> void:
 	for index in notes_parent.get_child_count():
@@ -267,6 +272,7 @@ func select_note(note_object : LevelEditorTrackNoteButton ) -> void:
 	var note_time = current_note_display._time
 	var note_track = current_note_display._track_index
 	var note_duration = current_note_display._duration
+	var note_beat = convert_time_to_beat(note_time)
 	current_note_track_index = note_track
 	
 	var found_node = current_chart.tracks[note_track].times.filter(func(a) : return a.time >= note_time - error && a.time <= note_time + error)
@@ -279,7 +285,7 @@ func select_note(note_object : LevelEditorTrackNoteButton ) -> void:
 	else:
 		duration_lineedit.text = "-1"
 	 #change to calculate beat
-	moment_label.text = "Time: " + str( snappedf(note_time, 0.001))
+	moment_label.text = "Track: " + str(note_track + 1) + " Beat: "+ str(note_beat) +" Time: " + str( snappedf(note_time, 0.001))
 
 
 func _on_delete_button_pressed() -> void:
@@ -417,6 +423,9 @@ func convert_beat_to_time(beat : float) -> float:
 	var absolute_beat = floori(beat)
 	response = current_beat_list[absolute_beat]
 	
+	if absolute_beat + 1 >= current_beat_list.size():
+		return response
+	
 	if (beat - absolute_beat) > error:
 		var difference = beat - absolute_beat
 		response += (current_beat_list[absolute_beat + 1] -  current_beat_list[absolute_beat]) * difference
@@ -429,6 +438,9 @@ func convert_time_to_beat(time : float) -> float:
 	
 	var before_beats = current_beat_list.filter(func(a) : return a <= time + 0.001)
 	response = before_beats.size() - 1
+	
+	if current_beat_list.size() == before_beats.size():
+		return response
 	
 	if (time - current_beat_list[roundi(response)]) > error:
 		var diff = time - current_beat_list[roundi(response)]
@@ -697,7 +709,8 @@ func _on_save_as_new_button_pressed() -> void:
 func _on_save_button_pressed() -> void:
 	if current_file_path == "":
 		_on_save_as_new_button_pressed()
-
+	else:
+		_save_map_to_file(current_file_path)
 
 func _save_map_to_file(path : String) -> void:
 	if path == "" || current_map == null:
@@ -707,7 +720,7 @@ func _save_map_to_file(path : String) -> void:
 	file_format.title = current_map.title
 	file_format.artist = current_map.artist
 	file_format.audio_preview_start = current_map.audio_preview_start
-	
+	file_format.audio = current_map.audio
 	#file_format.charts = current_map.charts
 	file_format.charts = {}
 	file_format.beats = current_map.beats
@@ -968,6 +981,8 @@ func _on_confirmation_dialog_confirmed() -> void:
 		#has_unsaved_changes = false
 		#update_file_path_display(false)
 		_on_open_file_button_pressed(true)
+	elif danger_is_discarding_to_quit:
+		_on_quit_button_pressed(true)
 	elif danger_is_deleting_timeline:
 		difficulty_selection_optionbutton.selected = -1
 		
@@ -1008,6 +1023,7 @@ func set_confirmation_type(option : confirmation_options):
 	danger_is_discarding_for_new_file = option == confirmation_options.discard_changes_to_new_file
 	danger_is_discarding_for_open_file = option == confirmation_options.discard_changes_to_open_file
 	danger_is_deleting_timeline = option == confirmation_options.delete_timeline
+	danger_is_discarding_to_quit = option == confirmation_options.discard_changes_to_quit
 
 func set_length(length : float):
 	current_map.length = length
@@ -1128,7 +1144,7 @@ func validade_copy_interval_fields() -> bool:
 		var target_start = float(copy_notes_target_start_lineedit.text)
 		if target_start < 0:
 			errors += 1
-		elif target_start >= start && target_start <= end:
+		elif target_start >= start && target_start < end:
 			errors += 1
 	
 	if end <= start:
@@ -1148,3 +1164,18 @@ func update_file_path_display(is_saved : bool):
 	var displaying_title = "" if is_saved else "* "
 	displaying_title += current_file_path if current_file_path != "" else "[untitled]"
 	file_path_label.text = displaying_title
+
+
+func _on_quit_button_pressed(force : bool = false) -> void:
+	if has_unsaved_changes && !force:
+		confirmation_dialog.visible = true
+		set_confirmation_type(confirmation_options.discard_changes_to_quit)
+		confirmation_dialog.title = "Discard Changes"
+		confirmation_dialog.dialog_text = "Are you sure you want to quit without saving the current changes?"
+	else:
+		get_tree().quit()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_on_quit_button_pressed()
+		get_tree().set_auto_accept_quit(false)

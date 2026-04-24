@@ -25,6 +25,8 @@ var current_material : StandardMaterial3D
 
 @export var notes_parent : Node3D #= $MomentsParent
 
+@export var particle_system : CPUParticles3D
+
 var track_times
 var visible_area_node_index : int = -1
 var invisible_area_node_index : int = -1
@@ -44,6 +46,11 @@ func _ready() -> void:
 	current_material = inner_display.get_active_material(0)
 	
 	turn_off_timer = 0
+	
+	#play particle systems for the first time to avoid
+	#lagging when they're played for the first time during gameplay
+	particle_system.one_shot = true
+	particle_system.emitting = true
 
 func _process(delta: float) -> void:
 	if !is_working:
@@ -95,8 +102,6 @@ func _process(delta: float) -> void:
 func set_track_props(velocity : float, time_before_view : float, time_afer_view : float) -> void:
 	absolute_velocity = velocity
 	track_velocity = absolute_velocity * notes_direction
-	visibility_start_time = time_before_view
-	visibility_end_time = time_afer_view
 
 func set_track_notes(times) -> void:
 	if times == null:
@@ -124,10 +129,13 @@ func set_player_index(index) -> void:
 	if !is_working:
 		return
 
-func set_note_hit(note_index) -> void:
+func set_note_hit(note_index, is_continuous : bool = false) -> void:
 	var note : Note = notes_parent.get_child(note_index)
 	note.display_hit()
 	previous_note_index = note_index
+	
+	particle_system.one_shot = !is_continuous
+	particle_system.emitting = true
 
 func set_note_miss(note_index) -> void:
 	var note : Note = notes_parent.get_child(note_index)
@@ -136,3 +144,5 @@ func set_note_miss(note_index) -> void:
 func set_continous_end() -> void:
 	var note : Note = notes_parent.get_child(previous_note_index)
 	note.end_hit()
+	
+	particle_system.emitting = false

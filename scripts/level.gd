@@ -1,19 +1,10 @@
 extends Node3D
 class_name Level
 
-#method to have a nested file in case of local tests
-@export var nested_level : JSON
-@export var nested_difficulty : String
-
 @export var countdown_timer : float = 3
 @export var post_gameplay_timer : float = 3
 
 @export var tracks : Array[Node3D]
-
-@export var tracks_velocity : float = 1
-@export var visibility_time_before_hit : float = 4
-@export var visibility_time_after_hit : float = 1
-@export var post_pause_countdown : float = 1
 
 #decide how to implement pause panel and pause warning
 
@@ -44,11 +35,15 @@ var beat_pointer : int = 0
 var strong_beats : Array
 var strong_beat_pointer : int = 0
 
-#func _init() -> void:
-	#if Manager.current_map_path == "" && nested_level != null:
-		#Manager.current_map_info = nested_level.data
-		#Manager.current_map_path = nested_level.resource_path
-		#Manager.current_player_chart_difficulty[0] = nested_difficulty
+func _init() -> void:
+	if Manager.current_map_path == "":
+		#set a default map here for testing
+		var file_path = "res://maps/lambadasimples/info.json"
+		Manager.current_map_info = Manager.load_json_file(file_path)
+		Manager.current_map_path = file_path
+		
+		Manager.current_player_chart_difficulty[0] = "easy"
+		Manager.current_player_chart_difficulty[1] = ""
 
 func _ready() -> void:	
 	current_map = Manager.current_map_info

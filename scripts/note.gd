@@ -12,7 +12,9 @@ func create_note(duration : float, velocity : float):
 	has_duration = duration > 0
 	continuous_center.visible = has_duration
 	if has_duration:
-		continuous_center.scale.z = velocity * duration
+		var local_scale = duration * velocity
+		continuous_mesh.scale.y = local_scale
+		continuous_mesh.position.z = -  local_scale / 2
 	
 	main_mesh.set_surface_override_material(0, StandardMaterial3D.new())
 	continuous_mesh.set_surface_override_material(0, StandardMaterial3D.new())
@@ -33,6 +35,8 @@ func display_mistake():
 	var material : StandardMaterial3D = main_mesh.get_active_material(0)
 	material.albedo_color = Color.BLACK
 	main_mesh.set_surface_override_material(0, material)
+	if has_duration:
+		continuous_mesh.set_surface_override_material(0, material)
 	#
 	#if has_duration:
 		#var cont_material : StandardMaterial3D = continuous_mesh.get_active_material(0)

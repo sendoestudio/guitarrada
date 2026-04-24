@@ -1275,6 +1275,7 @@ offset_left = 176.0
 offset_top = 142.0
 offset_right = 319.0
 offset_bottom = 173.0
+focus_next = NodePath("../OriginEndLineEdit")
 virtual_keyboard_type = 2
 
 [node name="TargetStartLineEdit" type="LineEdit" parent="CopyIntervalControl"]
@@ -1283,6 +1284,7 @@ offset_left = 861.0
 offset_top = 142.0
 offset_right = 1004.0
 offset_bottom = 173.0
+focus_previous = NodePath("../OriginEndLineEdit")
 virtual_keyboard_type = 2
 
 [node name="OriginEndLineEdit" type="LineEdit" parent="CopyIntervalControl"]
@@ -1291,6 +1293,8 @@ offset_left = 458.0
 offset_top = 142.0
 offset_right = 601.0
 offset_bottom = 173.0
+focus_next = NodePath("../TargetStartLineEdit")
+focus_previous = NodePath("../OriginStartLineEdit")
 virtual_keyboard_type = 2
 
 [node name="ExclusiveLabel" type="Label" parent="CopyIntervalControl"]
@@ -1499,6 +1503,7 @@ size = Vector2i(300, 100)
 [connection signal="pressed" from="HBoxContainer/OpenFileButton" to="." method="_on_open_file_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/SaveAsNewButton" to="." method="_on_save_as_new_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="NoteOptionsControl/HBoxContainer/DurationButton" to="." method="_on_duration_button_pressed"]
 [connection signal="pressed" from="NoteOptionsControl/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
 [connection signal="pressed" from="NoteOptionsControl/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

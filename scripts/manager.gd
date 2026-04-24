@@ -21,7 +21,7 @@ var _audio_latency : float = 0
 
 var current_map_path : String = "" #change to agregator
 var current_map_info : Dictionary = {}
-var current_chart_path : String = "res://default_format.json"
+var current_chart_path : String = ""
 
 var last_song_selection_index : int = -1
 
@@ -131,8 +131,8 @@ func _validate_tracklist_file(json_data) -> bool:
 
 	if !("artist" in json_data):
 		errors += 1
-	if !("bpm" in json_data):
-		errors += 1
+	#if !("bpm" in json_data):
+		#errors += 1
 	if !("length" in json_data):
 		errors += 1
 	if !("charts" in json_data):

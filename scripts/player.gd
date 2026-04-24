@@ -15,8 +15,8 @@ var is_working : bool
 @export var visibility_time_before_hit : float = 4
 @export var visibility_time_after_hit : float = 1
 
-const before_error_margin : float = 0.75
-const after_error_margin : float = 0.75
+const before_error_margin : float = 0.05
+const after_error_margin : float = 0.05
 const min_points : int = 1
 const max_points : int = 10
 const continuous_point_per_second : int = 5
@@ -32,6 +32,7 @@ var current_audio_time : float
 var current_score
 var current_combo
 var highest_combo
+var last_multiplier_combo
 var current_multiplier
 
 var current_map
@@ -50,6 +51,8 @@ var track_hold_timers : Dictionary[int, float]
 var stats : ResultStats
 
 var is_first_process_frame : bool
+
+var last_mistake_timer : float = -1
 
 func _ready() -> void:
 	if Manager.current_player_chart_difficulty == null || Manager.current_player_chart_difficulty.size() == 0:
@@ -105,6 +108,7 @@ func _ready() -> void:
 	current_score = 0
 	current_combo = 0
 	highest_combo = 0
+	last_multiplier_combo = 0
 	current_multiplier = 1
 	
 	is_first_process_frame = true
@@ -156,6 +160,7 @@ func verify_track(index, track_index, time_delta):
 		return
 	
 	var note_time = current_tracks[index].times[time_pointer].time
+	var has_duration = current_tracks[index].times[time_pointer].duration > 0
 	
 	if Input.is_action_just_pressed(button_name) && current_audio_time >= (note_time - before_error_margin) && current_audio_time <= (note_time + after_error_margin):
 		#print("hit")
@@ -184,7 +189,7 @@ func verify_track(index, track_index, time_delta):
 			stats.max_combo = highest_combo
 		
 		
-		tracks[track_index].set_note_hit(time_pointer)
+		tracks[track_index].set_note_hit(time_pointer, has_duration)
 		track_indexes.set(index, time_pointer + 1)
 		if track_indexes.get(index) >=  current_tracks[index].times.size():
 			track_indexes.set(index, -1)
@@ -202,7 +207,9 @@ func verify_track(index, track_index, time_delta):
 	elif current_audio_time > (note_time + after_error_margin):
 		#print("miss")
 		current_combo = 0
+		current_multiplier = calculate_multiplier()
 		update_stats(-1)
+		last_mistake_timer = after_error_margin
 		
 		tracks[track_index].set_note_miss(time_pointer)
 		track_indexes.set(index, time_pointer + 1)
@@ -217,9 +224,14 @@ func verify_track(index, track_index, time_delta):
 	elif Input.is_action_just_pressed(button_name):
 		#depends if you want to count an additional click as a mistake
 		#although I recommend using with a timer to avoid players believing the score is too harsh
+		#and also to avoid double discount if the player overclicked right after
+		#a note was registered as a mistake
 		stats.overclicks += 1
-		current_combo = 0 #example: if you want to break the combo the player is overclicking
-		current_multiplier = calculate_multiplier()
+		if last_mistake_timer > 0:
+			last_mistake_timer -= time_delta
+		else:
+			current_combo = 0 #example: if you want to break the combo the player is overclicking
+			current_multiplier = calculate_multiplier()
 		#print("miss")
 		#current_combo = 0
 		
@@ -253,17 +265,34 @@ func send_stats():
 func calculate_multiplier():
 	var response = 1
 	
-	if current_combo >= 12:
-		response = 4
-	elif current_combo >= 8:
-		response = 3
-	elif current_combo >= 4:
-		response = 2
+	#if you just need a simple combo system, use this one
+	#if current_combo >= 12:
+		#response = 4
+	#elif current_combo >= 8:
+		#response = 3
+	#elif current_combo >= 4:
+		#response = 2
 	
 	#in case you don't want to completely break the combo
 	#when the player makes a mistake
+	
 	if current_combo == 0:
 		if current_multiplier > 1:
 			response = current_multiplier - 1
+			if response == 3:
+				last_multiplier_combo = 8
+			elif response == 2:
+				last_multiplier_combo = 4
+			else:
+				last_multiplier_combo = 0
+	else:
+		last_multiplier_combo += 1
+		if last_multiplier_combo >= 12:
+			response = 4
+		elif last_multiplier_combo >= 8:
+			response = 3
+		elif last_multiplier_combo >= 4:
+			response = 2
+	
 	
 	return response

@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://c64xj8oeg7dgb"]
+[gd_scene load_steps=14 format=3 uid="uid://c64xj8oeg7dgb"]
 
 [ext_resource type="Script" uid="uid://df7ggqqjob28b" path="res://scripts/level.gd" id="1_fkwfp"]
 [ext_resource type="Script" uid="uid://bk8r8mshvyrve" path="res://scripts/ui_score_testing.gd" id="2_eohcs"]
-[ext_resource type="JSON" path="res://maps/autertesting/info.json" id="2_ojpky"]
 [ext_resource type="Script" uid="uid://btgj1r6ly5g2j" path="res://scripts/player.gd" id="3_2m3ut"]
 [ext_resource type="PackedScene" uid="uid://cxio0bbr3prnf" path="res://defaults/track.tscn" id="4_ojpky"]
 [ext_resource type="Script" uid="uid://dqpf2mwgwhd6y" path="res://scripts/synesthesia_handler.gd" id="5_1lj4f"]
@@ -58,10 +57,6 @@ bg_color = Color(0.34362775, 0, 0.11990497, 1)
 
 [node name="Level" type="Node3D" node_paths=PackedStringArray("audio_player")]
 script = ExtResource("1_fkwfp")
-nested_level = ExtResource("2_ojpky")
-nested_difficulty = "medium"
-tracks_velocity = 6.0
-visibility_time_before_hit = 3.0
 audio_player = NodePath("AudioStreamPlayer")
 
 [node name="Camera3D" type="Camera3D" parent="."]

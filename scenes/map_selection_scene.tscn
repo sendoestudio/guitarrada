@@ -50,7 +50,7 @@ script = ExtResource("1_f3ysg")
 [node name="MapOption" parent="ListControl/ScrollContainer/VBoxContainer" instance=ExtResource("2_v7jmv")]
 layout_mode = 2
 
-[node name="SelectedMapControl" type="Control" parent="."]
+[node name="SelectedMapControl" type="Control" parent="." node_paths=PackedStringArray("preview_audio_stream_player")]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -60,6 +60,7 @@ offset_left = -542.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("3_v7jmv")
+preview_audio_stream_player = NodePath("../PreviewStreamPlayer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SelectedMapControl"]
 layout_mode = 1
@@ -97,19 +98,6 @@ expand_mode = 4
 [node name="AddInfoVBoxContainer" type="VBoxContainer" parent="SelectedMapControl/VBoxContainer"]
 layout_mode = 2
 
-[node name="BPMHBoxContainer" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
-layout_mode = 2
-
-[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/BPMHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "BPM"
-
-[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer/BPMHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "123"
-
 [node name="LengthHBoxContainer" type="HBoxContainer" parent="SelectedMapControl/VBoxContainer/AddInfoVBoxContainer"]
 layout_mode = 2
 
@@ -123,11 +111,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "1:23"
 
-[node name="Control" type="Control" parent="SelectedMapControl/VBoxContainer"]
+[node name="BestScoreTemplateControl" type="Control" parent="SelectedMapControl/VBoxContainer"]
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SelectedMapControl/VBoxContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectedMapControl/VBoxContainer/BestScoreTemplateControl"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -135,19 +124,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/Control/VBoxContainer"]
+[node name="DescLabel" type="Label" parent="SelectedMapControl/VBoxContainer/BestScoreTemplateControl/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Best score"
 horizontal_alignment = 1
 
-[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/Control/VBoxContainer"]
+[node name="ValueLabel" type="Label" parent="SelectedMapControl/VBoxContainer/BestScoreTemplateControl/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "1234"
 horizontal_alignment = 1
 
-[node name="DifficultyLabel" type="Label" parent="SelectedMapControl/VBoxContainer/Control/VBoxContainer"]
+[node name="DifficultyLabel" type="Label" parent="SelectedMapControl/VBoxContainer/BestScoreTemplateControl/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Difficulty Name"
@@ -155,6 +144,7 @@ horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="SelectedMapControl/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Play"
 
 [node name="OptionsControl" type="Control" parent="."]
