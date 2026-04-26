@@ -82,6 +82,9 @@ var is_dragging_instant : bool = false
 
 @export var default_file_dialog : FileDialog
 @export var confirmation_dialog : ConfirmationDialog
+@export var validation_error_window : Window
+@export var validation_error_textedit : TextEdit
+var _validation_errors : String
 
 var is_loading_file : bool = false
 var is_saving_file : bool = false
@@ -139,6 +142,8 @@ func _ready() -> void:
 	
 	default_file_dialog.visible = false
 	confirmation_dialog.visible = false
+	validation_error_window.visible = false
+	
 	
 	is_saving_file = false
 	is_loading_audio = false
@@ -172,7 +177,6 @@ func _process(delta: float) -> void:
 				#is_waiting_for_load_buttons = true
 				main_tracks[index].create_moments(track.times)
 		is_waiting_for_load_buttons = false
-		
 
 func _create_chart() -> Chart:
 	var new_chart = Chart.new()
@@ -299,7 +303,6 @@ func _on_delete_button_pressed() -> void:
 	_on_cancel_button_pressed()
 	
 	current_map.charts[current_difficulty_index] = current_chart
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 	
 func _on_duration_button_pressed() -> void:
@@ -323,9 +326,6 @@ func _on_duration_button_pressed() -> void:
 	current_map.charts[current_difficulty_index] = current_chart
 	
 	update_file_path_display(false)
-	#has_unsaved_changes = true
-	#file_path_label.text = "* " + current_file_path if current_file_path != "" else "[untitled]"
-	
 
 func _on_cancel_button_pressed() -> void:
 	current_note_display = null
@@ -491,7 +491,6 @@ func load_file(path : String) -> void:
 func load_timeline(difficulty_index) -> void:
 	if  current_map.beats.size() == 0 && current_map.strong_beats.size() == 0:
 		return
-		
 	#remind to copy the changes to the previous map
 	current_chart = current_map.charts[difficulty_index]
 	
@@ -648,7 +647,6 @@ func _on_file_dialog_file_selected(path: String) -> void:
 			map_audio_path_lineedit.text = path
 			current_map.audio = path
 	
-		#has_unsaved_changes = true
 		update_file_path_display(false)
 		
 	if is_saving_file:
@@ -757,17 +755,14 @@ func _save_map_to_file(path : String) -> void:
 	current_file_path = path
 	file_path_label.text = current_file_path
 	
-	#has_unsaved_changes = false
 	update_file_path_display(true)
 
 func _on_title_line_edit_text_changed(new_text: String) -> void:
 	current_map.title = new_text
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 
 func _on_artist_line_edit_text_changed(new_text: String) -> void:
 	current_map.artist = new_text
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 
 func _on_preview_start_line_edit_text_changed(new_text: String) -> void:
@@ -776,7 +771,6 @@ func _on_preview_start_line_edit_text_changed(new_text: String) -> void:
 	else:
 		map_audio_preview_start_lineedit.text = str(current_map.audio_preview_start)
 	
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 
 func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInterval]):
@@ -803,7 +797,6 @@ func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInte
 	
 	copy_difficulty_selection_optionbutton.selected = -1
 	
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 	#build_timeline(current_map.beats, current_map.strong_beats, current_chart.tracks) 
 	
@@ -893,7 +886,6 @@ func delete_timeline_notes_on_interval(start_time : float, end_time : float, tra
 	for deleting_note in deleting_display_notes:
 		notes_parent.remove_child(deleting_note)
 		
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 
 func delete_timeline_notes():
@@ -906,7 +898,6 @@ func delete_timeline_notes():
 	for deleting_note in display_notes:
 		notes_parent.remove_child(deleting_note)
 
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 
 func _on_delete_notes_button_pressed() -> void:
@@ -933,6 +924,7 @@ func _on_delete_interval_cancel_button_pressed() -> void:
 
 func _on_delete_interval_apply_button_pressed() -> void:
 	if !validate_delete_interval_fields():
+		display_error_list(_validation_errors)
 		return
 	
 	var start_beat = float(delete_notes_origin_start_lineedit.text)
@@ -950,23 +942,29 @@ func validate_delete_interval_fields() -> bool:
 	
 	var start : float = -1
 	var end : float = -1
+	_validation_errors = ""
 	
 	if delete_notes_origin_start_lineedit.text == "":
 		errors += 1
+		_validation_errors += "Start field is empty\n"
 	elif !delete_notes_origin_start_lineedit.text.is_valid_float():
 		errors += 1
+		_validation_errors += "Start field is invalid\n"
 	else:
 		start = float(delete_notes_origin_start_lineedit.text)
 	
 	if delete_notes_origin_end_lineedit.text == "":
 		errors += 1
+		_validation_errors += "End field is empty\n"
 	elif !delete_notes_origin_end_lineedit.text.is_valid_float():
 		errors += 1
+		_validation_errors += "End field is invalid\n"
 	else:
 		end = float(delete_notes_origin_end_lineedit.text)
 		
 	if end <= start:
 		errors += 1
+		_validation_errors += "End can't be lower than Start\n"
 	
 	return errors == 0
 
@@ -975,11 +973,8 @@ func _on_confirmation_dialog_confirmed() -> void:
 	if danger_is_deleting_notes:
 		delete_timeline_notes()
 	elif danger_is_discarding_for_new_file:
-		#has_unsaved_changes = false
 		_on_new_file_button_pressed(true)
 	elif danger_is_discarding_for_open_file:
-		#has_unsaved_changes = false
-		#update_file_path_display(false)
 		_on_open_file_button_pressed(true)
 	elif danger_is_discarding_to_quit:
 		_on_quit_button_pressed(true)
@@ -1002,7 +997,6 @@ func _on_confirmation_dialog_confirmed() -> void:
 		for i in current_map.charts.keys():
 			current_map.charts[i] = null
 		
-		#has_unsaved_changes = true
 		update_file_path_display(false)
 	
 	set_confirmation_type(confirmation_options.none)
@@ -1063,6 +1057,7 @@ func _on_copy_interval_cancel_button_pressed() -> void:
 
 func _on_copy_interval_apply_button_pressed() -> void:
 	if !validade_copy_interval_fields():
+		display_error_list(_validation_errors)
 		return
 	
 	var upcoming_chart : Chart = Chart.new() 
@@ -1109,7 +1104,6 @@ func _on_copy_interval_apply_button_pressed() -> void:
 	load_timeline(current_difficulty_index)
 	
 	copy_notes_interval_control.visible = false
-	#has_unsaved_changes = true
 	update_file_path_display(false)
 
 func validade_copy_interval_fields() -> bool:
@@ -1118,37 +1112,54 @@ func validade_copy_interval_fields() -> bool:
 	var start : float = -1
 	var end : float = -1
 	
+	_validation_errors = ""
+	
 	if copy_notes_origin_start_lineedit.text == "":
 		errors += 1
+		_validation_errors += "Origin Start field is empty\n"
 	elif !copy_notes_origin_start_lineedit.text.is_valid_float():
 		errors += 1
+		_validation_errors += "Origin Start value is invalid\n"
 	else:
 		start = float(copy_notes_origin_start_lineedit.text)
 		if start < 0:
 			errors += 1
+			_validation_errors += "Origin Start value can't be negative\n"
 	
 	if copy_notes_origin_end_lineedit.text == "":
 		errors += 1
+		_validation_errors += "Origin End field is empty\n"
 	elif !copy_notes_origin_end_lineedit.text.is_valid_float():
 		errors += 1
+		_validation_errors += "Origin End field is invalid\n"
 	else:
 		end = float(copy_notes_origin_end_lineedit.text)
 		if end < 0:
 			errors += 1
+			_validation_errors += "Origin Start field is empty\n"
 	
 	if copy_notes_target_start_lineedit.text == "":
-		errors += 1
+		errors += 1		
+		_validation_errors += "Target Start field is empty\n"
 	elif !copy_notes_target_start_lineedit.text.is_valid_float():
 		errors += 1
+		_validation_errors += "Target Start field is empty\n"
 	else:
 		var target_start = float(copy_notes_target_start_lineedit.text)
+		var interval_length = end - start
 		if target_start < 0:
 			errors += 1
+			_validation_errors += "Target Start field value can't be negative\n"
 		elif target_start >= start && target_start < end:
 			errors += 1
+			_validation_errors += "Target Start can't be inside origin interval\n"
+		elif target_start + interval_length >= start && target_start + interval_length< end:
+			errors += 1
+			_validation_errors += "Target Start can't be inside origin interval\n"
 	
 	if end <= start:
 		errors += 1
+		_validation_errors += "Origin End can't be lower than Start\n"
 	
 	return errors == 0
 
@@ -1179,3 +1190,11 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		_on_quit_button_pressed()
 		get_tree().set_auto_accept_quit(false)
+
+func display_error_list(errors : String) -> void:
+	validation_error_window.visible = true
+	validation_error_textedit.text = errors
+
+
+func _on_validation_error_window_close_requested() -> void:
+	validation_error_window.visible = false

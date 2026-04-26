@@ -17,6 +17,8 @@ var _order_index : int = -1
 
 var _complex_handler : LevelEditorComplexTimeline
 
+var internal_errors : String = ""
+
 func set_complex_handler(handler : LevelEditorComplexTimeline):
 	_complex_handler = handler
 #reorder
@@ -53,46 +55,73 @@ func validade_fields() -> bool:
 	
 	if bpm_lineedit.text == "":
 		errors += 1
+		internal_errors += "BPM value is empty\n"
 	elif !bpm_lineedit.text.is_valid_float():
 		errors += 1
+		internal_errors += "BPM value is invalid\n"
 	elif float(bpm_lineedit.text) <= 0:
 		errors += 1
+		internal_errors += "BPM value is negative\n"
 		
 	
 	if start_lineedit.text == "":
 		errors += 1
+		internal_errors += "Start value is empty\n"
 	elif !start_lineedit.text.is_valid_float():
 		errors += 1
+		internal_errors += "Start value is invalid\n"
 	elif float(start_lineedit.text) < 0:
 		errors += 1
+		internal_errors += "Start value is negative\n"
 	else:
 		start = float(start_lineedit.text)
 		
 	
 	if end_lineedit.text == "":
 		errors += 1
+		internal_errors += "End value is empty\n"
 	elif !end_lineedit.text.is_valid_float():
 		errors += 1
+		internal_errors += "End value is invalid\n"
 	elif float(end_lineedit.text) < 0:
 		errors += 1
+		internal_errors += "End value is negative\n"
 	else:
 		end = float(end_lineedit.text)
 	
 	if numerator_lineedit.text == "":
 		errors += 1
+		internal_errors += "Numerator value is empty\n"
 	elif !numerator_lineedit.text.is_valid_int():
+		errors += 1
+		internal_errors += "Numerator value is invalid\n"
+	elif float(numerator_lineedit.text) <= 0:
+		internal_errors += "Numerator value is negative or zero\n"
 		errors += 1
 		
 	
 	if denominator_lineedit.text == "":
 		errors += 1
+		internal_errors += "Denominator value is empty\n"
 	elif !denominator_lineedit.text.is_valid_int():
+		errors += 1
+		internal_errors += "Denominator value is invalid\n"
+	elif float(denominator_lineedit.text) <= 0:
+		internal_errors += "Denominator value is empty\n"
 		errors += 1
 	
 	if end <= start:
 		errors += 1
+		internal_errors += "End value is lower or equal to Start value\n"
+		
 	
 	return errors == 0
+
+func get_errors() -> String:
+	return internal_errors
+
+func get_pos_index() -> int:
+	return _order_index
 
 func get_interval() -> LevelEditorBpmInterval:
 	if !validade_fields():

@@ -16,7 +16,7 @@ content_margin_left = 3.0
 content_margin_right = 3.0
 bg_color = Color(0.44731838, 0, 0.04496886, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "timeline_pointer_colorrect", "track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "copy_difficulty_control", "copy_difficulty_selection_optionbutton", "create_timeline_control", "default_file_dialog", "confirmation_dialog")]
+[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "timeline_pointer_colorrect", "track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "copy_difficulty_control", "copy_difficulty_selection_optionbutton", "create_timeline_control", "default_file_dialog", "confirmation_dialog", "validation_error_window", "validation_error_textedit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,6 +59,8 @@ copy_difficulty_selection_optionbutton = NodePath("CopyFromDifficultyControl/Dif
 create_timeline_control = NodePath("CreateTimelineControl")
 default_file_dialog = NodePath("FileDialog")
 confirmation_dialog = NodePath("ConfirmationDialog")
+validation_error_window = NodePath("ValidationErrorWindow")
+validation_error_textedit = NodePath("ValidationErrorWindow/TextEdit")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -1489,6 +1491,41 @@ offset_right = 955.0
 offset_bottom = 155.0
 virtual_keyboard_type = 2
 
+[node name="LoadingControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -335.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="LoadingControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12955844, 0.12955847, 0.12955844, 1)
+
+[node name="Label" type="Label" parent="LoadingControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -22.5
+offset_right = 170.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Loading, please wait..."
+
 [node name="FileDialog" type="FileDialog" parent="."]
 oversampling_override = 1.0
 
@@ -1498,6 +1535,17 @@ oversampling_override = 1.0
 oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(300, 100)
+
+[node name="ValidationErrorWindow" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Validation Error"
+initial_position = 1
+size = Vector2i(760, 215)
+
+[node name="TextEdit" type="TextEdit" parent="ValidationErrorWindow"]
+offset_right = 760.0
+offset_bottom = 213.0
+editable = false
 
 [connection signal="pressed" from="HBoxContainer/NewFileButton" to="." method="_on_new_file_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/OpenFileButton" to="." method="_on_open_file_button_pressed"]
@@ -1540,3 +1588,4 @@ size = Vector2i(300, 100)
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="close_requested" from="ValidationErrorWindow" to="." method="_on_validation_error_window_close_requested"]

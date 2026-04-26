@@ -91,17 +91,21 @@ func _on_cancel_button_pressed() -> void:
 
 func _on_create_button_pressed() -> void:
 	var intervals : Array[LevelEditorBpmInterval] = []
+	var errors_desc : String = ""
 	
 	var errors = 0
 	for box : LevelEditorComplexTimelineInterval in intervals_vboxcontainer.get_children():
 		var interval = box.get_interval()
 		if interval == null:
+			errors_desc += "errors in index " + str(box.get_pos_index()) + ":\n"
+			errors_desc += box.get_errors()
 			errors += 1
 			break
 		
 		intervals.append(interval)
 	
 	if errors > 0:
+		_timeline_creation_handler.display_error_list(errors_desc)
 		return
 	
 	intervals.sort_custom(func(a, b) : return a.start < b.start)
@@ -110,10 +114,12 @@ func _on_create_button_pressed() -> void:
 	if count > 1:
 		for index in (count - 1):
 			if intervals[index + 1].start < intervals[index].end:
+				errors_desc += "Start at index " + str(index + 1) + " is lower than the End at index " + str(index)
 				errors += 1
 				break
 	
 	if errors > 0:
+		_timeline_creation_handler.display_error_list(errors_desc)
 		return
 	
 	var length = intervals[intervals.size() - 1].end

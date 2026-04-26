@@ -46,3 +46,6 @@ func build_complex_timeline(bpm_intervals : Array[LevelEditorBpmInterval]):
 
 func build_manual_timeline(length : float, beats_string : Array[float], strong_beats_string : Array[float],):
 	_level_editor.create_timeline_from_lists(length, beats_string, strong_beats_string)
+
+func display_error_list(_errors):
+	_level_editor.display_error_list(_errors)

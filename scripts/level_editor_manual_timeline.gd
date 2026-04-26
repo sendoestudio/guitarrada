@@ -8,6 +8,7 @@ class_name  LevelEditorManualTimeline
 @onready var create_button : Button = $CreateButton
 
 var _timeline_creation_handler : LevelEditorTimelineCreation
+var _errors_desc : String
 
 func set_timeline_creation_handler(handler : LevelEditorTimelineCreation) -> void:
 	_timeline_creation_handler = handler
@@ -18,17 +19,25 @@ func clean_fields():
 	
 func validate_fields() -> bool:
 	var errors = 0
+	_errors_desc = ""
 	
 	if length_lineedit.text == "":
 		errors += 1
+		_errors_desc += "length field is empty\n"
 	elif !length_lineedit.text.is_valid_float() :
+		_errors_desc += "length field is invalid\n"
+		errors += 1
+	elif float(length_lineedit.text) <= 0 :
+		_errors_desc += "length is negative or zero\n"
 		errors += 1
 	
 	var beat_list : Array[float] = []
 	
 	if beat_list_textedit.text == "":
+		_errors_desc += "beat list is empty\n"
 		errors += 1
 	if strong_beat_list_textedit.text == "":
+		_errors_desc += "strong beat list is empty\n"
 		errors += 1
 	
 	if errors > 0:
@@ -38,6 +47,7 @@ func validate_fields() -> bool:
 	for value : String in beats:
 		if !(value.is_valid_float()):
 			errors += 1
+			_errors_desc += "value " + value + " in beat list is invalid\n"
 			break
 		
 		beat_list.append(float(value))
@@ -46,11 +56,13 @@ func validate_fields() -> bool:
 	for value in strong_beats:
 		if !(value.is_valid_float()):
 			errors += 1
+			_errors_desc += "value " + value + " in strong beat list is invalid\n"
 			break
 		var converted_value = float(value)
 			
 		var found_beats = beat_list.filter(func(a) : return a >= (converted_value - 0.001) && a <= (converted_value + 0.001))
 		if found_beats == [] || found_beats.size() != 1:
+			_errors_desc += "no strong beat contained in beat list\n"
 			errors += 1
 			break
 	
@@ -66,6 +78,7 @@ func _on_cancel_button_pressed() -> void:
 
 func _on_create_button_pressed() -> void:
 	if !validate_fields():
+		_timeline_creation_handler.display_error_list(_errors_desc)
 		return
 	
 	var length : float = float(length_lineedit.text)
