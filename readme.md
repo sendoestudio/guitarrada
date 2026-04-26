@@ -8,6 +8,10 @@ just remind to credit the developer, like in the license file
 
 Documentation: (Eventually, I promise)
 
+How to play it:
+Player 1 -> ASD keys
+Player 2 -> Left, Down and Right arrows
+
 How to use it:
 Open the Level Editor scene to program the maps in the way you want it
 make sure to save the json file with the name "info.json" inside the

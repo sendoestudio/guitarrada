@@ -118,8 +118,6 @@ mesh = SubResource("BoxMesh_jnonn")
 [node name="ComboModifier" type="Node3D" parent="." node_paths=PackedStringArray("players", "effect_animation_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.3687563)
 script = ExtResource("7_2m3ut")
-minimum_multiplier = 2
-minimum_player_amount = 1
 players = [NodePath("../Player1Scoring"), NodePath("../Player2Scoring")]
 effect_animation_player = NodePath("AnimationPlayer")
 starting_animation_name = "enhance_off"
