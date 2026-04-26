@@ -169,23 +169,9 @@ theme_override_constants/margin_bottom = 15
 [node name="HBoxContainer" type="HBoxContainer" parent="OptionsControl/MarginContainer"]
 layout_mode = 2
 
-[node name="LatencyButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Latency Options"
-
 [node name="SettingsButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Settings"
-
-[node name="EditorButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "Level Editor"
-
-[node name="CreditsButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Credits"
 
 [node name="QuitButton" type="Button" parent="OptionsControl/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -195,8 +181,5 @@ text = "Quit Game"
 
 [connection signal="index_changed" from="ListControl/ScrollContainer/VBoxContainer" to="SelectedMapControl" method="_on_v_box_container_index_changed"]
 [connection signal="pressed" from="SelectedMapControl/VBoxContainer/PlayButton" to="SelectedMapControl" method="_on_play_button_pressed"]
-[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/LatencyButton" to="." method="_on_latency_button_pressed"]
 [connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
-[connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="OptionsControl/MarginContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

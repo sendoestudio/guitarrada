@@ -948,7 +948,7 @@ offset_bottom = -197.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 40
-text = "START_VIDEO_SYNC"
+text = "Start Video Sync"
 
 [node name="CountdownLabel" type="Label" parent="VideoControl"]
 layout_mode = 1
@@ -990,7 +990,7 @@ offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "CANCEL_AV_SYNC"
+text = "Cancel AV Sync"
 
 [node name="AudioControl" type="Control" parent="."]
 layout_mode = 1
@@ -1049,7 +1049,7 @@ offset_bottom = -197.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 40
-text = "START_AUDIO_SYNC"
+text = "Start Audio Sync"
 
 [node name="CountdownLabel" type="Label" parent="AudioControl"]
 layout_mode = 1
@@ -1091,7 +1091,7 @@ offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "CANCEL_AV_SYNC"
+text = "Cancel AV Sync"
 
 [node name="FinishControl" type="Control" parent="."]
 visible = false
@@ -1130,7 +1130,7 @@ alignment = 1
 [node name="TypeLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "VIDEO_LATENCY"
+text = "Video Latency"
 vertical_alignment = 2
 
 [node name="ValueLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer"]
@@ -1153,7 +1153,7 @@ alignment = 1
 [node name="TypeLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "AUDIO_LATENCY"
+text = "Audio Latency"
 vertical_alignment = 2
 
 [node name="ValueLabel" type="Label" parent="FinishControl/ResultControl/ResultVBoxContainer/HBoxContainer2"]

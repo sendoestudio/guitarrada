@@ -12,7 +12,6 @@ class_name ComboModifier
 @export var negative_combo_animation_name : String
 
 var was_on_enhanced_state : bool = false
-#see if connecting with signal is viable
 
 func _ready() -> void:
 	for player in players:
@@ -33,7 +32,7 @@ func verify_players() -> void:
 		return
 	
 	var verifying_players : Array[Player]
-	verifying_players = players.filter(func(a) : return a.is_working && (a.current_combo >= minimum_combo && a.multiplier_value >= minimum_multiplier))
+	verifying_players = players.filter(func(a) : return a.is_working && (a.current_combo >= minimum_combo && a.current_multiplier >= minimum_multiplier))
 	if verifying_players.size() >= minimum_player_amount:
 		if !was_on_enhanced_state:
 			was_on_enhanced_state = true

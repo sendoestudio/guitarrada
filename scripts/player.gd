@@ -56,9 +56,11 @@ var last_mistake_timer : float = -1
 
 func _ready() -> void:
 	if Manager.current_player_chart_difficulty == null || Manager.current_player_chart_difficulty.size() == 0:
+		is_working = false
 		return
 		
 	if !Manager.current_player_chart_difficulty.has(player_index) || player_index == -1:
+		is_working = false
 		return
 	
 	stats = ResultStats.new()
@@ -70,7 +72,7 @@ func _ready() -> void:
 			track.visible = false
 		return
 	
-	is_working = true
+	
 	#var map_file = FileAccess.open(map_path, FileAccess.READ)
 	#var map_content = map_file.get_as_text()
 	#current_map = JSON.parse_string(map_content)
@@ -110,6 +112,7 @@ func _ready() -> void:
 	highest_combo = 0
 	last_multiplier_combo = 0
 	current_multiplier = 1
+	is_working = true
 	
 	is_first_process_frame = true
 	
