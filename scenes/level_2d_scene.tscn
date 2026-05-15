@@ -1,151 +1,61 @@
-[gd_scene load_steps=14 format=3 uid="uid://c64xj8oeg7dgb"]
+[gd_scene load_steps=7 format=3 uid="uid://ddifqlgmjuph0"]
 
-[ext_resource type="Script" uid="uid://df7ggqqjob28b" path="res://scripts/level.gd" id="1_fkwfp"]
-[ext_resource type="Script" uid="uid://bk8r8mshvyrve" path="res://scripts/ui_score_testing.gd" id="2_eohcs"]
-[ext_resource type="Script" uid="uid://btgj1r6ly5g2j" path="res://scripts/player.gd" id="3_2m3ut"]
-[ext_resource type="PackedScene" uid="uid://cxio0bbr3prnf" path="res://defaults/track_3d.tscn" id="4_ojpky"]
-[ext_resource type="Script" uid="uid://dqpf2mwgwhd6y" path="res://scripts/synesthesia_handler.gd" id="5_1lj4f"]
-[ext_resource type="Script" uid="uid://bhv563v2m05n2" path="res://scripts/level_pause.gd" id="6_eohcs"]
-[ext_resource type="Script" uid="uid://dldqaub83l7i7" path="res://scripts/combo_modifier.gd" id="7_2m3ut"]
+[ext_resource type="Script" uid="uid://df7ggqqjob28b" path="res://scripts/level.gd" id="1_fmxll"]
+[ext_resource type="Script" uid="uid://bk8r8mshvyrve" path="res://scripts/ui_score_testing.gd" id="1_stpsb"]
+[ext_resource type="Script" uid="uid://btgj1r6ly5g2j" path="res://scripts/player.gd" id="1_x6uvm"]
+[ext_resource type="Script" uid="uid://bhv563v2m05n2" path="res://scripts/level_pause.gd" id="2_bckca"]
+[ext_resource type="PackedScene" uid="uid://bhuwrjbpj4k83" path="res://defaults/track_2d.tscn" id="3_xytmd"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_jnonn"]
-
-[sub_resource type="Animation" id="Animation_ojpky"]
-resource_name = "enhance_off"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Items:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_2m3ut"]
-resource_name = "enhance_on"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Items:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ojpky"]
-_data = {
-&"enhance_off": SubResource("Animation_ojpky"),
-&"enhance_on": SubResource("Animation_2m3ut")
-}
-
-[sub_resource type="SphereMesh" id="SphereMesh_ojpky"]
-radius = 0.675
-height = 1.21
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eohcs"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6uvm"]
 bg_color = Color(0.34362775, 0, 0.11990497, 1)
 
-[node name="Level3D" type="Node3D" node_paths=PackedStringArray("audio_player")]
-script = ExtResource("1_fkwfp")
+[node name="Level2D" type="Node2D" node_paths=PackedStringArray("audio_player")]
+script = ExtResource("1_fmxll")
 audio_player = NodePath("AudioStreamPlayer")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3834367, 6.529675)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
 [node name="Player1Scoring" type="Node" parent="." node_paths=PackedStringArray("tracks")]
-script = ExtResource("3_2m3ut")
+script = ExtResource("1_x6uvm")
 player_index = 0
-tracks = [NodePath("../Player1Tracks/Track"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3")]
-tracks_velocity = 6.0
+tracks = [NodePath("../Player1Tracks/Track1"), NodePath("../Player1Tracks/Track2"), NodePath("../Player1Tracks/Track3")]
+tracks_velocity = 450.0
 
-[node name="Player1Tracks" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8482625, 0, 0)
+[node name="Player1Tracks" type="Node2D" parent="."]
+position = Vector2(-376.12, -271.035)
 
-[node name="Track" parent="Player1Tracks" instance=ExtResource("4_ojpky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+[node name="Track1" parent="Player1Tracks" instance=ExtResource("3_xytmd")]
+position = Vector2(-200, 0)
 
-[node name="Track2" parent="Player1Tracks" instance=ExtResource("4_ojpky")]
+[node name="Track2" parent="Player1Tracks" instance=ExtResource("3_xytmd")]
 track_index = 1
 main_color = Color(0, 1, 0, 1)
 
-[node name="Track3" parent="Player1Tracks" instance=ExtResource("4_ojpky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+[node name="Track3" parent="Player1Tracks" instance=ExtResource("3_xytmd")]
+position = Vector2(200, 0)
 track_index = 2
-main_color = Color(1, 0, 1, 1)
+main_color = Color(0, 0, 1, 1)
 
 [node name="Player2Scoring" type="Node" parent="." node_paths=PackedStringArray("tracks")]
-script = ExtResource("3_2m3ut")
+script = ExtResource("1_x6uvm")
 player_index = 1
-tracks = [NodePath("../Player2Tracks/Track"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3")]
-tracks_velocity = 6.0
+tracks = [NodePath("../Player2Tracks/Track1"), NodePath("../Player2Tracks/Track2"), NodePath("../Player2Tracks/Track3")]
+tracks_velocity = 450.0
 
-[node name="Player2Tracks" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0733736, 0, 0)
+[node name="Player2Tracks" type="Node2D" parent="."]
+position = Vector2(376.12, -271.035)
 
-[node name="Track" parent="Player2Tracks" instance=ExtResource("4_ojpky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+[node name="Track1" parent="Player2Tracks" instance=ExtResource("3_xytmd")]
+position = Vector2(-200, 0)
 
-[node name="Track2" parent="Player2Tracks" instance=ExtResource("4_ojpky")]
+[node name="Track2" parent="Player2Tracks" instance=ExtResource("3_xytmd")]
 track_index = 1
 main_color = Color(0, 1, 0, 1)
 
-[node name="Track3" parent="Player2Tracks" instance=ExtResource("4_ojpky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+[node name="Track3" parent="Player2Tracks" instance=ExtResource("3_xytmd")]
+position = Vector2(200, 0)
 track_index = 2
-main_color = Color(1, 0, 1, 1)
+main_color = Color(0, 0, 1, 1)
 
-[node name="SynasthesiaExample" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.711866)
-script = ExtResource("5_1lj4f")
-use_scale = true
-scale_modifier = Vector3(1, 1, 1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SynasthesiaExample"]
-mesh = SubResource("BoxMesh_jnonn")
-
-[node name="ComboModifier" type="Node3D" parent="." node_paths=PackedStringArray("players", "effect_animation_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.3687563)
-script = ExtResource("7_2m3ut")
-players = [NodePath("../Player1Scoring"), NodePath("../Player2Scoring")]
-effect_animation_player = NodePath("AnimationPlayer")
-starting_animation_name = "enhance_off"
-positive_combo_animation_name = "enhance_on"
-negative_combo_animation_name = "enhance_off"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ComboModifier"]
-libraries = {
-&"": SubResource("AnimationLibrary_ojpky")
-}
-
-[node name="Items" type="Node3D" parent="ComboModifier"]
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ComboModifier/Items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.271555, 0, 0)
-mesh = SubResource("SphereMesh_ojpky")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="ComboModifier/Items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.455187, 0.93418026, -1.9033213)
-mesh = SubResource("SphereMesh_ojpky")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="ComboModifier/Items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1454897, 3.621173, -1.9033213)
-mesh = SubResource("SphereMesh_ojpky")
-skeleton = NodePath("../..")
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -165,7 +75,7 @@ text = "Player X
 Current Score: 0123456789
 Multiplier: 0123
 Combo: 0123"
-script = ExtResource("2_eohcs")
+script = ExtResource("1_stpsb")
 player = NodePath("../../../Player1Scoring")
 
 [node name="TempScoreLabel2" type="Label" parent="CanvasLayer/SimpleScoreControl" node_paths=PackedStringArray("player")]
@@ -180,10 +90,10 @@ text = "Player X
 Current Score: 0123456789
 Multiplier: 0123
 Combo: 0123"
-script = ExtResource("2_eohcs")
+script = ExtResource("1_stpsb")
 player = NodePath("../../../Player2Scoring")
 
-[node name="PauseControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("_level_handler")]
+[node name="PauseControl" type="Control" parent="CanvasLayer"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -191,8 +101,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_eohcs")
-_level_handler = NodePath("../..")
+script = ExtResource("2_bckca")
 restart_confirmation_call = true
 song_selection_confirmation_call = true
 song_resume_timer = 2.0
@@ -331,7 +240,7 @@ text = "Cancel"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_eohcs")
+theme_override_styles/normal = SubResource("StyleBoxFlat_x6uvm")
 text = "Confirm"
 
 [node name="CountdownControl" type="Control" parent="CanvasLayer/PauseControl"]
@@ -366,10 +275,8 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(280, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.466194, -1.279289)
-omni_range = 13.315
-omni_attenuation = 0.04
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
 
 [connection signal="pressed" from="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer/ContinueButton" to="CanvasLayer/PauseControl" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseControl/OptionsControl/MarginContainer/VBoxContainer/RestartButton" to="CanvasLayer/PauseControl" method="_on_restart_button_pressed"]

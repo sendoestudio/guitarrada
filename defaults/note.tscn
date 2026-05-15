@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bk7bssujfd3c0"]
 
-[ext_resource type="Script" uid="uid://dfm043l4l3lsl" path="res://scripts/note.gd" id="1_50w10"]
+[ext_resource type="Script" uid="uid://bmcx386le4ixf" path="res://scripts/note_3d.gd" id="1_50w10"]
 
 [sub_resource type="Animation" id="Animation_2bwty"]
 length = 0.001
@@ -298,11 +298,8 @@ size = Vector2(0.61, 1)
 transparency = 1
 albedo_color = Color(1, 1, 1, 0.5019608)
 
-[node name="Note" type="Node3D" node_paths=PackedStringArray("main_mesh", "continuous_center", "continuous_mesh")]
+[node name="Note" type="Node3D"]
 script = ExtResource("1_50w10")
-main_mesh = NodePath("MeshInstance3D")
-continuous_center = NodePath("ContinuousCenter")
-continuous_mesh = NodePath("ContinuousCenter/ContinuousMesh3D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false

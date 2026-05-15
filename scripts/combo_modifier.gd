@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 class_name ComboModifier
 
 @export var minimum_combo : int = -1

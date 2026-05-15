@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cxio0bbr3prnf"]
 
-[ext_resource type="Script" uid="uid://b1d3mdkde8e8o" path="res://scripts/track.gd" id="1_1k6w8"]
+[ext_resource type="Script" uid="uid://bouyowrtc18ek" path="res://scripts/track_3d.gd" id="1_1k6w8"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_oxda6"]
 height = 0.01
@@ -17,13 +17,11 @@ material = SubResource("StandardMaterial3D_1k6w8")
 radius = 0.025
 height = 0.125
 
-[node name="Track" type="Node3D" node_paths=PackedStringArray("inner_display", "notes_parent", "particle_system")]
+[node name="Track" type="Node3D" node_paths=PackedStringArray("notes_parent", "particle_system", "inner_display")]
 script = ExtResource("1_1k6w8")
-main_color = Color(1, 0, 0, 1)
-turn_off_smoother = 0.1
-inner_display = NodePath("CenterMeshInstance")
 notes_parent = NodePath("MomentsParent")
 particle_system = NodePath("CPUParticles3D")
+inner_display = NodePath("CenterMeshInstance")
 
 [node name="CenterMeshInstance" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_oxda6")

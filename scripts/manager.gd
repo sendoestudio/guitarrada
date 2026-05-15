@@ -1,11 +1,15 @@
 extends Node
 
+const is_using_3d_stage : bool = true
+
 const map_folder_path: String = "res://maps/"
 const map_file_format : String = "info.json"
 
 const song_selection_path : String = "res://scenes/map_selection_scene.tscn"
 const difficulty_selection_path : String = "res://scenes/difficulty_selection_scene.tscn"
-const stage_path : String = "res://scenes/level_scene.tscn"
+#const stage_path : String = "res://scenes/level_scene.tscn"
+const stage_3d_path : String = "res://scenes/level_3d_scene.tscn"
+const stage_2d_path : String = "res://scenes/level_2d_scene.tscn"
 const result_path : String = "res://scenes/results_scene.tscn"
 const settings_path : String = "res://scenes/settings_scene.tscn"
 const av_sync_path : String = "res://scenes/latency_assist_control.tscn"
@@ -66,6 +70,8 @@ var _input_audio_latency : float = 0
 
 var _beat_factor : float = 0
 var _strong_beat_factor : float = 0
+var _beats_distance : float = -1
+var _strong_beats_distance : float = -1
 
 
 func go_to_song_selection_scene() -> void:
@@ -76,7 +82,9 @@ func go_to_difficulty_selection_scene() -> void:
 	
 func go_to_stage_scene() -> void:
 	player_position_list.clear()
-	_go_to_scene(stage_path)
+	
+	var path = stage_3d_path if is_using_3d_stage else stage_2d_path
+	_go_to_scene(path)
 
 func go_to_result_scene() -> void:
 	_go_to_scene(result_path)
@@ -239,15 +247,28 @@ func set_strong_beat_factor(time : float, current_beat : float, next_beat : floa
 	var diff = next_beat - current_beat
 	_strong_beat_factor = ((next_beat - time) / (diff))
 
-func reset_beat_factor():
+func reset_beat_factor() -> void:
 	_beat_factor = 0
 	_strong_beat_factor = 0
+
+func set_beats_distance(distance : float) -> void:
+	_beats_distance = distance
+
+func set_strong_beats_distance(distance : float) -> void:
+	_strong_beats_distance = distance
+	
 
 func get_beat_factor() -> float:
 	return _beat_factor
 
 func get_strong_beat_factor() -> float:
 	return _strong_beat_factor
+	
+func get_beats_distance() -> float:
+	return _beats_distance
+	
+func get_strong_beats_distance() -> float:
+	return _strong_beats_distance
 	
 func update_player_placement(player_index, score) -> void:
 	var found_player = player_position_list.find_custom(func(a) : return a.player_index == player_index)

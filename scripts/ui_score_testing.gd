@@ -6,7 +6,10 @@ func _init() -> void:
 	self.text = ""
 	
 func _ready() -> void:
-	player.score_updated.connect(update_score)
+	if player != null:
+		player.score_updated.connect(update_score)
+	else:
+		self.text = "no player referenced"
 #func _process(delta: float) -> void:
 	#if player != null && player.is_working:
 		#var final_text = "Player " + str(player.player_index + 1)

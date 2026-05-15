@@ -1,10 +1,8 @@
-extends Node3D
+extends Node
 class_name Level
 
 @export var countdown_timer : float = 3
 @export var post_gameplay_timer : float = 3
-
-@export var tracks : Array[Node3D]
 
 #decide how to implement pause panel and pause warning
 
@@ -73,6 +71,9 @@ func _ready() -> void:
 	Manager.is_playing = true
 	
 	Manager.reset_beat_factor()
+	
+	Manager.set_beats_distance(-1)
+	Manager.set_strong_beats_distance(-1)
 			
 func _process(delta: float) -> void:
 	if audio_player.playing:
@@ -98,6 +99,9 @@ func _process(delta: float) -> void:
 			beat_pointer += 1
 			if beat_pointer >= beats.size():
 				beat_pointer = -1
+			elif beat_pointer > 0:
+				var distance = beats[beat_pointer] - beats[beat_pointer -1]
+				Manager.set_beats_distance(distance)
 		
 		if beat_pointer > 0:
 			Manager.set_beat_factor(current_video_time, beats[beat_pointer -1], beats[beat_pointer])
@@ -107,6 +111,9 @@ func _process(delta: float) -> void:
 			strong_beat_pointer += 1
 			if strong_beat_pointer >= strong_beats.size():
 				strong_beat_pointer = -1
+			elif strong_beat_pointer > 0:
+				var distance = strong_beats[strong_beat_pointer] - strong_beats[strong_beat_pointer -1]
+				Manager.set_strong_beats_distance(distance)
 		
 		if strong_beat_pointer > 0:
 			Manager.set_strong_beat_factor(current_video_time, strong_beats[strong_beat_pointer -1], strong_beats[strong_beat_pointer])

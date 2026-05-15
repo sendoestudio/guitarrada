@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwdkkchq0xjia"]
+
+[ext_resource type="Script" uid="uid://bmcx386le4ixf" path="res://scripts/note_3d.gd" id="1_5pxq6"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_08apm"]
+top_radius = 0.25
+bottom_radius = 0.4
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxaa3"]
+metallic_specular = 0.17
+roughness = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_50w10"]
+size = Vector2(0.61, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty3br"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.5019608)
+
+[node name="Note3D" type="Node3D" node_paths=PackedStringArray("main_mesh", "continuous_center", "continuous_mesh")]
+script = ExtResource("1_5pxq6")
+main_mesh = NodePath("MeshInstance3D")
+continuous_center = NodePath("ContinuousCenter")
+continuous_mesh = NodePath("ContinuousCenter/ContinuousMesh3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("CylinderMesh_08apm")
+surface_material_override/0 = SubResource("StandardMaterial3D_nxaa3")
+
+[node name="ContinuousCenter" type="Node3D" parent="."]
+
+[node name="ContinuousMesh3D" type="MeshInstance3D" parent="ContinuousCenter"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.5100833)
+mesh = SubResource("QuadMesh_50w10")
+surface_material_override/0 = SubResource("StandardMaterial3D_ty3br")
