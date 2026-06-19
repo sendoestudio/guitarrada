@@ -102,6 +102,11 @@ var has_unsaved_changes : bool = false
 var is_waiting_for_load_buttons : bool = false
 
 func _ready() -> void:
+	difficulty_selection_optionbutton.clear()
+	for difficulty_index in Manager.difficulties.size():
+		var difficulty_name : String = Manager.difficulties.get(difficulty_index)
+		difficulty_selection_optionbutton.add_item(difficulty_name.capitalize(), difficulty_index)
+	difficulty_selection_optionbutton.selected = -1
 	
 	if track_times_display != null:
 		track_times_display.set_level_editor(self)
@@ -464,6 +469,9 @@ func load_file(path : String) -> void:
 	
 	if path == "" || path == null:
 		map = Map.new()
+		for difficulty_index in Manager.difficulties:
+			var difficulty_name = Manager.difficulties.get(difficulty_index)
+			map.charts[difficulty_name] = null
 	else:
 		var json_file = Manager.load_json_file(path)
 		map = create_map_from_object(json_file)
@@ -487,6 +495,8 @@ func load_file(path : String) -> void:
 	file_path_label.text = current_file_path
 	current_difficulty_index = ""
 	current_chart = null
+	
+	difficulty_selection_optionbutton.selected = -1
 	
 func load_timeline(difficulty_index) -> void:
 	if  current_map.beats.size() == 0 && current_map.strong_beats.size() == 0:
@@ -520,14 +530,19 @@ func create_map_from_object(json_file : Dictionary) -> Map:
 	response.audio_preview_start = json_file.audio_preview_start
 	response.audio = json_file.audio
 	
-	if json_file.charts.easy != null && json_file.charts.easy != {}:
-		response.charts.easy = load_chart_from_file(json_file.charts.easy)
-	if json_file.charts.medium != null && json_file.charts.medium != {}:
-		response.charts.medium = load_chart_from_file(json_file.charts.medium)
-	if json_file.charts.hard != null && json_file.charts.hard != {}:
-		response.charts.hard = load_chart_from_file(json_file.charts.hard)
-	if json_file.charts.expert != null && json_file.charts.expert != {}:
-		response.charts.expert = load_chart_from_file(json_file.charts.expert)
+	for difficulty_index in Manager.difficulties.size():
+		var difficulty_name : String = Manager.difficulties.get(difficulty_index)
+		if json_file.charts[difficulty_name] != null && json_file.charts[difficulty_name] != {}:
+			response.charts[difficulty_name] = load_chart_from_file(json_file.charts[difficulty_name])
+	
+	#if json_file.charts.easy != null && json_file.charts.easy != {}:
+		#response.charts.easy = load_chart_from_file(json_file.charts.easy)
+	#if json_file.charts.medium != null && json_file.charts.medium != {}:
+		#response.charts.medium = load_chart_from_file(json_file.charts.medium)
+	#if json_file.charts.hard != null && json_file.charts.hard != {}:
+		#response.charts.hard = load_chart_from_file(json_file.charts.hard)
+	#if json_file.charts.expert != null && json_file.charts.expert != {}:
+		#response.charts.expert = load_chart_from_file(json_file.charts.expert)
 	
 	response.beats = load_times_from_file(json_file.beats)
 	response.strong_beats = load_times_from_file(json_file.strong_beats)
@@ -580,6 +595,8 @@ func build_timeline(beats : Array[float], strong_beats : Array[float], tracks : 
 	
 	current_beat_list = beats
 	current_strong_beat_list = strong_beats
+	
+	#difficulty_selection_optionbutton.selected = -1
 
 func handle_audio_file(path) -> bool:
 	var has_loaded_audio : bool = false
@@ -725,23 +742,31 @@ func _save_map_to_file(path : String) -> void:
 	file_format.strong_beats = current_map.strong_beats
 	file_format.length = current_map.length
 	
-	if current_map.charts.easy != null:
-		var dictionary = build_tracks_for_file(current_map.charts.easy)
-		file_format.charts.easy = dictionary
-	else:
-		file_format.charts.easy = null
-	if current_map.charts.medium != null:
-		file_format.charts.medium = build_tracks_for_file(current_map.charts.medium)
-	else:
-		file_format.charts.medium = null
-	if current_map.charts.hard != null:
-		file_format.charts.hard = build_tracks_for_file(current_map.charts.hard)
-	else:
-		file_format.charts.hard = null
-	if current_map.charts.expert != null:
-		file_format.charts.expert = build_tracks_for_file(current_map.charts.expert)
-	else:
-		file_format.charts.expert = null
+	for difficulty_index in Manager.difficulties.size():
+		var difficulty_name : String = Manager.difficulties.get(difficulty_index)
+		if current_map.charts[difficulty_name] != null:
+			var dictionary = build_tracks_for_file(current_map.charts[difficulty_name])
+			file_format.charts[difficulty_name] = dictionary
+		else:
+			file_format.charts[difficulty_name] = null
+	
+	#if current_map.charts.easy != null:
+		#var dictionary = build_tracks_for_file(current_map.charts.easy)
+		#file_format.charts.easy = dictionary
+	#else:
+		#file_format.charts.easy = null
+	#if current_map.charts.medium != null:
+		#file_format.charts.medium = build_tracks_for_file(current_map.charts.medium)
+	#else:
+		#file_format.charts.medium = null
+	#if current_map.charts.hard != null:
+		#file_format.charts.hard = build_tracks_for_file(current_map.charts.hard)
+	#else:
+		#file_format.charts.hard = null
+	#if current_map.charts.expert != null:
+		#file_format.charts.expert = build_tracks_for_file(current_map.charts.expert)
+	#else:
+		#file_format.charts.expert = null
 	#if audio_stream_player.stream != null:
 		#file_format.length = audio_stream_player.stream.get_length()
 	

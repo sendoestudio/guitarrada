@@ -12,8 +12,4 @@ var beats : Array[float]
 var strong_beats : Array[float]
 
 var charts : Dictionary[String, Chart] = {
-	"easy" : null,
-	"medium" : null,
-	"hard" : null,
-	"expert" : null
 }

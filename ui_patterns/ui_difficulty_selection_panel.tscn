@@ -30,19 +30,27 @@ horizontal_alignment = 1
 [node name="DiffsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectionVBoxContainer"]
 layout_mode = 2
 
+[node name="ExampleButton" type="Button" parent="VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+layout_mode = 2
+text = "Easy"
+
 [node name="EasyButton" type="Button" parent="VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Easy"
 
 [node name="MediumButton" type="Button" parent="VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Medium"
 
 [node name="HardButton" type="Button" parent="VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Hard"
 
 [node name="ExpertButton" type="Button" parent="VBoxContainer/SelectionVBoxContainer/DiffsVBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Expert"
 
