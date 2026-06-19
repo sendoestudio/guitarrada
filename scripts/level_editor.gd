@@ -508,6 +508,8 @@ func load_file(path : String) -> void:
 	
 	difficulty_selection_optionbutton.selected = -1
 	
+	_on_playback_stop_button_pressed()
+	
 func load_timeline(difficulty_index) -> void:
 	if  current_map.beats.size() == 0 && current_map.strong_beats.size() == 0:
 		return
@@ -528,7 +530,13 @@ func load_timeline(difficulty_index) -> void:
 	
 	build_timeline(current_map.beats, current_map.strong_beats, current_chart.tracks)
 	timeline_scrollcontainer.visible = true
-
+	
+	timeline_scrollcontainer.scroll_horizontal = 0
+	timeline_scrollcontainer.scroll_vertical = 0
+	
+	_on_playback_stop_button_pressed()
+	
+	
 func create_map_from_object(json_file : Dictionary) -> Map:
 	var response : Map = Map.new()
 	
@@ -711,7 +719,6 @@ func _on_new_file_button_pressed(force : bool = false) -> void:
 		return
 	
 	load_file("")
-
 
 func _on_find_audio_file_button_pressed() -> void:
 	is_saving_file = false
