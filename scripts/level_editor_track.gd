@@ -5,12 +5,10 @@ var _level_editor : LevelEditor
 var _inner_track_index : int
 
 const empty_button_path : String = "res://defaults/level_editor_track_empty_button.tscn"
-
-
 #@export var track_index = -1
 
-@onready var track_label : Label = $TrackLabel
-@onready var buttons_container : HBoxContainer = $HBoxContainer
+@export var track_label : Label
+@export var buttons_container : HBoxContainer
 
 func set_level_editor(editor, index):
 	_level_editor = editor

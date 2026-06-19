@@ -1,10 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://5mi6v118a5lj"]
+[gd_scene load_steps=10 format=3 uid="uid://5mi6v118a5lj"]
 
 [ext_resource type="Script" uid="uid://7w6ufbv4ue8u" path="res://scripts/level_editor.gd" id="1_ebucd"]
 [ext_resource type="PackedScene" uid="uid://bl1trpd1xghce" path="res://defaults/level_editor_track_beat_marker.tscn" id="2_7mkra"]
 [ext_resource type="Script" uid="uid://bapu4rvvmaa5p" path="res://scripts/level_editor_beat_track.gd" id="2_o7ty0"]
-[ext_resource type="Script" uid="uid://ce38mjc5fa1dd" path="res://scripts/level_editor_track.gd" id="2_w7yhb"]
-[ext_resource type="PackedScene" uid="uid://da1433t2o612f" path="res://defaults/level_editor_track_empty_button.tscn" id="3_w7yhb"]
 [ext_resource type="Script" uid="uid://cpony0h84mbne" path="res://scripts/level_editor_simple_timeline.gd" id="8_rpkyd"]
 [ext_resource type="Script" uid="uid://deu8l4hdbtuln" path="res://scripts/level_editor_timeline_creation.gd" id="8_vklls"]
 [ext_resource type="Script" uid="uid://c7ken0uldmoi" path="res://scripts/level_editor_manual_timeline.gd" id="10_75mhr"]
@@ -16,7 +14,7 @@ content_margin_left = 3.0
 content_margin_right = 3.0
 bg_color = Color(0.44731838, 0, 0.04496886, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "timeline_pointer_colorrect", "track_times_display", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "copy_difficulty_control", "copy_difficulty_selection_optionbutton", "create_timeline_control", "default_file_dialog", "confirmation_dialog", "validation_error_window", "validation_error_textedit")]
+[node name="Control" type="Control" node_paths=PackedStringArray("timeline_scrollcontainer", "chart_notes_options_control", "timeline_pointer_colorrect", "track_times_display", "timelime_tracks_vbox_container", "main_tracks", "notes_parent", "current_note_options_control", "duration_lineedit", "moment_label", "map_properties_control", "audio_play_control", "file_path_label", "map_title_lineedit", "map_artist_lineedit", "map_audio_path_lineedit", "map_audio_preview_start_lineedit", "audio_execution_hslider", "audio_play_button", "audio_pause_button", "audio_stop_button", "audio_stream_player", "instant_lineedit", "difficulty_selection_optionbutton", "copy_notes_interval_control", "copy_notes_origin_start_lineedit", "copy_notes_origin_end_lineedit", "copy_notes_target_start_lineedit", "delete_notes_interval_control", "delete_notes_origin_start_lineedit", "delete_notes_origin_end_lineedit", "copy_difficulty_control", "copy_difficulty_selection_optionbutton", "create_timeline_control", "default_file_dialog", "confirmation_dialog", "validation_error_window", "validation_error_textedit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +26,8 @@ timeline_scrollcontainer = NodePath("TimelineScrollContainer")
 chart_notes_options_control = NodePath("NotesOptionsControl")
 timeline_pointer_colorrect = NodePath("TimelineScrollContainer/MarginContainer/Pointer/PointerColorRect")
 track_times_display = NodePath("TimelineScrollContainer/MarginContainer/HBoxContainer")
-main_tracks = [NodePath("TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer"), NodePath("TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2"), NodePath("TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3")]
+timelime_tracks_vbox_container = NodePath("TimelineScrollContainer/MarginContainer/TracksVBoxContainer")
+main_tracks = [null, NodePath(""), NodePath("")]
 notes_parent = NodePath("TimelineScrollContainer/MarginContainer/Notes")
 current_note_options_control = NodePath("NoteOptionsControl")
 duration_lineedit = NodePath("NoteOptionsControl/HBoxContainer/DurationLineEdit")
@@ -448,189 +447,6 @@ layout_mode = 2
 
 [node name="Spacing" type="HBoxContainer" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer"]
 custom_minimum_size = Vector2(0, 18)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer"]
-layout_mode = 2
-script = ExtResource("2_w7yhb")
-
-[node name="TrackLabel" type="Label" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(136, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Track 01"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer"]
-layout_direction = 2
-layout_mode = 2
-
-[node name="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_w7yhb")]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button5" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button6" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button7" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button8" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button9" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button10" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button11" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button12" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer"]
-layout_mode = 2
-script = ExtResource("2_w7yhb")
-
-[node name="TrackLabel" type="Label" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(136, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Track 01"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2"]
-layout_direction = 2
-layout_mode = 2
-
-[node name="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer" instance=ExtResource("3_w7yhb")]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button5" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button6" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button7" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button8" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button9" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button10" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button11" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button12" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer"]
-layout_mode = 2
-script = ExtResource("2_w7yhb")
-
-[node name="TrackLabel" type="Label" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(136, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Track 01"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3"]
-layout_direction = 2
-layout_mode = 2
-
-[node name="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer" instance=ExtResource("3_w7yhb")]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button5" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button6" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button7" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button8" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button9" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button10" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button11" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Button12" type="Button" parent="TimelineScrollContainer/MarginContainer/TracksVBoxContainer/HBoxContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
 [node name="Notes" type="Control" parent="TimelineScrollContainer/MarginContainer"]

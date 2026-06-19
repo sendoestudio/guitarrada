@@ -3,6 +3,8 @@ class_name LevelEditor
 
 const note_path : String = "res://defaults/level_editor_note.tscn"
 
+const default_track_path : String = "res://defaults/level_editor_track.tscn"
+
 enum confirmation_options {
 	none,
 	delete_all_notes,
@@ -18,7 +20,8 @@ enum confirmation_options {
 const timeline_pointer_start_point : float = 135
 const timeline_pointer_note_width : float = 29
 
-@export var track_times_display : LevelEditorBeatTrack 
+@export var track_times_display : LevelEditorBeatTrack
+@export var timelime_tracks_vbox_container : VBoxContainer
 @export var main_tracks : Array[LevelEditorTrack]
 @export var notes_parent : Control
 
@@ -111,11 +114,18 @@ func _ready() -> void:
 	if track_times_display != null:
 		track_times_display.set_level_editor(self)
 	
-	var track_inner_index : int = 0
-	for track in main_tracks:
-		if track != null:
-			track.set_level_editor(self, track_inner_index)
-		track_inner_index += 1
+	main_tracks = []
+	for i : int in Manager.track_amount:
+		var new_track = load(default_track_path)
+		var new_track_instance : LevelEditorTrack = new_track.instantiate()
+		timelime_tracks_vbox_container.add_child(new_track_instance)
+		main_tracks.append(new_track_instance)
+		new_track_instance.set_level_editor(self, i)
+		
+	#for track in main_tracks:
+		#if track != null:
+			#track.set_level_editor(self, track_inner_index)
+		#track_inner_index += 1
 		
 	file_path_label.text = ""
 	is_dragging_instant = false

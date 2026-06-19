@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://hdso14uhvaxl"]
+
+[ext_resource type="Script" uid="uid://ce38mjc5fa1dd" path="res://scripts/level_editor_track.gd" id="1_ikifg"]
+[ext_resource type="PackedScene" uid="uid://da1433t2o612f" path="res://defaults/level_editor_track_empty_button.tscn" id="2_ak325"]
+
+[node name="HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("track_label", "buttons_container")]
+script = ExtResource("1_ikifg")
+track_label = NodePath("TrackLabel")
+buttons_container = NodePath("HBoxContainer")
+
+[node name="TrackLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(136, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Track 01"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 2
+
+[node name="Button" parent="HBoxContainer" instance=ExtResource("2_ak325")]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button10" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button11" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button12" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
