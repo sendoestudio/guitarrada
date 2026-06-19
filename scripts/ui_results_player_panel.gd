@@ -15,7 +15,7 @@ class_name UIResultsPlayerPanel
 @onready var overclicks_value_label = $VBoxContainer/AddInfoVBoxContainer/OverclicksHBoxContainer/ValueLabel
 
 func _ready() -> void:
-	if player_index == -1:
+	if player_index == -1 || player_index >= Manager.player_amount:
 		visible = false
 		return
 	

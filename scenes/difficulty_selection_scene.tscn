@@ -70,7 +70,7 @@ grow_vertical = 2
 [node name="P1MarginContainer" parent="OptionsControl/HBoxContainer" instance=ExtResource("2_3ik6v")]
 layout_mode = 2
 
-[node name="P1MarginContainer2" parent="OptionsControl/HBoxContainer" instance=ExtResource("2_3ik6v")]
+[node name="P2MarginContainer2" parent="OptionsControl/HBoxContainer" instance=ExtResource("2_3ik6v")]
 layout_mode = 2
 player_index = 1
 

@@ -5,6 +5,20 @@ const is_using_3d_stage : bool = true
 const map_folder_path: String = "res://maps/"
 const map_file_format : String = "info.json"
 
+#Change amount of tracks here
+const track_amount : int = 3
+
+#Change amount of supported players here
+const player_amount : int = 2
+
+#change available difficulties
+const difficulties : Dictionary[int, String] = {
+	0 : "easy",
+	1 : "medium",
+	2 : "hard",
+	3 : "expert"
+}
+
 const song_selection_path : String = "res://scenes/map_selection_scene.tscn"
 const difficulty_selection_path : String = "res://scenes/difficulty_selection_scene.tscn"
 #const stage_path : String = "res://scenes/level_scene.tscn"
@@ -23,7 +37,7 @@ const video_latency_max_limit : int = 9999
 var _video_latency : float = 0
 var _audio_latency : float = 0
 
-var current_map_path : String = "" #change to agregator
+var current_map_path : String = ""
 var current_map_info : Dictionary = {}
 var current_chart_path : String = ""
 
@@ -33,34 +47,19 @@ var tracklist : Array[Dictionary] = []
 
 const interval_beats_amount : int = 3
 
-const track_amount : int = 3
+
 #player id, selected map path
-var current_player_chart_difficulty : Dictionary[int, String] = {
-	0 : "",
-	1 : ""
-}
+var current_player_chart_difficulty : Dictionary[int, String] = {}
 
 #player id, scoring
-var current_player_score : Dictionary[int, int] = {
-	0 : -1,
-	1 : -1
-}
+var current_player_score : Dictionary[int, int] = {}
 
-var current_player_stats : Dictionary[int, ResultStats] = {
-	0 : null,
-	1 : null
-}
+var current_player_stats : Dictionary[int, ResultStats] = {}
 
-const difficulties : Dictionary[int, String] = {
-	0 : "easy",
-	1 : "medium",
-	2 : "hard",
-	3 : "expert"
-}
+
 
 var player_position_list : Array[PlayerPosition] = []
 
-#multiplier, amount of consecutive hits
 var _current_time : float = -1
 var _current_audio_time : float = -1
 var _current_video_time : float = -1
@@ -75,8 +74,19 @@ var _strong_beat_factor : float = 0
 var _beats_distance : float = -1
 var _strong_beats_distance : float = -1
 
+func reset_player_setup() -> void:
+	current_player_chart_difficulty = {}
+	current_player_score = {}
+	current_player_stats = {}
+	
+	for i in player_amount:
+		current_player_chart_difficulty[i] = ""
+		current_player_stats[i] = null
+		current_player_score[i] = -1
+		
 
 func go_to_song_selection_scene() -> void:
+	reset_player_setup()
 	_go_to_scene(song_selection_path)
 
 func go_to_difficulty_selection_scene() -> void:

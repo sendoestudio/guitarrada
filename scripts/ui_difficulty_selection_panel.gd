@@ -22,7 +22,7 @@ signal player_status(index : int, is_ready : bool)
 var charts
 
 func _ready() -> void:
-	if player_index == -1:
+	if player_index == -1 || player_index >=  Manager.player_amount:
 		visible = false
 		return
 	
