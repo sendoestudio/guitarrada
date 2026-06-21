@@ -2,9 +2,15 @@ extends Node
 
 const is_using_3d_stage : bool = true
 
+#use those to load levels dynamically
 const map_folder_path: String = "res://maps/"
 const map_file_format : String = "info.json"
 
+#use this if you prefer to centralize all json files instead
+#of loading them dynamically
+const nested_level_file_paths : Array = [
+	"res://maps/lambadasimples/info.json"
+]
 #Change amount of tracks here
 const track_amount : int = 3
 
@@ -116,7 +122,7 @@ func _go_to_scene(scene_path) -> void:
 func set_selected_song(path) -> bool:
 	var result = false
 	
-	if FileAccess.file_exists(path):
+	if ResourceLoader.exists(path):
 		var info = load_json_file(path)
 		if info != null:
 			current_map_path = path
@@ -138,7 +144,11 @@ func quit_game():
 #lazy load should be off
 func load_tracklist(is_lazy = true):
 	if !is_lazy || tracklist.size() == 0:
+		#if you're loading levels automatically
 		tracklist = _load_map_objects_from_folder()
+		
+		#if you're loading levels straight from their paths
+		#tracklist = _load_map_objects_from_nested_list()
 		
 	return tracklist
 
@@ -159,7 +169,7 @@ func _validate_tracklist_file(json_data) -> bool:
 		errors += 1
 	if !("audio" in json_data):
 		errors += 1
-	if !(FileAccess.file_exists(json_data.audio)):
+	if !(ResourceLoader.exists(json_data.audio)):
 		errors += 1
 	#validade chart files tbi
 	
@@ -176,7 +186,7 @@ func _load_map_objects_from_folder():
 			if dir.current_is_dir():
 				#print("Found directory: " + file_name)
 				var info_file_path = map_folder_path + "/" + map_folder_name + "/" + map_file_format
-				if FileAccess.file_exists(info_file_path):
+				if ResourceLoader.exists(info_file_path):
 					var current_file = load_json_file(info_file_path)
 					if _validate_tracklist_file(current_file):
 						current_file.path = info_file_path
@@ -192,6 +202,17 @@ func _load_map_objects_from_folder():
 	
 	return objects_array
 
+func _load_map_objects_from_nested_list():
+	var objects_array : Array[Dictionary] = []
+ 	
+	for info_file_path in nested_level_file_paths:
+		if ResourceLoader.exists(info_file_path):
+			var current_file = load_json_file(info_file_path)
+			if _validate_tracklist_file(current_file):
+				current_file.path = info_file_path
+				objects_array.append(current_file)
+	
+	return objects_array
 	
 func _load_map_paths_from_folder():
 	var paths_array : Array[String] = []
@@ -203,7 +224,7 @@ func _load_map_paths_from_folder():
 			if dir.current_is_dir():
 				#print("Found directory: " + file_name)
 				var info_file_path = map_folder_path + "/" + map_folder_name + map_file_format
-				if FileAccess.file_exists(info_file_path):
+				if ResourceLoader.exists(info_file_path):
 					var current_file = load_json_file(info_file_path)
 					if _validate_tracklist_file(current_file):
 						paths_array.append(info_file_path)

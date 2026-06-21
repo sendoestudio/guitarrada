@@ -117,6 +117,7 @@ audio_player = NodePath("AudioStreamPlayer")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3834367, 6.529675)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+playback_type = 1
 
 [node name="Player1Scoring" type="Node" parent="." node_paths=PackedStringArray("tracks")]
 script = ExtResource("2_50ouu")

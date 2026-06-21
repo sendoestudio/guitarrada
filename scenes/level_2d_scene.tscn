@@ -56,6 +56,7 @@ track_index = 2
 main_color = Color(0, 0, 1, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+playback_type = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -618,7 +618,7 @@ func build_timeline(beats : Array[float], strong_beats : Array[float], tracks : 
 
 func handle_audio_file(path) -> bool:
 	var has_loaded_audio : bool = false
-	if path != "" && FileAccess.file_exists(path):
+	if path != "" && ResourceLoader.exists(path):
 		var audio_file : AudioStream = load(path)
 		audio_stream_player.stream = audio_file
 		audio_execution_hslider.min_value = 0
