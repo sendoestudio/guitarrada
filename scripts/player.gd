@@ -25,7 +25,6 @@ var multiplier_value : int = 1
 
 var cumulative_points : float
 
-#var current_time
 var current_video_time : float
 var current_audio_time : float
 
@@ -39,7 +38,6 @@ var current_map
 var current_tracks
 
 var local_index_to_track_index : Dictionary[int, int]
-#var file_index_to_track_index : Dictionary[int, int]
 var local_index_to_file_index : Dictionary[int, int]
 #track index, time pointer
 var track_indexes : Dictionary[int, int]
@@ -73,11 +71,14 @@ func _ready() -> void:
 		return
 	
 	
-	#var map_file = FileAccess.open(map_path, FileAccess.READ)
-	#var map_content = map_file.get_as_text()
-	#current_map = JSON.parse_string(map_content)
-	current_map = Manager.current_map_info.charts[map_difficulty]
+	if Manager.current_map_info != null &&  Manager.current_map_info != {}:
+		current_map = Manager.current_map_info.charts[map_difficulty]
+	else:
+		var current_test_file = Manager.load_json_file(Manager.testing_level_file_path)
+		current_map = current_test_file.charts[map_difficulty]
+	
 	current_tracks = current_map.tracks
+	
 	#verify tracks to see if indexes are valid
 	for i in tracks.size():
 		var track : Track = tracks[i]
@@ -93,7 +94,6 @@ func _ready() -> void:
 					print("alert: more than one track with the same index, please check it out")
 					break
 				
-				#file_index_to_track_index.set(file_index, current_track_index)
 				track.set_track_notes(track_info.times)
 				track.set_player_index(player_index)
 				track_indexes.set(current_track_index, 0)
@@ -105,8 +105,6 @@ func _ready() -> void:
 	if local_index_to_track_index.size() != tracks.size():
 		print("alert: the amount of tracks loaded diverge from the amount of existing tracks, please verify")
 	
-	#for mult in multiplier_rules:
-		#print("m: " + str(mult) + " > " + str(multiplier_rules[mult]))
 	current_score = 0
 	current_combo = 0
 	highest_combo = 0
@@ -166,7 +164,6 @@ func verify_track(index, track_index, time_delta):
 	var has_duration = current_tracks[index].times[time_pointer].duration > 0
 	
 	if Input.is_action_just_pressed(button_name) && current_audio_time >= (note_time - before_error_margin) && current_audio_time <= (note_time + after_error_margin):
-		#print("hit")
 		var negative_delta : float
 		if note_time <= current_audio_time:
 			negative_delta = (current_audio_time - note_time) / before_error_margin
@@ -208,7 +205,6 @@ func verify_track(index, track_index, time_delta):
 		
 		
 	elif current_audio_time > (note_time + after_error_margin):
-		#print("miss")
 		current_combo = 0
 		current_multiplier = calculate_multiplier()
 		update_stats(-1)
@@ -233,10 +229,9 @@ func verify_track(index, track_index, time_delta):
 		if last_mistake_timer > 0:
 			last_mistake_timer -= time_delta
 		else:
-			current_combo = 0 #example: if you want to break the combo the player is overclicking
+			#example: if you want to break the combo the player is overclicking
+			current_combo = 0 
 			current_multiplier = calculate_multiplier()
-		#print("miss")
-		#current_combo = 0
 		
 		score_updated.emit(player_index, get_current_score(), current_multiplier, current_combo)
 		multiplier_updated.emit()
@@ -278,7 +273,6 @@ func calculate_multiplier():
 	
 	#in case you don't want to completely break the combo
 	#when the player makes a mistake
-	
 	if current_combo == 0:
 		if current_multiplier > 1:
 			response = current_multiplier - 1

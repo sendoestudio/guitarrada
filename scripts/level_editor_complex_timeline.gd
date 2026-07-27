@@ -43,19 +43,6 @@ func clean_boxes() -> void:
 		intervals_vboxcontainer.remove_child(old_box)
 		old_box.queue_free()
 
-#func update_order(current_index : int, is_up : bool) -> void:
-	#var other_index = current_index + (-1 if is_up else 1)
-	#var current_copy = current_index
-	#
-	#if other_index < 0 || other_index >= intervals_vboxcontainer.get_child_count():
-		#return
-	#
-	#intervals_vboxcontainer.get_child(current_index).set_index(other_index)
-	#intervals_vboxcontainer.get_child(other_index).set_index(current_copy)
-	#
-	#var list = intervals_vboxcontainer.get_children()
-	#list.sort_custom(func(a, b) : return a._order_index < b._order_index)
-
 func update_box_position(box : LevelEditorComplexTimelineInterval, is_up : bool) -> void:
 	var current_index = find_index(box)
 	

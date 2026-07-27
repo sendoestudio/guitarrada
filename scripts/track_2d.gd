@@ -47,7 +47,6 @@ func _process(delta: float) -> void:
 				if invisible_area_node_index >= track_times.size():
 					invisible_area_node_index = -1
 	
-	#var action_code = "p"+str(player_index)+"_button_" + str(track_index)
 	var is_on 
 	if highlight_while_pressing:
 		is_on = Input.is_action_pressed(action_button_name)
@@ -57,9 +56,6 @@ func _process(delta: float) -> void:
 	
 	if is_on:
 		inner_display.self_modulate = main_color
-		#current_material.emission_enabled = true
-		#turn_off_timer = turn_off_smoother if turn_off_smoother > 0 else -1
-		#current_material.emission_energy_multiplier = 1 
 	elif turn_off_timer > 0:
 		turn_off_timer -= delta
 		var emission_facton = turn_off_timer / turn_off_smoother
@@ -106,7 +102,6 @@ func set_track_notes(times) -> void:
 		note_instance.create_note(time_info.duration, absolute_velocity)
 		visible_area_node_index = 0 if visibility_start_time != -1 else -1
 		invisible_area_node_index = visible_area_node_index
-		#when implemented, add method to add continuous commands
 
 func set_track_props(velocity : float, time_before_view : float, time_afer_view : float) -> void:
 	absolute_velocity = velocity

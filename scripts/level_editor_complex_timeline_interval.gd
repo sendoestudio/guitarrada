@@ -32,12 +32,10 @@ func set_index(index : int):
 
 
 func _on_up_button_pressed() -> void:
-	#_complex_handler.update_order(_order_index, true)
 	_complex_handler.update_box_position(self, true)
 
 
 func _on_down_button_pressed() -> void:
-	#_complex_handler.update_order(_order_index, false)
 	_complex_handler.update_box_position(self, false)
 
 func _on_add_button_pressed() -> void:

@@ -39,7 +39,7 @@ func _ready() -> void:
 	
 	video_start_button.grab_focus()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_syncing:
 		var current_time = sync_process_animation_player.current_animation_position
 		if current_time > 17.45:
@@ -95,7 +95,8 @@ func _on_start_audio_button_pressed() -> void:
 func _on_confirm_button_pressed() -> void:
 	Manager.set_audio_latency(audio_latency_ms)
 	Manager.set_video_latency(video_latency_ms)
-	#call persistence method
+	
+	#tip: call persistence method
 	
 	_call_return_scene()
 
@@ -120,11 +121,11 @@ func calculate_latency(is_video : bool):
 	
 	var median
 	
-	var index_one = input_arrays.size() / 2 - 1
+	var index_one = floor(input_arrays.size() / 2.0) - 1
 	median = input_arrays[index_one]
 	
 	if (input_arrays.size() % 2 != 0):
-		var index_two = input_arrays.size() / 2
+		var index_two = floor(input_arrays.size() / 2.0)
 		median +=  input_arrays[index_two]
 		median = median / 2.0
 	
@@ -148,5 +149,4 @@ func _on_cancel_button_pressed() -> void:
 	_call_return_scene()
 
 func _call_return_scene() -> void:
-	#Manager.go_to_song_selection_scene()
 	Manager.go_to_settings_scene()

@@ -12,7 +12,6 @@ var _time : float = -1
 var _track_index : int = -1
 var _duration : float = -1
 
-
 func set_info(editor, time, track_index, duration):
 	_level_editor = editor
 	_time = time

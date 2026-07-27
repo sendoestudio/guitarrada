@@ -1,5 +1,11 @@
 extends Node
 
+const testing_level_file_path : String = "res://maps/lambadasimples/info.json"
+const testing_difficulties : Array = [
+	1, 1
+]
+
+
 const is_using_3d_stage : bool = true
 
 #use those to load levels dynamically
@@ -62,8 +68,6 @@ var current_player_score : Dictionary[int, int] = {}
 
 var current_player_stats : Dictionary[int, ResultStats] = {}
 
-
-
 var player_position_list : Array[PlayerPosition] = []
 
 var _current_time : float = -1
@@ -71,9 +75,8 @@ var _current_audio_time : float = -1
 var _current_video_time : float = -1
 var is_playing : bool = false
 
-
-var _input_video_latency : float = 0
-var _input_audio_latency : float = 0
+#var _input_video_latency : float = 0
+#var _input_audio_latency : float = 0
 
 var _beat_factor : float = 0
 var _strong_beat_factor : float = 0

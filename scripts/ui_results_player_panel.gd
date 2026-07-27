@@ -19,24 +19,28 @@ func _ready() -> void:
 		visible = false
 		return
 	
+	if Manager.current_player_stats == {}:
+		#testing mode, mocking result
+		var mock_stats : ResultStats = ResultStats.new()
+		mock_stats.score = 12345
+		mock_stats.perfect_hits = 50
+		mock_stats.good_hits = 25
+		mock_stats.average_hits = 15
+		mock_stats.mistakes = 10
+		mock_stats.max_combo = 35
+		mock_stats.overclicks = 5
+		set_display_info(player_index, mock_stats)
+		return
+	
 	if Manager.current_player_stats[player_index] == null:
 		visible = false
 		return
 	
-	var player_placement = Manager.get_player_placement(player_index)
-	placement_label.visible = player_placement != -1
-	placement_label.text = get_placement_name(player_placement)
 	
-	player_code_label.text = "Player " + str(1 + player_index)
+	var player_placement = Manager.get_player_placement(player_index)
 	var stats : ResultStats = Manager.current_player_stats[player_index]
 	
-	score_label.text = str(stats.score)
-	max_combo_value_label.text = str(stats.max_combo)
-	perfects_value_label.text = str(stats.perfect_hits)
-	goods_value_label.text = str(stats.good_hits)
-	average_value_label.text = str(stats.average_hits)
-	mistakes_value_label.text = str(stats.mistakes)
-	overclicks_value_label.text = str(stats.overclicks)
+	set_display_info(player_placement, stats)
 
 func get_placement_name(pos : int) -> String:
 	if pos < 0:
@@ -58,3 +62,17 @@ func get_placement_name(pos : int) -> String:
 	response += "Place"
 	
 	return response
+
+func set_display_info(placement : int, stats : ResultStats) -> void:
+	placement_label.visible = placement != -1
+	placement_label.text = get_placement_name(placement)
+	
+	player_code_label.text = "Player " + str(1 + player_index)
+	
+	score_label.text = str(stats.score)
+	max_combo_value_label.text = str(stats.max_combo)
+	perfects_value_label.text = str(stats.perfect_hits)
+	goods_value_label.text = str(stats.good_hits)
+	average_value_label.text = str(stats.average_hits)
+	mistakes_value_label.text = str(stats.mistakes)
+	overclicks_value_label.text = str(stats.overclicks)

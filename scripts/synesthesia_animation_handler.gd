@@ -23,7 +23,7 @@ func _ready() -> void:
 	else:
 		animation_length = -1
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if animation_length == -1:
 		return
 	

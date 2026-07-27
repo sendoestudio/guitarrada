@@ -9,6 +9,8 @@ class_name  UIDifficulty
 
 func _ready() -> void:
 	var info = Manager.current_map_info
+	if info == null || info == {}:
+		info = Manager.load_json_file(Manager.testing_level_file_path)
 	
 	if "title" in info:
 		song_title_label.text = info.title

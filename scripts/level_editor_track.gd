@@ -5,7 +5,6 @@ var _level_editor : LevelEditor
 var _inner_track_index : int
 
 const empty_button_path : String = "res://defaults/level_editor_track_empty_button.tscn"
-#@export var track_index = -1
 
 @export var track_label : Label
 @export var buttons_container : HBoxContainer
@@ -66,7 +65,6 @@ func clean_track():
 		child.queue_free()
 
 func create_note(time : float, pos : Vector2, length :float = -1, is_load = false):
-	#pos.x += 140.0
 	_level_editor.create_note_at_spot(pos, _inner_track_index, time, length, is_load)
 
 	

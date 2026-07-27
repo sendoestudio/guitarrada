@@ -4,8 +4,6 @@ class_name Level
 @export var countdown_timer : float = 3
 @export var post_gameplay_timer : float = 3
 
-#decide how to implement pause panel and pause warning
-
 @export var audio_player : AudioStreamPlayer
 
 var cumulative_points : float
@@ -15,8 +13,8 @@ var current_time
 var current_map
 
 var local_index_to_track_index : Dictionary[int, int]
-#var file_index_to_track_index : Dictionary[int, int]
 var local_index_to_file_index : Dictionary[int, int]
+
 #track index, time pointer
 var track_indexes : Dictionary[int, int]
 
@@ -34,17 +32,21 @@ var strong_beats : Array
 var strong_beat_pointer : int = 0
 
 func _init() -> void:
-	if Manager.current_map_path == "":
-		#set a default map here for testing
-		var file_path = "res://maps/lambadasimples/info.json"
-		Manager.current_map_info = Manager.load_json_file(file_path)
-		Manager.current_map_path = file_path
+	var info = Manager.current_map_info
+	if info == null || info == {}:
+		info = Manager.load_json_file(Manager.testing_level_file_path)
 		
-		Manager.current_player_chart_difficulty[0] = "easy"
-		Manager.current_player_chart_difficulty[1] = ""
+		if Manager.current_player_chart_difficulty.size() == 0:
+			for index in Manager.player_amount:
+				if index < Manager.testing_difficulties.size():
+					Manager.current_player_chart_difficulty[index] = Manager.difficulties[Manager.tesing_difficulties[index]]
+				else:
+					Manager.current_player_chart_difficulty[index] = ""
 
 func _ready() -> void:	
 	current_map = Manager.current_map_info
+	if current_map == null || current_map == {}:
+		current_map = Manager.load_json_file(Manager.testing_level_file_path)
 	
 	if "length" in current_map:
 		end_of_level = current_map.length + post_gameplay_timer
@@ -81,7 +83,6 @@ func _process(delta: float) -> void:
 	else:
 		current_time += delta
 	
-	#Manager.current_time = current_time
 	Manager.set_current_time(current_time)
 	var current_audio_time = Manager.get_current_audio_time()
 	var current_video_time = Manager.get_current_video_time()

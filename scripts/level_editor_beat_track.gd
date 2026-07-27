@@ -11,21 +11,7 @@ func set_level_editor(editor):
 	_level_editor = editor
 
 func _ready() -> void:
-	
 	clean_track()
-	
-	#var overbeats_test : Array[float] = [
-		#0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5
-		#]
-		#
-	#var strong_beats_test : Array[float] = [
-		#0, 2, 4, 6, 8, 10
-	#]
-	##var times_test : Array[float] = [
-		##0.5, 1.25
-	##]
-	##
-	#create_track(overbeats_test, strong_beats_test)
 
 func create_track(beats, strong_beats):
 	var interval_beats_amount = Manager.interval_beats_amount
@@ -40,13 +26,9 @@ func create_track(beats, strong_beats):
 		if interval_beats_amount <= 0:
 			continue
 		
-		#var interval_to_next = -1
 		if (beat_index + 1) >= beats.size():
-			#interval_to_next = beats[beat_index + 1] - beats[beat_index]
-		#else:
 			break
-		#
-		#var inner_beat_factor = (interval_to_next / interval_beats_amount)
+		
 		for i in interval_beats_amount:
 			var inner_marker_instance : LevelEditorBeatMarker = new_mark.instantiate()
 			markers_parent.add_child(inner_marker_instance)
@@ -65,9 +47,7 @@ func is_strong_beat(current_time, strong_list, error = 0.005) -> bool:
 	
 	var response : bool = false
 	for i in strong_list:
-		#if i <= current_time + (error * 5):
-			#break
-		#
+
 		var diff = current_time - i
 		var abs_diff = absf(diff)
 		
@@ -77,5 +57,4 @@ func is_strong_beat(current_time, strong_list, error = 0.005) -> bool:
 		elif i >= current_time - (error * 3):
 			break
 		
-	#print(response)
 	return response

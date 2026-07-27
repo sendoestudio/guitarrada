@@ -122,25 +122,8 @@ func _ready() -> void:
 		main_tracks.append(new_track_instance)
 		new_track_instance.set_level_editor(self, i)
 		
-	#for track in main_tracks:
-		#if track != null:
-			#track.set_level_editor(self, track_inner_index)
-		#track_inner_index += 1
-		
 	file_path_label.text = ""
 	is_dragging_instant = false
-	#var beat_test = _create_beats_from_bpm(120, 10, 0)
-	#var strong_beats_test = _create_strong_beats_from_bpm(4, 4, 120, 10, 0)
-	#
-	#current_beat_list = beat_test
-	#current_strong_beat_list = strong_beats_test
-	#track_times_display.create_track(beat_test, strong_beats_test)
-	#for track in main_tracks:
-		#if track != null:
-			#track.create_track(beat_test, [])
-			
-	#current_map = Map.new()
-	#current_chart = _create_chart()
 	
 	clean_notes()
 	
@@ -166,7 +149,7 @@ func _ready() -> void:
 	
 	create_timeline_control.set_level_editor(self)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var change_pointer_pos : float = -1
 	if audio_stream_player.playing:
 		var audio_pos = audio_stream_player.get_playback_position()
@@ -188,14 +171,11 @@ func _process(delta: float) -> void:
 		for track in tracks:
 			var index : int = track.track_index
 			if index >= 0 && index < main_tracks.size():
-				#main_tracks[index].create_track(beats, track.times)
-				#is_waiting_for_load_buttons = true
 				main_tracks[index].create_moments(track.times)
 		is_waiting_for_load_buttons = false
 
 func _create_chart() -> Chart:
 	var new_chart = Chart.new()
-	#new_chart.tracks = []
 	
 	for ref_track in main_tracks:
 		var new_track : ChartTrack = ChartTrack.new()
@@ -206,7 +186,6 @@ func _create_chart() -> Chart:
 
 func _create_beats_from_bpm(bpm : float, length : float, offset : float = 0) -> Array[float]:
 	var beats : Array[float] = []
-	#var strong_beats : Array[float] = []
 	
 	var bpm_interval =  60.0 / bpm
 	
@@ -326,7 +305,6 @@ func _on_duration_button_pressed() -> void:
 		
 	var beat_percentage = float(duration_lineedit.text)
 	
-	#validate before applying
 	var time = current_note_on_chart.time
 	current_note_display.set_duration_display(beat_percentage)
 	var duration = convert_beat_to_duration(time, beat_percentage)
@@ -382,7 +360,6 @@ func convert_beat_to_duration(start_point : float, beats : float) -> float:
 		var beat_offset = (after_start_point - start_point) / (after_start_point - before_start_point)
 		response = (after_start_point - before_start_point) * (beat_offset)
 		if beats + (1 - beat_offset) >= 1:
-			#response += beat_offset
 			beats -= beat_offset
 			var new_start_index = previous_index + 1
 			var end_index = new_start_index + floori(beats)
@@ -410,7 +387,7 @@ func convert_duration_to_beat(start_point : float, duration : float) -> float:
 		start_beat_index = current_beat_list.find(found_start_times[0])
 	else:
 		var before_times = current_beat_list.filter(func(a) : return a <= start_point)
-		#var last_index = current_beat_list.find(found_start_times[0])
+		
 		var previous_index = before_times.size() - 1
 		var before_start_point = current_beat_list[previous_index]
 		var after_start_point =  current_beat_list[previous_index + 1]
@@ -426,7 +403,6 @@ func convert_duration_to_beat(start_point : float, duration : float) -> float:
 		var before_end_point = current_beat_list[previous_index]
 		var after_end_point =  current_beat_list[previous_index + 1]
 		end_beat_index = previous_index +  ((end_point - before_end_point) / (after_end_point - before_end_point))
-		
 	
 	response = end_beat_index - start_beat_index
 	return response
@@ -463,10 +439,6 @@ func convert_time_to_beat(time : float) -> float:
 		response += diff / interval
 	
 	return response
-
-#func calculate_note_duration() -> void:
-	#pass
-
 
 func fill_properties_fields() -> void:
 	map_title_lineedit.text = current_map.title
@@ -540,8 +512,6 @@ func load_timeline(difficulty_index) -> void:
 func create_map_from_object(json_file : Dictionary) -> Map:
 	var response : Map = Map.new()
 	
-	#validation methods to be implemented
-	
 	response.title = json_file.title
 	response.artist = json_file.artist
 	response.length = json_file.length
@@ -552,15 +522,6 @@ func create_map_from_object(json_file : Dictionary) -> Map:
 		var difficulty_name : String = Manager.difficulties.get(difficulty_index)
 		if json_file.charts[difficulty_name] != null && json_file.charts[difficulty_name] != {}:
 			response.charts[difficulty_name] = load_chart_from_file(json_file.charts[difficulty_name])
-	
-	#if json_file.charts.easy != null && json_file.charts.easy != {}:
-		#response.charts.easy = load_chart_from_file(json_file.charts.easy)
-	#if json_file.charts.medium != null && json_file.charts.medium != {}:
-		#response.charts.medium = load_chart_from_file(json_file.charts.medium)
-	#if json_file.charts.hard != null && json_file.charts.hard != {}:
-		#response.charts.hard = load_chart_from_file(json_file.charts.hard)
-	#if json_file.charts.expert != null && json_file.charts.expert != {}:
-		#response.charts.expert = load_chart_from_file(json_file.charts.expert)
 	
 	response.beats = load_times_from_file(json_file.beats)
 	response.strong_beats = load_times_from_file(json_file.strong_beats)
@@ -613,8 +574,6 @@ func build_timeline(beats : Array[float], strong_beats : Array[float], tracks : 
 	
 	current_beat_list = beats
 	current_strong_beat_list = strong_beats
-	
-	#difficulty_selection_optionbutton.selected = -1
 
 func handle_audio_file(path) -> bool:
 	var has_loaded_audio : bool = false
@@ -634,24 +593,6 @@ func handle_audio_file(path) -> bool:
 	
 	return has_loaded_audio
 
-#func save_map(path) -> void:
-	#if path == "":
-		#return
-		#
-	#current_map.charts[current_difficulty_index] = current_chart
-	#
-	#
-	#
-	#var json_file = JSON.stringify(JSON.from_native(current_map, true))
-	#print(str(json_file))
-	#
-	#var file_handler = FileAccess.open(path, FileAccess.WRITE)
-	#
-	##file_handler.store_string(json_file)
-	#file_handler.store_string(file_handler)
-	#file_handler.close()
-
-
 func _on_open_file_button_pressed(force : bool = false) -> void:
 	if has_unsaved_changes && !force:
 		set_confirmation_type(confirmation_options.discard_changes_to_open_file)
@@ -670,12 +611,9 @@ func _on_open_file_button_pressed(force : bool = false) -> void:
 
 func _on_file_dialog_file_selected(path: String) -> void:
 	if is_loading_file:
-		pass
-		#create validation method
 		load_file(path)
 		
 	if is_loading_audio:
-		#create validation method, just in case
 		var audio_result = handle_audio_file(path)
 		
 		if audio_result:
@@ -693,15 +631,6 @@ func _on_difficulty_option_button_item_selected(index: int) -> void:
 		return
 	
 	var difficulty : String = Manager.difficulties[index]
-	#""
-	#if index == 0:
-		#difficulty = "easy"
-	#elif index == 1:
-		#difficulty = "medium"
-	#elif index == 2:
-		#difficulty = "hard"
-	#elif index == 3:
-		#difficulty = "expert"
 		
 	if difficulty != "":
 		current_chart = current_map.charts[difficulty]
@@ -753,7 +682,7 @@ func _save_map_to_file(path : String) -> void:
 	file_format.artist = current_map.artist
 	file_format.audio_preview_start = current_map.audio_preview_start
 	file_format.audio = current_map.audio
-	#file_format.charts = current_map.charts
+	
 	file_format.charts = {}
 	file_format.beats = current_map.beats
 	file_format.strong_beats = current_map.strong_beats
@@ -766,27 +695,6 @@ func _save_map_to_file(path : String) -> void:
 			file_format.charts[difficulty_name] = dictionary
 		else:
 			file_format.charts[difficulty_name] = null
-	
-	#if current_map.charts.easy != null:
-		#var dictionary = build_tracks_for_file(current_map.charts.easy)
-		#file_format.charts.easy = dictionary
-	#else:
-		#file_format.charts.easy = null
-	#if current_map.charts.medium != null:
-		#file_format.charts.medium = build_tracks_for_file(current_map.charts.medium)
-	#else:
-		#file_format.charts.medium = null
-	#if current_map.charts.hard != null:
-		#file_format.charts.hard = build_tracks_for_file(current_map.charts.hard)
-	#else:
-		#file_format.charts.hard = null
-	#if current_map.charts.expert != null:
-		#file_format.charts.expert = build_tracks_for_file(current_map.charts.expert)
-	#else:
-		#file_format.charts.expert = null
-	#if audio_stream_player.stream != null:
-		#file_format.length = audio_stream_player.stream.get_length()
-	
 	
 	var map_file : String = JSON.stringify(file_format, "\t")
 	
@@ -817,7 +725,7 @@ func _on_preview_start_line_edit_text_changed(new_text: String) -> void:
 
 func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInterval]):
 	if bpm_intervals.size() > 1:
-		bpm_intervals.sort_custom(func(a, b) : a.start < b.start)
+		bpm_intervals.sort_custom(func(a, b) : return a.start < b.start)
 	
 	var beat_list : Array[float] = []
 	var strong_beat_list : Array[float] = []
@@ -840,8 +748,7 @@ func create_timeline_from_bpm_intervals(bpm_intervals : Array[LevelEditorBpmInte
 	copy_difficulty_selection_optionbutton.selected = -1
 	
 	update_file_path_display(false)
-	#build_timeline(current_map.beats, current_map.strong_beats, current_chart.tracks) 
-	
+
 func create_timeline_from_lists(length : float, beat_list : Array[float], strong_beat_list : Array[float]):
 	current_map.length = length
 	current_map.beats = beat_list
@@ -861,14 +768,12 @@ func build_tracks_for_file(tracks_info : Chart) -> Dictionary:
 		track_info.track_index = track.track_index
 		track_info.times = []
 		
-		#var times_info : Dictionary = []
 		for time in track.times:
 			var time_info = {}
 			time_info.time = time.time
 			time_info.duration = time.duration
 			track_info.times.append(time_info)
 			
-		#track_info.times = times_info
 		response.tracks.append(track_info)
 	return response
 
@@ -1137,9 +1042,7 @@ func _on_copy_interval_apply_button_pressed() -> void:
 			new_time.time = target_point
 			current_chart.tracks[track_index].times.append(new_time)
 		
-		#current_chart.tracks[track_index].times.append_array(origin_maps)
 		current_chart.tracks[track_index].times.sort_custom(func(a, b) : return a.time < b.time)
-		#upcoming_chart.tracks.append(origin_maps)
 	
 	current_map.charts[current_difficulty_index] = current_chart
 	
