@@ -123,6 +123,7 @@ func _process(delta: float) -> void:
 	for i in local_index_to_track_index:
 		verify_track(local_index_to_file_index[i], local_index_to_track_index[i], delta)
 	
+	#emitting a first signal if that's the first process frame to clean the score info displayed
 	if is_first_process_frame:
 		score_updated.emit(player_index, get_current_score(), current_multiplier, current_combo)
 		is_first_process_frame = false

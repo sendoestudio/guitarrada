@@ -1,12 +1,21 @@
 Guitarrada
-A tool to help making rhythm games
-developed by Cadu Rodrigues at Sendo Estúdio
+
+About
+Guitarrada is an open source template project made for those willing
+to make rhythm games in Godot. Either if you’re making a 2D or 3D game,
+Guitarrada serves as a basic setup for you to customize over.
+
+Features
+    • Scoring and latency systems already implemented
+    • Customize the amount of tracks and its corresponding commands
+    • Support to expand the amount of local players (with some configuration, of course)
+    • A native level editor to help making new maps
 
 Reminder that this project is under MIT License,
 meaning that you can use it for personal and commercial use
 just remind to credit the developer, like in the license file
 
-Documentation: (Eventually, I promise)
+Documentation: https://sendoestudio.com.br/en/guide/guitarrada
 
 How to play it:
 Player 1 -> ASD keys
